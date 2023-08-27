@@ -1,12 +1,14 @@
 import sys
 from PySide2 import QtWidgets
 from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QMainWindow
+from PySide2.QtWidgets import QMainWindow, QApplication
 from PySide2.QtWinExtras import QtWin
 from win32mica import ApplyMica, MICAMODE
 import darkdetect
-
+import matplotlib
 from modules.blurwindow import GlobalBlur
+
+matplotlib.use("Qt5Agg")
 
 if darkdetect.isDark() == True:
     from dark import *
@@ -72,7 +74,6 @@ class Template(QMainWindow):
         # BUTTONS CLICK
         # self.ui.disablebtn.clicked.connect(lambda: self.ui.window.setEnabled(False))
         # self.ui.enablebtn.clicked.connect(lambda: self.ui.window.setEnabled(True))
-
 
         self.show()
 

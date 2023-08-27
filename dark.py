@@ -1,14 +1,8 @@
 from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtCore import Qt
-from PySide2.QtWidgets import (
-    QPushButton,
-    QLabel,
-    QFrame,
-    QProgressBar,
-    QMainWindow,
-    QApplication,
-)
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
 from winreg import *
+from MplCanvas import MplCanvas
+import pandas as pd
 from icons import styledark_rc
 
 from TableModel import TableModel
@@ -1233,6 +1227,36 @@ QListView::item:selected {
         self.window.setFrameShadow(QtWidgets.QFrame.Raised)
         self.window.setObjectName("window")
 
+        sc = MplCanvas(self, width=5, height=4, dpi=100)
+
+        df = pd.DataFrame(
+            [
+                [0, 10],
+                [5, 15],
+                [2, 20],
+                [15, 25],
+                [4, 10],
+            ],
+            columns=["A", "B"],
+        )
+
+        ax = df.plot(ax=sc.axes)
+        ax.set_facecolor("none")
+        ax.spines["bottom"].set_color("white")
+        ax.spines["top"].set_color("white")
+        ax.spines["right"].set_color("white")
+        ax.spines["left"].set_color("white")
+        ax.tick_params(axis="x", colors="white")
+        ax.tick_params(axis="y", colors="white")
+
+        self.graph = QtWidgets.QWidget(self.window)
+        self.graph.setGeometry(QtCore.QRect(300, 0, 190, 190))
+
+        self.fix = QtWidgets.QVBoxLayout(self.graph)
+        toolbar = NavigationToolbar(sc, self.graph)
+        self.fix.addWidget(toolbar)
+        self.fix.addWidget(sc)
+
         self.comboBox = QtWidgets.QComboBox(self.window)
         self.comboBox.setEnabled(True)
         self.comboBox.setGeometry(QtCore.QRect(370, 180, 190, 40))
@@ -1259,7 +1283,7 @@ QListView::item:selected {
         self.lineEdit.setGeometry(QtCore.QRect(370, 230, 190, 40))
         self.lineEdit.setMinimumSize(QtCore.QSize(181, 40))
         self.lineEdit.setStyleSheet("")
-        self.lineEdit.setObjectName("lineEdit") 
+        self.lineEdit.setObjectName("lineEdit")
 
         self.scrollArea = QtWidgets.QScrollArea(self.window)
         self.scrollArea.setGeometry(QtCore.QRect(370, 280, 311, 200))
@@ -1458,8 +1482,6 @@ QListView::item:selected {
         self.menuBar.addAction(self.menuFile.menuAction())
         self.menuBar.addAction(self.menuEdit.menuAction())
         self.menuBar.addAction(self.menuHelp.menuAction())
-
-        
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
