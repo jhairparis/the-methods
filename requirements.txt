@@ -1,0 +1,8 @@
+openpyxl
+inquirer
+pandas
+matplotlib
+PySide2
+win32mica
+darkdetect
+PyQt5
