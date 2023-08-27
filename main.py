@@ -62,14 +62,14 @@ class Template(QMainWindow):
 
         # CUSTOM LIST IN COMBOBOX
         self.ui.listview = QtWidgets.QListView()
-        self.ui.comboBox.setView(self.ui.listview)
+        self.ui.method_box.setView(self.ui.listview)
 
-        self.ui.comboBox.view().window().setWindowFlags(
+        self.ui.method_box.view().window().setWindowFlags(
             Qt.Popup | Qt.FramelessWindowHint | Qt.NoDropShadowWindowHint
         )
-        self.ui.comboBox.view().window().setAttribute(Qt.WA_TranslucentBackground)
-        self.ui.comboBox.setCurrentIndex(-1)
-        ApplyMenuBlur(self.ui.comboBox.view().window().winId().__int__(), self)
+        self.ui.method_box.view().window().setAttribute(Qt.WA_TranslucentBackground)
+        self.ui.method_box.setCurrentIndex(-1)
+        ApplyMenuBlur(self.ui.method_box.view().window().winId().__int__(), self)
 
         # BUTTONS CLICK
         # self.ui.disablebtn.clicked.connect(lambda: self.ui.window.setEnabled(False))

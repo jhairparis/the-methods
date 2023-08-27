@@ -1,11 +1,11 @@
 from PySide2 import QtCore, QtGui, QtWidgets
-from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT as NavigationToolbar
+from PySide2.QtCore import Qt
 from winreg import *
-from MplCanvas import MplCanvas
+from modules.MplCanvas import MplCanvas
 import pandas as pd
 from icons import styledark_rc
 
-from TableModel import TableModel
+from modules.TableModel import TableModel
 from pandas import DataFrame
 
 registry = ConnectRegistry(None, HKEY_CURRENT_USER)
@@ -1208,9 +1208,12 @@ QListView::item:selected {
     padding-left: 0px;
 }"""
         )
+
         self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.scrollCentral = QtWidgets.QScrollArea()
+
         self.centralwidget.setEnabled(True)
-        self.centralwidget.setMinimumSize(QtCore.QSize(10000, 10000))
+        self.centralwidget.setMinimumSize(QtCore.QSize(1920, 1080))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Variable Small")
         font.setPointSize(-1)
@@ -1222,12 +1225,17 @@ QListView::item:selected {
 
         self.window = QtWidgets.QFrame(self.centralwidget)
         self.window.setEnabled(True)
-        self.window.setGeometry(QtCore.QRect(0, 0, 991, 651))
+        self.window.setGeometry(QtCore.QRect(19, 0, 991, 651))
         self.window.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.window.setFrameShadow(QtWidgets.QFrame.Raised)
         self.window.setObjectName("window")
 
-        sc = MplCanvas(self, width=5, height=4, dpi=100)
+        # Right side
+        self.graph = QtWidgets.QWidget(self.window)
+        self.graph.setGeometry(QtCore.QRect(0, 0, 622, 520))
+        # self.graph.setStyleSheet("background:blue;")
+
+        sc = MplCanvas(self.graph, dpi=100)
 
         df = pd.DataFrame(
             [
@@ -1243,145 +1251,123 @@ QListView::item:selected {
         ax = df.plot(ax=sc.axes)
         ax.set_facecolor("none")
         ax.spines["bottom"].set_color("white")
-        ax.spines["top"].set_color("white")
-        ax.spines["right"].set_color("white")
+        ax.spines["top"].set_color("none")
+        ax.spines["right"].set_color("none")
         ax.spines["left"].set_color("white")
         ax.tick_params(axis="x", colors="white")
         ax.tick_params(axis="y", colors="white")
 
-        self.graph = QtWidgets.QWidget(self.window)
-        self.graph.setGeometry(QtCore.QRect(300, 0, 190, 190))
+        self.graph_layout = QtWidgets.QVBoxLayout()
+        self.graph_layout.addWidget(sc)
 
-        self.fix = QtWidgets.QVBoxLayout(self.graph)
-        toolbar = NavigationToolbar(sc, self.graph)
-        self.fix.addWidget(toolbar)
-        self.fix.addWidget(sc)
+        self.graph.setLayout(self.graph_layout)
 
-        self.comboBox = QtWidgets.QComboBox(self.window)
-        self.comboBox.setEnabled(True)
-        self.comboBox.setGeometry(QtCore.QRect(370, 180, 190, 40))
-        self.comboBox.setToolTip("")
-        self.comboBox.setStatusTip("")
-        self.comboBox.setWhatsThis("")
-        self.comboBox.setAccessibleName("")
-        self.comboBox.setAccessibleDescription("")
-        self.comboBox.setStyleSheet("")
-        self.comboBox.setCurrentText("")
-        self.comboBox.setMinimumContentsLength(0)
-        self.comboBox.setObjectName("comboBox")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
+        # Left side
+        self.form = QtWidgets.QWidget(self.window)
+        self.form.setGeometry(QtCore.QRect(641, 0, 300, 520))
+        # self.form.setStyleSheet("background:red;")
 
-        self.lineEdit = QtWidgets.QLineEdit(self.window)
-        self.lineEdit.setEnabled(True)
-        self.lineEdit.setGeometry(QtCore.QRect(370, 230, 190, 40))
-        self.lineEdit.setMinimumSize(QtCore.QSize(181, 40))
-        self.lineEdit.setStyleSheet("")
-        self.lineEdit.setObjectName("lineEdit")
+        self.label_method = QtWidgets.QLabel(self.form)
+        self.label_method.setStyleSheet("QLabel{font-size: 11pt;}")
+        self.label_method.setObjectName("label_method")
 
-        self.scrollArea = QtWidgets.QScrollArea(self.window)
-        self.scrollArea.setGeometry(QtCore.QRect(370, 280, 311, 200))
-        self.scrollArea.setStyleSheet("")
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollArea.setObjectName("scrollArea")
+        self.method_box = QtWidgets.QComboBox(self.form)
+        self.method_box.setEnabled(True)
+        self.method_box.setToolTip("")
+        self.method_box.setStatusTip("")
+        self.method_box.setWhatsThis("")
+        self.method_box.setAccessibleName("")
+        self.method_box.setAccessibleDescription("")
+        self.method_box.setStyleSheet("")
+        self.method_box.setCurrentText("")
+        self.method_box.setMinimumContentsLength(0)
+        self.method_box.setObjectName("method_box")
+        self.method_box.addItem("")
+        self.method_box.addItem("")
+        self.method_box.addItem("")
+        self.method_box.addItem("")
 
-        self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 311, 200))
-        self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
+        self.label_fn = QtWidgets.QLabel(self.form)
+        self.label_fn.setStyleSheet("QLabel{font-size: 11pt;}")
+        self.label_fn.setObjectName("label_fn")
 
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents_2)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout.setSpacing(0)
-        self.verticalLayout.setObjectName("verticalLayout")
+        self.fn_box = QtWidgets.QLineEdit(self.form)
+        self.fn_box.setEnabled(True)
+        self.fn_box.setMinimumSize(QtCore.QSize(181, 40))
+        self.fn_box.setStyleSheet("")
+        self.fn_box.setObjectName("fn_box")
 
-        self.textEdit = QtWidgets.QTextEdit(self.scrollAreaWidgetContents_2)
-        self.textEdit.setEnabled(True)
-        self.textEdit.setMinimumSize(QtCore.QSize(0, 40))
-        self.textEdit.setStyleSheet("")
-        self.textEdit.setMarkdown("")
-        self.textEdit.setObjectName("textEdit")
+        self.label_iteration = QtWidgets.QLabel(self.form)
+        self.label_iteration.setStyleSheet("QLabel{font-size: 11pt;}")
+        self.label_iteration.setObjectName("label_iteration")
 
-        self.verticalLayout.addWidget(self.textEdit)
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents_2)
+        self.iteration_box = QtWidgets.QSpinBox(self.window)
+        self.iteration_box.setEnabled(True)
+        self.iteration_box.setGeometry(QtCore.QRect(50, 20, 190, 40))
+        self.iteration_box.setStyleSheet("")
+        self.iteration_box.setObjectName("iteration_box")
 
-        self.tableWidget = QtWidgets.QTableView(self.window)
-        self.tableWidget.setEnabled(True)
-        self.tableWidget.setGeometry(QtCore.QRect(580, 10, 400, 400))
-        font = QtGui.QFont()
-        font.setFamily("Segoe UI Variable Small")
-        font.setPointSize(-1)
-        font.setBold(False)
-        font.setWeight(50)
-        self.tableWidget.setFont(font)
-        self.tableWidget.setStyleSheet(
-            """QHeaderView::section {
-            background-color: transparent;
-            color: white;
-            height: 35px;
-            width: 150px; 
-            font: 14px;
-            border-style: outset;
-            border-width: 1px;
-            border-color: black;
-        }
-        /*The top-left area is actually a button:*/
-        QTableCornerButton::section {
-            background-color: """
-            + accent
-            + """;
-        }
-        QTableView::item:selected {
-            background:"""
-            + accent
-            + """;
-        }
-        """
-        )
-        """ /*The lower part of the vertical header:*/
-                QHeaderView {
-                    background-color: #8b8d8e;
-                }
-        """
-        self.tableWidget.setObjectName("tableWidget")
+        self.label_tolerance = QtWidgets.QLabel(self.form)
+        self.label_tolerance.setStyleSheet("QLabel{font-size: 11pt;}")
+        self.label_tolerance.setObjectName("label_tolerance")
 
-        df = DataFrame({"Hey": [0, 1, 2], "Hey2": [8, 4, 3]})
+        self.tolerance_box = QtWidgets.QLineEdit(self.form)
+        self.tolerance_box.setEnabled(True)
+        self.tolerance_box.setMinimumSize(QtCore.QSize(181, 40))
+        self.tolerance_box.setStyleSheet("")
+        self.tolerance_box.setObjectName("tolerance_box")
 
-        model = TableModel(df)
-        self.tableWidget.setModel(model)
+        self.range = QtWidgets.QWidget(self.form)
+        self.range_layout = QtWidgets.QHBoxLayout()
+        self.range_layout.setContentsMargins(0, 0, 0, 0)
+        self.range_layout.setSpacing(0)
 
-        self.label = QtWidgets.QLabel(self.window)
-        self.label.setGeometry(QtCore.QRect(0, 0, 141, 40))
-        self.label.setStyleSheet("")
-        self.label.setObjectName("label")
+        self.x0 = QtWidgets.QWidget(self.form)
+        self.x0_layout = QtWidgets.QVBoxLayout()
+        self.x0_layout.setSpacing(14)
 
-        self.radioButton = QtWidgets.QRadioButton(self.window)
-        self.radioButton.setEnabled(True)
-        self.radioButton.setGeometry(QtCore.QRect(60, 260, 141, 30))
-        self.radioButton.setStyleSheet("")
-        self.radioButton.setObjectName("radioButton")
+        self.label_x0 = QtWidgets.QLabel(self.form)
+        self.label_x0.setStyleSheet("QLabel{font-size: 11pt;}")
+        self.label_x0.setObjectName("label_x0")
 
-        self.checkBox = QtWidgets.QCheckBox(self.window)
-        self.checkBox.setEnabled(True)
-        self.checkBox.setGeometry(QtCore.QRect(60, 300, 121, 30))
-        self.checkBox.setStyleSheet("")
-        self.checkBox.setObjectName("checkBox")
+        self.x0_box = QtWidgets.QDoubleSpinBox(self.window)
+        self.x0_box.setEnabled(True)
+        self.x0_box.setGeometry(QtCore.QRect(50, 70, 190, 40))
+        self.x0_box.setStyleSheet("")
+        self.x0_box.setObjectName("x0_box")
 
-        self.toggleSwitch = QtWidgets.QCheckBox(self.window)
-        self.toggleSwitch.setEnabled(True)
-        self.toggleSwitch.setGeometry(QtCore.QRect(60, 350, 181, 30))
-        self.toggleSwitch.setStyleSheet("")
-        self.toggleSwitch.setObjectName("toggleSwitch")
+        self.x0_layout.addWidget(self.label_x0)
+        self.x0_layout.addWidget(self.x0_box)
 
-        self.pushButton = QtWidgets.QPushButton(self.window)
+        self.x0.setLayout(self.x0_layout)
+
+        self.x1 = QtWidgets.QWidget(self.form)
+        self.x1_layout = QtWidgets.QVBoxLayout()
+        self.x1_layout.setSpacing(14)
+
+        self.label_x1 = QtWidgets.QLabel(self.form)
+        self.label_x1.setStyleSheet("QLabel{font-size: 11pt;}")
+        self.label_x1.setObjectName("label_x1")
+
+        self.x1_box = QtWidgets.QDoubleSpinBox(self.form)
+        self.x1_box.setEnabled(True)
+        self.x1_box.setGeometry(QtCore.QRect(50, 70, 190, 40))
+        self.x1_box.setStyleSheet("")
+        self.x1_box.setObjectName("x1_box")
+
+        self.x1_layout.addWidget(self.label_x1)
+        self.x1_layout.addWidget(self.x1_box)
+
+        self.x1.setLayout(self.x1_layout)
+
+        self.range_layout.addWidget(self.x0)
+        self.range_layout.addWidget(self.x1)
+
+        self.range.setLayout(self.range_layout)
+
+        self.pushButton = QtWidgets.QPushButton(self.form)
         self.pushButton.setEnabled(True)
-        self.pushButton.setGeometry(QtCore.QRect(60, 400, 158, 40))
-        self.pushButton.setMaximumSize(QtCore.QSize(16777215, 40))
+        self.pushButton.setMaximumSize(QtCore.QSize(150, 40))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Variable Small")
         font.setPointSize(-1)
@@ -1395,40 +1381,88 @@ QListView::item:selected {
         self.pushButton.setStyleSheet("")
         self.pushButton.setObjectName("pushButton")
 
-        self.hyperlinkButton = QtWidgets.QPushButton(self.window)
-        self.hyperlinkButton.setEnabled(True)
-        self.hyperlinkButton.setGeometry(QtCore.QRect(60, 450, 191, 38))
-        self.hyperlinkButton.setStyleSheet("")
-        self.hyperlinkButton.setObjectName("hyperlinkButton")
+        # put in layout
+        self.form_layout = QtWidgets.QFormLayout()
+        self.form_layout.setSpacing(14)
 
-        self.spinBox = QtWidgets.QSpinBox(self.window)
-        self.spinBox.setEnabled(True)
-        self.spinBox.setGeometry(QtCore.QRect(50, 20, 190, 40))
-        self.spinBox.setStyleSheet("")
-        self.spinBox.setObjectName("spinBox")
-        self.doubleSpinBox = QtWidgets.QDoubleSpinBox(self.window)
-        self.doubleSpinBox.setEnabled(True)
-        self.doubleSpinBox.setGeometry(QtCore.QRect(50, 70, 190, 40))
-        self.doubleSpinBox.setStyleSheet("")
-        self.doubleSpinBox.setObjectName("doubleSpinBox")
-        self.dateEdit = QtWidgets.QDateEdit(self.window)
-        self.dateEdit.setEnabled(True)
-        self.dateEdit.setGeometry(QtCore.QRect(50, 120, 202, 40))
-        self.dateEdit.setMinimumSize(QtCore.QSize(202, 40))
-        self.dateEdit.setStyleSheet("")
-        self.dateEdit.setObjectName("dateEdit")
-        self.timeEdit = QtWidgets.QTimeEdit(self.window)
-        self.timeEdit.setGeometry(QtCore.QRect(50, 170, 202, 40))
-        self.timeEdit.setMinimumSize(QtCore.QSize(202, 40))
-        self.timeEdit.setStyleSheet("")
-        self.timeEdit.setObjectName("timeEdit")
-        self.dateTimeEdit = QtWidgets.QDateTimeEdit(self.window)
-        self.dateTimeEdit.setEnabled(True)
-        self.dateTimeEdit.setGeometry(QtCore.QRect(50, 220, 202, 40))
-        self.dateTimeEdit.setStyleSheet("")
-        self.dateTimeEdit.setObjectName("dateTimeEdit")
+        self.form_layout.addRow(self.label_method)
+        self.form_layout.addRow(self.method_box)
 
-        MainWindow.setCentralWidget(self.centralwidget)
+        self.form_layout.addRow(self.label_fn)
+        self.form_layout.addRow(self.fn_box)
+
+        self.form_layout.addRow(self.label_iteration)
+        self.form_layout.addRow(self.iteration_box)
+
+        self.form_layout.addRow(self.label_tolerance)
+        self.form_layout.addRow(self.tolerance_box)
+
+        self.form_layout.addRow(self.range)
+
+        self.form_layout.addRow(self.pushButton)
+
+        self.form.setLayout(self.form_layout)
+
+        self.tableWidget = QtWidgets.QTableView(self.window)
+        self.tableWidget.setEnabled(True)
+        self.tableWidget.setGeometry(QtCore.QRect(0, 526, 980, 650))
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI Variable Small")
+        font.setPointSize(-1)
+        font.setBold(False)
+        font.setWeight(50)
+        self.tableWidget.setFont(font)
+        self.tableWidget.setStyleSheet(
+            """
+            QHeaderView::section {
+            background-color: transparent;
+            color: white;
+            font: 14px;
+            border-style: outset;
+            border-width: 1px;
+            border-color: black;
+        }
+        /*The top-left area is actually a button:*/
+        QTableCornerButton::section {
+            background-color:"""
+            + accent
+            + """;
+        }
+        QTableView::item:selected {
+            background:"""
+            + accent
+            + """;
+        }
+        """
+        )
+        #  /*The lower part of the vertical header:*/
+        # QHeaderView {
+        # background-color: #8b8d8e;
+        # }
+
+        self.tableWidget.setObjectName("tableWidget")
+
+        df = DataFrame(
+            {
+                "Hey": [0, 1, 2],
+                "Hey2": [8, 4, 3],
+                "Hey3": [8, 4, 3],
+                "Hey4": [8, 4, 3],
+                "Hey5": [8, 4, 3],
+                "Hey6": [8, 4, 3],
+                "Hey7": [8, 4, 3],
+            }
+        )
+
+        model = TableModel(df)
+        self.tableWidget.setModel(model)
+
+        self.scrollCentral.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        self.scrollCentral.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        self.scrollCentral.setWidgetResizable(True)
+        self.scrollCentral.setWidget(self.centralwidget)
+
+        MainWindow.setCentralWidget(self.scrollCentral)
         self.menuBar = QtWidgets.QMenuBar(MainWindow)
         self.menuBar.setEnabled(True)
         self.menuBar.setGeometry(QtCore.QRect(0, 0, 980, 63))
@@ -1489,26 +1523,28 @@ QListView::item:selected {
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "Mica Template"))
-        self.comboBox.setPlaceholderText(_translate("MainWindow", "Pick a color"))
-        self.comboBox.setItemText(0, _translate("MainWindow", "Blue"))
-        self.comboBox.setItemText(1, _translate("MainWindow", "Gray"))
-        self.comboBox.setItemText(2, _translate("MainWindow", "Green"))
-        self.comboBox.setItemText(3, _translate("MainWindow", "White"))
-        self.comboBox.setItemText(4, _translate("MainWindow", "Black"))
-        self.comboBox.setItemText(5, _translate("MainWindow", "Brown"))
-        self.comboBox.setItemText(6, _translate("MainWindow", "Violet"))
-        self.comboBox.setItemText(7, _translate("MainWindow", "Cyan"))
-        self.comboBox.setItemText(8, _translate("MainWindow", "Orange"))
-        self.comboBox.setItemText(9, _translate("MainWindow", "Red"))
-        self.comboBox.setItemText(10, _translate("MainWindow", "Yellow"))
-        self.textEdit.setHtml(_translate("MainWindow", ""))
 
-        self.label.setText(_translate("MainWindow", "I am a TextBlock"))
-        self.radioButton.setText(_translate("MainWindow", "RadioButton"))
+        self.label_method.setText(_translate("MainWindow", "Select method"))
+        self.label_fn.setText(
+            _translate("MainWindow", "Write the function (python syntax)")
+        )
+        self.label_iteration.setText(_translate("MainWindow", "Iteration"))
+        self.label_tolerance.setText(_translate("MainWindow", "Tolerance"))
+        self.label_x0.setText(_translate("MainWindow", "X0"))
+        self.label_x1.setText(_translate("MainWindow", "X1"))
+
+        self.method_box.setItemText(0, _translate("MainWindow", "Bisection"))
+        self.method_box.setItemText(1, _translate("MainWindow", "Newton"))
+        self.method_box.setItemText(2, _translate("MainWindow", "Secant"))
+        self.method_box.setItemText(3, _translate("MainWindow", "Point"))
+
+        self.pushButton.setText(_translate("MainWindow", "Calculate"))
+
+        """ self.radioButton.setText(_translate("MainWindow", "RadioButton"))
+        self.textEdit.setHtml(_translate("MainWindow", ""))
         self.checkBox.setText(_translate("MainWindow", "CheckBox"))
         self.toggleSwitch.setText(_translate("MainWindow", "ToggleSwitch"))
-        self.pushButton.setText(_translate("MainWindow", "PushButton"))
-        self.hyperlinkButton.setText(_translate("MainWindow", "HyperlinkButton"))
+        self.hyperlinkButton.setText(_translate("MainWindow", "HyperlinkButton")) """
 
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.actionNew.setTitle(_translate("MainWindow", "New"))
