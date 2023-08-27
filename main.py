@@ -58,13 +58,6 @@ class Template(QMainWindow):
         else:
             QtWin.resetExtendedFrame(self)
 
-        # REMOVE TOPBAR IN TREEWIDGET
-        self.ui.treeWidget.setHeaderHidden(True)
-
-        # TRYING TO CHANGE MENU IN CALENDARWIDGET
-        # self.ui.menu.setAttribute(Qt.WA_TranslucentBackground)
-        # self.ui.menu.setWindowFlags(self.ui.menu.windowFlags() | Qt.FramelessWindowHint | Qt.NoDropShadowWindowHint)
-
         # CUSTOM LIST IN COMBOBOX
         self.ui.listview = QtWidgets.QListView()
         self.ui.comboBox.setView(self.ui.listview)
@@ -76,19 +69,10 @@ class Template(QMainWindow):
         self.ui.comboBox.setCurrentIndex(-1)
         ApplyMenuBlur(self.ui.comboBox.view().window().winId().__int__(), self)
 
-        # CUSTOM LIST IN FONTCOMBOBOX
-        self.ui.listview2 = QtWidgets.QListView()
-        self.ui.fontComboBox.setView(self.ui.listview2)
-
-        self.ui.fontComboBox.view().window().setWindowFlags(
-            Qt.Popup | Qt.FramelessWindowHint | Qt.NoDropShadowWindowHint
-        )
-        self.ui.fontComboBox.view().window().setAttribute(Qt.WA_TranslucentBackground)
-        ApplyMenuBlur(self.ui.fontComboBox.view().window().winId().__int__(), self)
-
         # BUTTONS CLICK
-        self.ui.disablebtn.clicked.connect(lambda: self.ui.window.setEnabled(False))
-        self.ui.enablebtn.clicked.connect(lambda: self.ui.window.setEnabled(True))
+        # self.ui.disablebtn.clicked.connect(lambda: self.ui.window.setEnabled(False))
+        # self.ui.enablebtn.clicked.connect(lambda: self.ui.window.setEnabled(True))
+
 
         self.show()
 
