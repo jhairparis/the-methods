@@ -22,21 +22,31 @@ else:
 class TheWindow(QMainWindow):
     def subscription(self, v, who):
         if who == 0:
-            infinite = np.linspace(-25, 25, 1000)
-
-            self.ui.logic.fn = self.ui.logic.gen_fn(v)
+            self.ui.graph__timer.stop()
 
             self.ui.graph_.axes.cla()
 
-            self.ui.graph_.axes.plot(
-                infinite,
-                [self.ui.logic.fn(i) for i in infinite],
-                color="gray",
-                linestyle="--",
-                zorder=1,
-            )
+            if len(v) >= 1:
+                infinite = np.linspace(-25, 25, 101)
 
-            self.ui.fn_box.value = v
+                self.ui.logic.fn = self.ui.logic.gen_fn(v)
+
+                self.ui.graph_.axes.plot(
+                    infinite,
+                    [self.ui.logic.fn(i) for i in infinite],
+                    color="gray",
+                    linestyle="--",
+                    zorder=1,
+                )
+
+                self.ui.fn_box.value = v
+            else:
+                t = np.linspace(0, 10, 101)
+                (self.ui.graph_line,) = self.ui.graph_.axes.plot(
+                    t, np.sin(t + time.time())
+                )
+                self.ui.graph__timer.start()
+
             self.ui.graph_.draw()
 
         if who == 1:

@@ -1,6 +1,8 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtCore import Qt
 from winreg import *
+import time
+import numpy as np
 from lib.Logic import Logic
 from modules.MplCanvas import MplCanvas
 import pandas as pd
@@ -22,6 +24,11 @@ accent = "rgb" + str(tuple(int(accent[i : i + 2], 16) for i in (0, 2, 4)))
 
 
 class Ui_MainWindow(object):
+    def _update_canvas(self):
+        t = np.linspace(0, 10, 101)
+        self.graph_line.set_data(t, np.sin(t + time.time()))
+        self.graph_line.figure.canvas.draw()
+
     def setupUi(self, MainWindow):
         self.logic = Logic()
         MainWindow.setObjectName("MainWindow")
@@ -1239,7 +1246,11 @@ QListView::item:selected {
 
         self.graph_ = MplCanvas(self)
 
-        self.graph_.axes.plot([0, 1, 2, 3, 4], [10, 1, 20, 3, 40])
+        t = np.linspace(0, 10, 101)
+        (self.graph_line,) = self.graph_.axes.plot(t, np.sin(t + time.time()))
+        self.graph__timer = self.graph_.new_timer(50)
+        self.graph__timer.add_callback(self._update_canvas)
+        self.graph__timer.start()
 
         self.graph_layout = QtWidgets.QVBoxLayout()
         self.graph_layout.addWidget(self.graph_)
