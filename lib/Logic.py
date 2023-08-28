@@ -54,18 +54,25 @@ class Logic:
             "relative error": self.data_err,
         }
 
-    def showTable(self):
+    def show_table(self, gui=False):
         df = DataFrame(self.data)
-        prettyShow = True
-        if prettyShow:
-            print("Update GUI")
+        if gui:
+            return df
         else:
+            s = ""
             for i in range(len(self.data_an)):
-                print(
-                    "Iteracion=  %03d" % i,
-                    " ; a= " + self.data_an[i],
-                    " ; p= " + self.data_Pn[i],
-                    " ; b= " + self.data_bn[i],
-                    " ; f(a)*f(p)= " + self.data_fafp[i],
-                    " ; er= " + self.data_err[i],
+                s += (
+                    "Iteracion=  %03d" % i
+                    + " ; a= "
+                    + self.data_an[i]
+                    + " ; p= "
+                    + self.data_Pn[i]
+                    + " ; b= "
+                    + self.data_bn[i]
+                    + " ; f(a)*f(p)= "
+                    + self.data_fafp[i]
+                    + " ; er= "
+                    + self.data_err[i]
+                    + "\n"
                 )
+            return s

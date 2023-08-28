@@ -1227,7 +1227,7 @@ QListView::item:selected {
 
         self.window = QtWidgets.QFrame(self.centralwidget)
         self.window.setEnabled(True)
-        self.window.setGeometry(QtCore.QRect(19, 0, 991, 651))
+        self.window.setGeometry(QtCore.QRect(19, 0, 991, 1302))
         self.window.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.window.setFrameShadow(QtWidgets.QFrame.Raised)
         self.window.setObjectName("window")
@@ -1239,8 +1239,8 @@ QListView::item:selected {
 
         self.graph_ = MplCanvas(self)
 
-        self.graph_.axes.plot([0,1,2,3,4], [10,1,20,3,40])
-       
+        self.graph_.axes.plot([0, 1, 2, 3, 4], [10, 1, 20, 3, 40])
+
         self.graph_layout = QtWidgets.QVBoxLayout()
         self.graph_layout.addWidget(self.graph_)
 
@@ -1389,7 +1389,7 @@ QListView::item:selected {
 
         self.tableWidget = QtWidgets.QTableView(self.window)
         self.tableWidget.setEnabled(True)
-        self.tableWidget.setGeometry(QtCore.QRect(0, 526, 980, 650))
+        self.tableWidget.setGeometry(QtCore.QRect(0, 526, 950, 500))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Variable Small")
         font.setPointSize(-1)
@@ -1511,12 +1511,6 @@ QListView::item:selected {
         self.method_box.setItemText(3, _translate("MainWindow", "Point"))
 
         self.pushButton.setText(_translate("MainWindow", "Calculate"))
-
-        """ self.radioButton.setText(_translate("MainWindow", "RadioButton"))
-        self.textEdit.setHtml(_translate("MainWindow", ""))
-        self.checkBox.setText(_translate("MainWindow", "CheckBox"))
-        self.toggleSwitch.setText(_translate("MainWindow", "ToggleSwitch"))
-        self.hyperlinkButton.setText(_translate("MainWindow", "HyperlinkButton")) """
 
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.actionNew.setTitle(_translate("MainWindow", "New"))

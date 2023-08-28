@@ -40,19 +40,6 @@ class TheWindow(QMainWindow):
             self.ui.graph_.draw()
 
         if who == 1:
-            df = DataFrame(
-                {
-                    "Hey": [0, 1, 2],
-                    "Hey2": [8, 4, 3],
-                    "Hey3": [8, 4, 3],
-                    "Hey4": [8, 4, 3],
-                    "Hey5": [8, 4, 3],
-                    "Hey6": [8, 4, 3],
-                    "Hey7": [8, 4, 3],
-                }
-            )
-            model = TableModel(df)
-            self.ui.tableWidget.setModel(model)
             self.ui.tolerance_box.value = v
 
     def click(self):
@@ -67,8 +54,9 @@ class TheWindow(QMainWindow):
 
             m = self.ui.logic.get_method(method)
 
+            deri = derivative(str_fn)
+
             if method == 1:
-                deri = derivative(str_fn)
                 v = m(
                     logic=self.ui.logic,
                     fun=fn,
@@ -78,16 +66,23 @@ class TheWindow(QMainWindow):
                     steps=steps,
                     deri=deri,
                 )
-                return v
+            else:
+                v = m(
+                    logic=self.ui.logic,
+                    fun=fn,
+                    x_a=x0,
+                    x_b=x1,
+                    tol=tol,
+                    steps=steps,
+                )
 
-            v = m(
-                logic=self.ui.logic,
-                fun=fn,
-                x_a=x0,
-                x_b=x1,
-                tol=tol,
-                steps=steps,
+            res = self.ui.logic.show_table(True)
+            print(
+                f"DataFrame {self.ui.logic.method_title}\n",
+                res,
             )
+            model = TableModel(res)
+            self.ui.tableWidget.setModel(model)
             return v
         except:
             notification.notify(
@@ -97,6 +92,20 @@ class TheWindow(QMainWindow):
                 timeout=10,
             )
             return None
+
+    def change_method(self):
+        model = self.ui.tableWidget.model()
+        if model:
+            model.deleteLater()
+            df = DataFrame(
+                {
+                    "Hey": [],
+                    "Hey2": [],
+                    "Hey3": [],
+                }
+            )
+            model = TableModel(df)
+            self.ui.tableWidget.setModel(model)
 
     def __init__(self):
         QMainWindow.__init__(self)
@@ -153,7 +162,9 @@ class TheWindow(QMainWindow):
         ApplyMenuBlur(self.ui.method_box.view().window().winId().__int__(), self)
 
         # CLICK
-        self.ui.pushButton.clicked.connect(lambda: print(self.click()))
+        self.ui.pushButton.clicked.connect(lambda: print("method res: ", self.click()))
+
+        self.ui.method_box.currentIndexChanged.connect(self.change_method)
 
         self.ui.fn_box.textChanged.connect(lambda v: self.subscription(v, 0))
         self.ui.tolerance_box.textChanged.connect(lambda v: self.subscription(v, 1))
