@@ -7,8 +7,9 @@ import numpy as np
 from win32mica import ApplyMica, MICAMODE
 import darkdetect
 import matplotlib
-from lib.methods.bisection import bisection
+from lib.methods.newton import derivative
 from modules.blurwindow import GlobalBlur
+from plyer import notification
 
 matplotlib.use("Qt5Agg")
 
@@ -55,21 +56,47 @@ class TheWindow(QMainWindow):
             self.ui.tolerance_box.value = v
 
     def click(self):
-        x0 = self.ui.x0_box.value()
-        x1 = self.ui.x1_box.value()
-        tol = float(self.ui.tolerance_box.value)
-        steps = self.ui.iteration_box.value()
+        try:
+            method = self.ui.method_box.currentIndex()
+            x0 = self.ui.x0_box.value()
+            x1 = self.ui.x1_box.value()
+            tol = float(self.ui.tolerance_box.value)
+            steps = self.ui.iteration_box.value()
+            str_fn = self.ui.fn_box.value
+            fn = self.ui.logic.gen_fn(str_fn)
 
-        method = bisection(self.ui.logic, self.ui.logic.fn, x0, x1, tol, steps)
+            m = self.ui.logic.get_method(method)
 
-        print(
-            self.ui.method_box.currentIndex(),
-            self.ui.fn_box.value,
-            method,
-            self.ui.logic.method_title
-        )
+            if method == 1:
+                deri = derivative(str_fn)
+                v = m(
+                    logic=self.ui.logic,
+                    fun=fn,
+                    x_a=x0,
+                    x_b=x1,
+                    tol=tol,
+                    steps=steps,
+                    deri=deri,
+                )
+                return v
 
-        return None
+            v = m(
+                logic=self.ui.logic,
+                fun=fn,
+                x_a=x0,
+                x_b=x1,
+                tol=tol,
+                steps=steps,
+            )
+            return v
+        except:
+            notification.notify(
+                title="Error",
+                message="Please fill all fields",
+                app_icon=None,
+                timeout=10,
+            )
+            return None
 
     def __init__(self):
         QMainWindow.__init__(self)
@@ -126,7 +153,7 @@ class TheWindow(QMainWindow):
         ApplyMenuBlur(self.ui.method_box.view().window().winId().__int__(), self)
 
         # CLICK
-        self.ui.pushButton.clicked.connect(self.click)
+        self.ui.pushButton.clicked.connect(lambda: print(self.click()))
 
         self.ui.fn_box.textChanged.connect(lambda v: self.subscription(v, 0))
         self.ui.tolerance_box.textChanged.connect(lambda v: self.subscription(v, 1))

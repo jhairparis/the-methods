@@ -7,3 +7,4 @@ win32mica
 darkdetect
 PyQt5
 sympy
+plyer

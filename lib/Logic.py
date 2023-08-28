@@ -1,5 +1,8 @@
 from pandas import DataFrame
 from sympy import sympify
+from lib.methods.bisection import bisection
+from lib.methods.newton import newton
+from lib.methods.secant import secant
 
 
 class Logic:
@@ -18,6 +21,11 @@ class Logic:
         "f(a)*f(p)": data_fafp,
         "relative error": data_err,
     }
+
+    def get_method(self, index):
+        methods = [bisection, newton, secant]
+
+        return methods[index]
 
     def gen_fn(self, operation="x**2"):
         try:

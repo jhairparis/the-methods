@@ -1,7 +1,4 @@
-from lib.Logic import Logic
-
-
-def bisection(logic: Logic, fun, x_a, x_b, tol=1e-4, steps=100):
+def bisection(logic, fun, x_a, x_b, tol=1e-4, steps=100):
     logic.reset()
 
     if fun(x_a) * fun(x_b) >= 0:
