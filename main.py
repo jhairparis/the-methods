@@ -3,9 +3,11 @@ from PySide2 import QtWidgets
 from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QMainWindow, QApplication
 from PySide2.QtWinExtras import QtWin
+import numpy as np
 from win32mica import ApplyMica, MICAMODE
 import darkdetect
 import matplotlib
+from lib.methods.bisection import bisection
 from modules.blurwindow import GlobalBlur
 
 matplotlib.use("Qt5Agg")
@@ -16,7 +18,59 @@ else:
     from light import *
 
 
-class Template(QMainWindow):
+class TheWindow(QMainWindow):
+    def subscription(self, v, who):
+        if who == 0:
+            infinite = np.linspace(-25, 25, 1000)
+
+            self.ui.logic.fn = self.ui.logic.gen_fn(v)
+
+            self.ui.graph_.axes.cla()
+
+            self.ui.graph_.axes.plot(
+                infinite,
+                [self.ui.logic.fn(i) for i in infinite],
+                color="gray",
+                linestyle="--",
+                zorder=1,
+            )
+
+            self.ui.fn_box.value = v
+            self.ui.graph_.draw()
+
+        if who == 1:
+            df = DataFrame(
+                {
+                    "Hey": [0, 1, 2],
+                    "Hey2": [8, 4, 3],
+                    "Hey3": [8, 4, 3],
+                    "Hey4": [8, 4, 3],
+                    "Hey5": [8, 4, 3],
+                    "Hey6": [8, 4, 3],
+                    "Hey7": [8, 4, 3],
+                }
+            )
+            model = TableModel(df)
+            self.ui.tableWidget.setModel(model)
+            self.ui.tolerance_box.value = v
+
+    def click(self):
+        x0 = self.ui.x0_box.value()
+        x1 = self.ui.x1_box.value()
+        tol = float(self.ui.tolerance_box.value)
+        steps = self.ui.iteration_box.value()
+
+        method = bisection(self.ui.logic, self.ui.logic.fn, x0, x1, tol, steps)
+
+        print(
+            self.ui.method_box.currentIndex(),
+            self.ui.fn_box.value,
+            method,
+            self.ui.logic.method_title
+        )
+
+        return None
+
     def __init__(self):
         QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
@@ -71,14 +125,16 @@ class Template(QMainWindow):
         self.ui.method_box.setCurrentIndex(-1)
         ApplyMenuBlur(self.ui.method_box.view().window().winId().__int__(), self)
 
-        # BUTTONS CLICK
-        # self.ui.disablebtn.clicked.connect(lambda: self.ui.window.setEnabled(False))
-        # self.ui.enablebtn.clicked.connect(lambda: self.ui.window.setEnabled(True))
+        # CLICK
+        self.ui.pushButton.clicked.connect(self.click)
+
+        self.ui.fn_box.textChanged.connect(lambda v: self.subscription(v, 0))
+        self.ui.tolerance_box.textChanged.connect(lambda v: self.subscription(v, 1))
 
         self.show()
 
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    centralwidget = Template()
+    centralwidget = TheWindow()
     sys.exit(app.exec_())

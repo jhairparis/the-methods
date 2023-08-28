@@ -6,3 +6,4 @@ PySide2
 win32mica
 darkdetect
 PyQt5
+sympy

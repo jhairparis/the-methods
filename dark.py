@@ -1,6 +1,7 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtCore import Qt
 from winreg import *
+from lib.Logic import Logic
 from modules.MplCanvas import MplCanvas
 import pandas as pd
 from icons import styledark_rc
@@ -22,6 +23,7 @@ accent = "rgb" + str(tuple(int(accent[i : i + 2], 16) for i in (0, 2, 4)))
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
+        self.logic = Logic()
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
         MainWindow.resize(980, 650)
@@ -1235,30 +1237,12 @@ QListView::item:selected {
         self.graph.setGeometry(QtCore.QRect(0, 0, 622, 520))
         # self.graph.setStyleSheet("background:blue;")
 
-        sc = MplCanvas(self.graph, dpi=100)
+        self.graph_ = MplCanvas(self)
 
-        df = pd.DataFrame(
-            [
-                [0, 10],
-                [5, 15],
-                [2, 20],
-                [15, 25],
-                [4, 10],
-            ],
-            columns=["A", "B"],
-        )
-
-        ax = df.plot(ax=sc.axes)
-        ax.set_facecolor("none")
-        ax.spines["bottom"].set_color("white")
-        ax.spines["top"].set_color("none")
-        ax.spines["right"].set_color("none")
-        ax.spines["left"].set_color("white")
-        ax.tick_params(axis="x", colors="white")
-        ax.tick_params(axis="y", colors="white")
-
+        self.graph_.axes.plot([0,1,2,3,4], [10,1,20,3,40])
+       
         self.graph_layout = QtWidgets.QVBoxLayout()
-        self.graph_layout.addWidget(sc)
+        self.graph_layout.addWidget(self.graph_)
 
         self.graph.setLayout(self.graph_layout)
 
@@ -1442,19 +1426,7 @@ QListView::item:selected {
 
         self.tableWidget.setObjectName("tableWidget")
 
-        df = DataFrame(
-            {
-                "Hey": [0, 1, 2],
-                "Hey2": [8, 4, 3],
-                "Hey3": [8, 4, 3],
-                "Hey4": [8, 4, 3],
-                "Hey5": [8, 4, 3],
-                "Hey6": [8, 4, 3],
-                "Hey7": [8, 4, 3],
-            }
-        )
-
-        model = TableModel(df)
+        model = TableModel(DataFrame(self.logic.data))
         self.tableWidget.setModel(model)
 
         self.scrollCentral.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
