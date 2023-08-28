@@ -12,6 +12,9 @@ class Logic:
     data_bn = []
     data_Pn = []
     data_fafp = []
+    data_fa = []
+    data_fb = []
+    data_fp = []
     data_err = []
 
     data = {
@@ -44,6 +47,9 @@ class Logic:
         self.data_bn.clear()
         self.data_Pn.clear()
         self.data_fafp.clear()
+        self.data_fa.clear()
+        self.data_fb.clear()
+        self.data_fp.clear()
         self.data_err.clear()
 
         self.data = {
@@ -55,6 +61,7 @@ class Logic:
         }
 
     def show_table(self, gui=False):
+        print("Debug: ", self.data)
         df = DataFrame(self.data)
         if gui:
             return df
