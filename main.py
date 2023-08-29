@@ -20,37 +20,68 @@ else:
 
 
 class TheWindow(QMainWindow):
-    def subscription(self, v, who):
-        if who == 0:
-            self.ui.graph__timer.stop()
+    def create_main_graph(self):
+        self.ui.graph_.axes.cla()
 
+        if (
+            hasattr(self.ui.x_left, "value")
+            and hasattr(self.ui.x_right, "value")
+            and hasattr(self.ui.y_up, "value")
+            and hasattr(self.ui.y_down, "value")
+            and hasattr(self.ui.fn_box, "value")
+        ):
+            x_left = float(self.ui.x_left.value)
+            x_right = float(self.ui.x_right.value)
+            y_up = float(self.ui.y_up.value)
+            y_down = float(self.ui.y_down.value)
+
+            infinite = np.linspace(x_left, x_right, 101)
+
+            self.ui.logic.fn = self.ui.logic.gen_fn(self.ui.fn_box.value)
+
+            (self.graph_line,) = self.ui.graph_.axes.plot(
+                infinite,
+                [self.ui.logic.fn(i) for i in infinite],
+                color="gray",
+                linestyle="--",
+                zorder=1,
+            )
+
+            self.graph_line.axes.set_xlim(xmin=x_left, xmax=x_right)
+            self.graph_line.axes.set_ylim(ymax=y_up, ymin=y_down)
+
+            self.ui.graph_.draw()
+
+    def subscription(self, v, who):
+        self.ui.graph__timer.stop()
+        if who == 0:
             self.ui.graph_.axes.cla()
 
             if len(v) >= 1:
-                infinite = np.linspace(-25, 25, 101)
-
-                self.ui.logic.fn = self.ui.logic.gen_fn(v)
-
-                self.ui.graph_.axes.plot(
-                    infinite,
-                    [self.ui.logic.fn(i) for i in infinite],
-                    color="gray",
-                    linestyle="--",
-                    zorder=1,
-                )
-
                 self.ui.fn_box.value = v
+                self.create_main_graph()
             else:
                 t = np.linspace(0, 10, 101)
                 (self.ui.graph_line,) = self.ui.graph_.axes.plot(
                     t, np.sin(t + time.time())
                 )
                 self.ui.graph__timer.start()
-
-            self.ui.graph_.draw()
+                self.ui.graph_.draw()
 
         if who == 1:
             self.ui.tolerance_box.value = v
+        if who == 2:
+            self.ui.x_left.value = v
+            self.create_main_graph()
+        if who == 3:
+            self.ui.x_right.value = v
+            self.create_main_graph()
+        if who == 4:
+            self.ui.y_up.value = v
+            self.create_main_graph()
+        if who == 5:
+            self.ui.y_down.value = v
+            self.create_main_graph()
 
     def click(self):
         try:
@@ -86,12 +117,7 @@ class TheWindow(QMainWindow):
                     steps=steps,
                 )
 
-            res = self.ui.logic.show_table(True)
-            print(
-                f"DataFrame {self.ui.logic.method_title}\n",
-                res,
-            )
-            model = TableModel(res)
+            model = TableModel(self.ui.logic.show_table(True))
             self.ui.tableWidget.setModel(model)
             return v
         except:
@@ -178,6 +204,10 @@ class TheWindow(QMainWindow):
 
         self.ui.fn_box.textChanged.connect(lambda v: self.subscription(v, 0))
         self.ui.tolerance_box.textChanged.connect(lambda v: self.subscription(v, 1))
+        self.ui.x_left.textChanged.connect(lambda v: self.subscription(v, 2))
+        self.ui.x_right.textChanged.connect(lambda v: self.subscription(v, 3))
+        self.ui.y_up.textChanged.connect(lambda v: self.subscription(v, 4))
+        self.ui.y_down.textChanged.connect(lambda v: self.subscription(v, 5))
 
         self.show()
 

@@ -5,7 +5,6 @@ import time
 import numpy as np
 from lib.Logic import Logic
 from modules.MplCanvas import MplCanvas
-import pandas as pd
 from icons import styledark_rc
 
 from modules.TableModel import TableModel
@@ -1255,6 +1254,42 @@ QListView::item:selected {
         self.graph_layout = QtWidgets.QVBoxLayout()
         self.graph_layout.addWidget(self.graph_)
 
+        self.graph_control = QtWidgets.QWidget(self.window)
+        self.graph_control_layout = QtWidgets.QHBoxLayout()
+
+        self.x_left = QtWidgets.QLineEdit(self.graph_control)
+        self.x_left.setEnabled(True)
+        self.x_left.setMinimumSize(QtCore.QSize(95, 40))
+        self.x_left.setStyleSheet("")
+        self.x_left.setObjectName("x_left")
+
+        self.x_right = QtWidgets.QLineEdit(self.graph_control)
+        self.x_right.setEnabled(True)
+        self.x_right.setMinimumSize(QtCore.QSize(95, 40))
+        self.x_right.setStyleSheet("")
+        self.x_right.setObjectName("x_right")
+
+        self.y_up = QtWidgets.QLineEdit(self.graph_control)
+        self.y_up.setEnabled(True)
+        self.y_up.setMinimumSize(QtCore.QSize(95, 40))
+        self.y_up.setStyleSheet("")
+        self.y_up.setObjectName("y_up")
+
+        self.y_down = QtWidgets.QLineEdit(self.graph_control)
+        self.y_down.setEnabled(True)
+        self.y_down.setMinimumSize(QtCore.QSize(95, 40))
+        self.y_down.setStyleSheet("")
+        self.y_down.setObjectName("y_up")
+
+        self.graph_control_layout.addWidget(self.x_left)
+        self.graph_control_layout.addWidget(self.x_right)
+        self.graph_control_layout.addWidget(self.y_up)
+        self.graph_control_layout.addWidget(self.y_down)
+
+        self.graph_control.setLayout(self.graph_control_layout)
+
+        self.graph_layout.addWidget(self.graph_control)
+
         self.graph.setLayout(self.graph_layout)
 
         # Left side
@@ -1516,10 +1551,19 @@ QListView::item:selected {
         self.label_x0.setText(_translate("MainWindow", "X0"))
         self.label_x1.setText(_translate("MainWindow", "X1"))
 
+        self.x_left.setPlaceholderText(_translate("MainWindow", "limit x left"))
+        self.x_right.setPlaceholderText(_translate("MainWindow", "limit x right"))
+        self.y_up.setPlaceholderText(_translate("MainWindow", "limit y up"))
+        self.y_down.setPlaceholderText(_translate("MainWindow", "limit y down"))
+
         self.method_box.setItemText(0, _translate("MainWindow", "Bisection"))
         self.method_box.setItemText(1, _translate("MainWindow", "Newton"))
         self.method_box.setItemText(2, _translate("MainWindow", "Secant"))
         self.method_box.setItemText(3, _translate("MainWindow", "Point"))
+
+        self.fn_box.setPlaceholderText(_translate("MainWindow", "x**2"))
+
+        self.tolerance_box.setPlaceholderText(_translate("MainWindow", "1e-3"))
 
         self.pushButton.setText(_translate("MainWindow", "Calculate"))
 

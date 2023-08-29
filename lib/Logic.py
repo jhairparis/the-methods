@@ -61,7 +61,6 @@ class Logic:
         }
 
     def show_table(self, gui=False):
-        print("Debug: ", self.data)
         df = DataFrame(self.data)
         if gui:
             return df
