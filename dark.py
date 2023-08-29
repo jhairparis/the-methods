@@ -6,6 +6,7 @@ import numpy as np
 from lib.Logic import Logic
 from modules.MplCanvas import MplCanvas
 from icons import styledark_rc
+# from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 
 from modules.TableModel import TableModel
 from pandas import DataFrame
@@ -1253,6 +1254,7 @@ QListView::item:selected {
 
         self.graph_layout = QtWidgets.QVBoxLayout()
         self.graph_layout.addWidget(self.graph_)
+        # self.graph_layout.addWidget(NavigationToolbar(self.graph_, self.window))
 
         self.graph_control = QtWidgets.QWidget(self.window)
         self.graph_control_layout = QtWidgets.QHBoxLayout()
@@ -1333,6 +1335,8 @@ QListView::item:selected {
 
         self.iteration_box = QtWidgets.QSpinBox(self.window)
         self.iteration_box.setEnabled(True)
+        self.iteration_box.setMinimum(1)
+        self.iteration_box.setMaximum(1000)
         self.iteration_box.setGeometry(QtCore.QRect(50, 20, 190, 40))
         self.iteration_box.setStyleSheet("")
         self.iteration_box.setObjectName("iteration_box")
@@ -1362,6 +1366,8 @@ QListView::item:selected {
 
         self.x0_box = QtWidgets.QDoubleSpinBox(self.window)
         self.x0_box.setEnabled(True)
+        self.x0_box.setMinimum(-1000)
+        self.x0_box.setMaximum(1000)
         self.x0_box.setGeometry(QtCore.QRect(50, 70, 190, 40))
         self.x0_box.setStyleSheet("")
         self.x0_box.setObjectName("x0_box")
@@ -1381,6 +1387,8 @@ QListView::item:selected {
 
         self.x1_box = QtWidgets.QDoubleSpinBox(self.form)
         self.x1_box.setEnabled(True)
+        self.x1_box.setMinimum(-1000)
+        self.x1_box.setMaximum(1000)
         self.x1_box.setGeometry(QtCore.QRect(50, 70, 190, 40))
         self.x1_box.setStyleSheet("")
         self.x1_box.setObjectName("x1_box")

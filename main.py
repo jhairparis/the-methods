@@ -85,6 +85,7 @@ class TheWindow(QMainWindow):
 
     def click(self):
         try:
+            self.create_main_graph()
             method = self.ui.method_box.currentIndex()
             x0 = self.ui.x0_box.value()
             x1 = self.ui.x1_box.value()
@@ -121,17 +122,35 @@ class TheWindow(QMainWindow):
                     steps=steps,
                 )
 
-            if method != 1:
+            df = self.ui.logic.show_table(True)
+
+            model = TableModel(df)
+            self.ui.tableWidget.setModel(model)
+
+            # render thing in graph
+
+            if method == 0:
                 var = np.linspace(x0, x1, 101)
                 self.ui.graph_.axes.plot(
                     var, [fn(i) for i in var], label="Range", color="red", zorder=2
                 )
 
             self.ui.graph_.axes.scatter(v, 0, label="Root", color="yellow", zorder=3)
+
+            if method == 0:
+                for i in df.index:
+                    self.ui.graph_.axes.scatter(
+                        float(df["Pn"].get(i)),
+                        fn(float(df["Pn"].get(i))),
+                        label=f"{i} ite",
+                        marker="*",
+                        alpha=0.8,
+                        s=50,
+                        zorder=3,
+                    )
+
             self.ui.graph_.draw()
 
-            model = TableModel(self.ui.logic.show_table(True))
-            self.ui.tableWidget.setModel(model)
             return v
         except:
             notification.notify(
