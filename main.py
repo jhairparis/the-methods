@@ -107,6 +107,10 @@ class TheWindow(QMainWindow):
                     steps=steps,
                     deri=deri,
                 )
+
+                self.ui.graph_.axes.scatter(
+                    x0, fn(x0), label="X0", color="violet", zorder=3
+                )
             else:
                 v = m(
                     logic=self.ui.logic,
@@ -116,6 +120,15 @@ class TheWindow(QMainWindow):
                     tol=tol,
                     steps=steps,
                 )
+
+            if method != 1:
+                var = np.linspace(x0, x1, 101)
+                self.ui.graph_.axes.plot(
+                    var, [fn(i) for i in var], label="Range", color="red", zorder=2
+                )
+
+            self.ui.graph_.axes.scatter(v, 0, label="Root", color="yellow", zorder=3)
+            self.ui.graph_.draw()
 
             model = TableModel(self.ui.logic.show_table(True))
             self.ui.tableWidget.setModel(model)
@@ -142,6 +155,9 @@ class TheWindow(QMainWindow):
             )
             model = TableModel(df)
             self.ui.tableWidget.setModel(model)
+
+        if len(self.ui.logic.method_title) >= 1:
+            self.create_main_graph()
 
     def __init__(self):
         QMainWindow.__init__(self)
