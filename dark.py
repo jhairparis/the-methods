@@ -1244,7 +1244,7 @@ QListView::item:selected {
         self.graph.setGeometry(QtCore.QRect(0, 0, 622, 520))
         # self.graph.setStyleSheet("background:blue;")
 
-        self.graph_ = MplCanvas(self)
+        self.graph_ = MplCanvas()
 
         t = np.linspace(0, 10, 101)
         (self.graph_line,) = self.graph_.axes.plot(t, np.sin(t + time.time()))
@@ -1458,7 +1458,7 @@ QListView::item:selected {
             font: 14px;
             border-style: outset;
             border-width: 1px;
-            border-color: black;
+            border-color: white;
         }
         /*The top-left area is actually a button:*/
         QTableCornerButton::section {
