@@ -1547,7 +1547,7 @@ QListView::item:selected {
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "Mica Template"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "The methods"))
 
         self.label_method.setText(_translate("MainWindow", "Select method"))
         self.label_fn.setText(

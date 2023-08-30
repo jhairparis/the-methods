@@ -183,6 +183,8 @@ class TheWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
 
+        self.setWindowIcon(QtGui.QIcon("icons/icon.ico"))
+
         # MICA FOR WINDOW
         hwnd = self.winId().__int__()
         mode = MICAMODE.DARK

@@ -1,7 +1,9 @@
-# The Table
+# The methods
 
-Please use Python 3.8.7
-how to start run each command in your terminal
+![](/icons/icon.png)
+
+Please use **Python 3.8.7**
+To start run each command in your terminal from windows
 
 ```bash
 python -m venv env
@@ -19,8 +21,15 @@ pip install -r requirements.txt
 
 ```
 
-only to close project
+To close project
 
 ```bash
 deactivate
+```
+
+To **build**:
+
+```bash
+pyinstaller.exe --onefile --windowed --icon=icons/icon.ico --name='The methods' main.py
+
 ```
