@@ -102,15 +102,25 @@ class TheWindow(QMainWindow):
                 v = m(
                     logic=self.ui.logic,
                     fun=fn,
+                    deri=deri,
                     x_a=x0,
-                    x_b=x1,
                     tol=tol,
                     steps=steps,
-                    deri=deri,
+                    x_b=x1,
                 )
 
                 self.ui.graph_.axes.scatter(
                     x0, fn(x0), label="X0", color="violet", zorder=3
+                )
+            elif method == 3:
+                v = m(
+                    logic=self.ui.logic,
+                    g=fn,
+                    fun=fn,
+                    x_a=x0,
+                    x_b=x1,
+                    tol=tol,
+                    steps=steps,
                 )
             else:
                 v = m(

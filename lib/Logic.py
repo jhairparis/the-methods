@@ -2,6 +2,7 @@ from pandas import DataFrame
 from sympy import sympify
 from lib.methods.bisection import bisection
 from lib.methods.newton import newton
+from lib.methods.point import point
 from lib.methods.secant import secant
 
 
@@ -26,7 +27,7 @@ class Logic:
     }
 
     def get_method(self, index):
-        methods = [bisection, newton, secant]
+        methods = [bisection, newton, secant, point]
 
         return methods[index]
 
