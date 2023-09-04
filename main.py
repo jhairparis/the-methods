@@ -83,6 +83,20 @@ class TheWindow(QMainWindow):
             self.ui.y_down.value = v
             self.create_main_graph()
 
+    def add_marks(self, method, df, fn):
+        ps = ["Pn", "p", "Xn", "x"]
+        for i in df.index:
+            self.ui.graph_.axes.scatter(
+                float(df[ps[method]].get(i)),
+                fn(float(df[ps[method]].get(i))),
+                label=f"{i} ite",
+                marker="*",
+                alpha=0.8,
+                s=50,
+                zorder=3,
+            )
+        return
+
     def click(self):
         try:
             self.create_main_graph()
@@ -147,17 +161,7 @@ class TheWindow(QMainWindow):
 
             self.ui.graph_.axes.scatter(v, 0, label="Root", color="yellow", zorder=3)
 
-            if method == 0:
-                for i in df.index:
-                    self.ui.graph_.axes.scatter(
-                        float(df["Pn"].get(i)),
-                        fn(float(df["Pn"].get(i))),
-                        label=f"{i} ite",
-                        marker="*",
-                        alpha=0.8,
-                        s=50,
-                        zorder=3,
-                    )
+            self.add_marks(method, df, fn)
 
             self.ui.graph_.draw()
 
