@@ -17,11 +17,12 @@ def point(logic, fun, g, x_a, tol=1e-4, steps=100, x_b=None):
 
         error = abs((x_a - old_error) / x_a)
         logic.data_err.append("%.6f" % error)
+        logic.data_fa.append("%.6f" % x_a)
+
         if error < tol:
             return x_a
 
         old_error = x_a
 
-        logic.data_fa.append("%.6f" % x_a)
 
     return x_a

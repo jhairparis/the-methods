@@ -1295,7 +1295,7 @@ QListView::item:selected {
 
         # Left side
         self.form = QtWidgets.QWidget(self.window)
-        self.form.setGeometry(QtCore.QRect(641, 0, 300, 520))
+        self.form.setGeometry(QtCore.QRect(641, 0, 320, 520))
         # self.form.setStyleSheet("background:red;")
 
         self.label_method = QtWidgets.QLabel(self.form)

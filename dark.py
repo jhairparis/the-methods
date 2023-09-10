@@ -6,6 +6,7 @@ import numpy as np
 from lib.Logic import Logic
 from modules.MplCanvas import MplCanvas
 from icons import styledark_rc
+
 # from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 
 from modules.TableModel import TableModel
@@ -1296,7 +1297,7 @@ QListView::item:selected {
 
         # Left side
         self.form = QtWidgets.QWidget(self.window)
-        self.form.setGeometry(QtCore.QRect(641, 0, 300, 520))
+        self.form.setGeometry(QtCore.QRect(641, 0, 320, 520))
         # self.form.setStyleSheet("background:red;")
 
         self.label_method = QtWidgets.QLabel(self.form)

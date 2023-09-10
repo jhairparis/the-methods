@@ -1,15 +1,18 @@
 import sys
 from PySide2 import QtWidgets
 from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QMainWindow, QApplication
+from PySide2.QtWidgets import QMainWindow, QApplication, QDialog
 from PySide2.QtWinExtras import QtWin
 import numpy as np
 from win32mica import ApplyMica, MICAMODE
 import darkdetect
 import matplotlib
 from lib.methods.newton import derivative
+from modules.Dialog import CustomDialog
 from modules.blurwindow import GlobalBlur
 from plyer import notification
+from sympy import latex, sympify
+from modules.latexText import mathTex_to_QPixmap
 
 matplotlib.use("Qt5Agg")
 
@@ -20,6 +23,11 @@ else:
 
 
 class TheWindow(QMainWindow):
+    def create_latex(self):
+        ltx = latex(sympify(self.ui.fn_box.value))
+        self.ui.label_fn.setPixmap(mathTex_to_QPixmap(f"${ltx}$", 11))
+        return
+
     def create_main_graph(self):
         self.ui.graph_.axes.cla()
 
@@ -38,6 +46,8 @@ class TheWindow(QMainWindow):
             infinite = np.linspace(x_left, x_right, 101)
 
             self.ui.logic.fn = self.ui.logic.gen_fn(self.ui.fn_box.value)
+
+            self.create_latex()
 
             (self.graph_line,) = self.ui.graph_.axes.plot(
                 infinite,
@@ -127,15 +137,20 @@ class TheWindow(QMainWindow):
                     x0, fn(x0), label="X0", color="violet", zorder=3
                 )
             elif method == 3:
-                v = m(
-                    logic=self.ui.logic,
-                    g=fn,
-                    fun=fn,
-                    x_a=x0,
-                    x_b=x1,
-                    tol=tol,
-                    steps=steps,
-                )
+                dlg = CustomDialog(str_fn)
+                if dlg.exec():
+                    v = m(
+                        logic=self.ui.logic,
+                        g=dlg.sol_fn,
+                        fun=fn,
+                        x_a=x0,
+                        x_b=x1,
+                        tol=tol,
+                        steps=steps,
+                    )
+                else:
+                    print("Cancel!")
+
             else:
                 v = m(
                     logic=self.ui.logic,
