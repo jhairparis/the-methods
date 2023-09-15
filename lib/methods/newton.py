@@ -1,8 +1,10 @@
-from sympy import diff, sympify, abc
+from sympy import diff, latex, sympify, abc
 
 
 def derivative(functionX):
     dx = diff(sympify(functionX), abc.x)
+
+    print("Derivada", latex(dx))
 
     def fd(x: 1):
         return dx.evalf(subs={"x": x})

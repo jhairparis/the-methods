@@ -1337,7 +1337,7 @@ QListView::item:selected {
         self.iteration_box = QtWidgets.QSpinBox(self.window)
         self.iteration_box.setEnabled(True)
         self.iteration_box.setMinimum(1)
-        self.iteration_box.setMaximum(1000)
+        self.iteration_box.setMaximum(9999)
         self.iteration_box.setGeometry(QtCore.QRect(50, 20, 190, 40))
         self.iteration_box.setStyleSheet("")
         self.iteration_box.setObjectName("iteration_box")
