@@ -29,12 +29,12 @@ def darkSheet(accent):
 	}
 
 	QMenuBar::item:selected {
-		background-color: rgb(255, 255, 255, 20);
+		background-color: rgba(255, 255, 255, 20);
 	}
 
 	QMenuBar::item:pressed {
-		background-color: rgb(255, 255, 255, 13);
-		color: rgb(255, 255, 255, 200);
+		background-color: rgba(255, 255, 255, 13);
+		color: rgba(255, 255, 255, 200);
 	}
 
 	QMenu {
@@ -42,7 +42,7 @@ def darkSheet(accent):
 		padding-left: 1px;
 		padding-top: 1px;
 		border-radius: 5px;
-		border: 1px solid rgb(255, 255, 255, 13);
+		border: 1px solid rgba(255, 255, 255, 13);
 	}
 
 	QMenu::item {
@@ -54,11 +54,11 @@ def darkSheet(accent):
 	}
 
 	QMenu::item:selected {
-		background-color: rgb(255, 255, 255, 16);
+		background-color: rgba(255, 255, 255, 16);
 	}
 
 	QMenu::item:pressed {
-		background-color: rgb(255, 255, 255, 10);
+		background-color: rgba(255, 255, 255, 10);
 	}
 
 	QMenu::right-arrow {
@@ -78,27 +78,27 @@ def darkSheet(accent):
 
 	/*PUSHBUTTON*/
 	QPushButton {
-		background-color: rgb(255, 255, 255, 18);
-		border: 1px solid rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 18);
+		border: 1px solid rgba(255, 255, 255, 13);
 		border-radius: 7px;
 		min-height: 38px;
 		max-height: 38px;
 	}
 
 	QPushButton:hover {
-		background-color: rgb(255, 255, 255, 25);
-		border: 1px solid rgb(255, 255, 255, 10);
+		background-color: rgba(255, 255, 255, 25);
+		border: 1px solid rgba(255, 255, 255, 10);
 	}
 
 	QPushButton::pressed {
-		background-color: rgb(255, 255, 255, 7);
-		border: 1px solid rgb(255, 255, 255, 13);
-		color: rgb(255, 255, 255, 200);
+		background-color: rgba(255, 255, 255, 7);
+		border: 1px solid rgba(255, 255, 255, 13);
+		color: rgba(255, 255, 255, 200);
 	}
 
 	QPushButton::disabled {
 		color: rgb(150, 150, 150);
-		background-color: rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 13);
 	}
 
 	/*RADIOBUTTON*/
@@ -112,16 +112,16 @@ def darkSheet(accent):
 		height: 22px;
 		border-radius: 13px;
 		border: 2px solid #848484;
-		background-color: rgb(255, 255, 255, 0);
+		background-color: rgba(255, 255, 255, 0);
 		margin-right: 5px;
 	}
 
 	QRadioButton::indicator:hover {
-		background-color: rgb(255, 255, 255, 16);
+		background-color: rgba(255, 255, 255, 16);
 	}
 
 	QRadioButton::indicator:pressed {
-		background-color: rgb(255, 255, 255, 20);
+		background-color: rgba(255, 255, 255, 20);
 		border: 2px solid #434343;
 		image: url(:/RadioButton/img dark/RadioButton.png);
 	}
@@ -150,7 +150,7 @@ def darkSheet(accent):
 
 	QRadioButton::indicator:disabled {
 		border: 2px solid #646464;
-		background-color: rgb(255, 255, 255, 0);
+		background-color: rgba(255, 255, 255, 0);
 	}
 
 	/*CHECKBOX*/
@@ -164,16 +164,16 @@ def darkSheet(accent):
 		height: 22px;
 		border-radius: 5px;
 		border: 2px solid #848484;
-		background-color: rgb(255, 255, 255, 0);
+		background-color: rgba(255, 255, 255, 0);
 		margin-right: 5px;
 	}
 
 	QCheckBox::indicator:hover {
-		background-color: rgb(255, 255, 255, 16);
+		background-color: rgba(255, 255, 255, 16);
 	}
 
 	QCheckBox::indicator:pressed {
-		background-color: rgb(255, 255, 255, 20);
+		background-color: rgba(255, 255, 255, 20);
 		border: 2px solid #434343;
 	}
 
@@ -197,20 +197,20 @@ def darkSheet(accent):
 
 	QCheckBox::indicator:disabled {
 		border: 2px solid #646464;
-		background-color: rgb(255, 255, 255, 0);
+		background-color: rgba(255, 255, 255, 0);
 	}
 
 	/*GROUPBOX*/
 	QGroupBox {
 		border-radius: 5px;
-		border: 1px solid rgb(255, 255, 255, 13);
+		border: 1px solid rgba(255, 255, 255, 13);
 		margin-top: 36px;
 	}
 
 	QGroupBox::title {
 		subcontrol-origin: margin;
 		subcontrol-position: top left;
-		background-color: rgb(255, 255, 255, 16);
+		background-color: rgba(255, 255, 255, 16);
 		padding: 7px 15px;
 		margin-left: 5px;
 		border-top-left-radius: 5px;
@@ -230,7 +230,7 @@ def darkSheet(accent):
 	}
 
 	QTabWidget::pane {
-		border: 1px solid rgb(43, 43, 43);
+		border: 1px solid rgba(43, 43, 43);
 		border-radius: 5px;
 	}
 
@@ -239,19 +239,19 @@ def darkSheet(accent):
 	}
 
 	QTabBar::tab {
-		background-color: rgb(255, 255, 255, 0);
+		background-color: rgba(255, 255, 255, 0);
 		padding: 7px 15px;
 		margin-right: 2px;
 	}
 
 	QTabBar::tab:hover {
-		background-color: rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 13);
 		border-top-left-radius: 5px;
 		border-top-right-radius: 5px;
 	}
 
 	QTabBar::tab:selected {
-		background-color: rgb(255, 255, 255, 16);
+		background-color: rgba(255, 255, 255, 16);
 		border-top-left-radius: 5px;
 		border-top-right-radius: 5px;
 	}
@@ -262,26 +262,26 @@ def darkSheet(accent):
 
 	/*SPINBOX*/
 	QSpinBox {
-		background-color: rgb(255, 255, 255, 10);
-		border: 1px solid rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 10);
+		border: 1px solid rgba(255, 255, 255, 13);
 		border-radius: 5px;
 		padding-left: 10px;
 		min-height: 38px;
 		max-height: 38px;
 		min-width: 100px;
-		border-bottom: 1px solid rgb(255, 255, 255, 150);
+		border-bottom: 1px solid rgba(255, 255, 255, 150);
 	}
 
 	QSpinBox:hover {
-		background-color: rgb(255, 255, 255, 16);
-		border: 1px solid rgb(255, 255, 255, 13);
-		border-bottom: 1px solid rgb(255, 255, 255, 150);
+		background-color: rgba(255, 255, 255, 16);
+		border: 1px solid rgba(255, 255, 255, 13);
+		border-bottom: 1px solid rgba(255, 255, 255, 150);
 	}
 
 	QSpinBox::focus {
-		background-color: rgb(255, 255, 255, 5);
-		border: 1px solid rgb(255, 255, 255, 13);
-		color: rgb(255, 255, 255, 200);
+		background-color: rgba(255, 255, 255, 5);
+		border: 1px solid rgba(255, 255, 255, 13);
+		color: rgba(255, 255, 255, 200);
 		border-bottom: 2px solid """
         + accent
         + """;
@@ -289,8 +289,8 @@ def darkSheet(accent):
 
 	QSpinBox::up-button {
 		image: url(:/SpinBox/img dark/SpinBoxUp.png);
-		background-color: rgb(0, 0, 0, 0);
-		border: 1px solid rgb(0, 0, 0, 0);
+		background-color: rgba(0, 0, 0, 0);
+		border: 1px solid rgba(0, 0, 0, 0);
 		border-radius: 4px;
 		margin-top: 1px;
 		margin-bottom: 1px;
@@ -301,17 +301,17 @@ def darkSheet(accent):
 	}
 
 	QSpinBox::up-button:hover {
-		background-color: rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 13);
 	}
 
 	QSpinBox::up-button:pressed {
-		background-color: rgb(255, 255, 255, 5);
+		background-color: rgba(255, 255, 255, 5);
 	}
 
 	QSpinBox::down-button {
 		image: url(:/SpinBox/img dark/SpinBoxDown.png);
-		background-color: rgb(0, 0, 0, 0);
-		border: 1px solid rgb(0, 0, 0, 0);
+		background-color: rgba(0, 0, 0, 0);
+		border: 1px solid rgba(0, 0, 0, 0);
 		border-radius: 4px;
 		margin-top: 1px;
 		margin-bottom: 1px;
@@ -322,11 +322,11 @@ def darkSheet(accent):
 	}
 
 	QSpinBox::down-button:hover {
-		background-color: rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 13);
 	}
 
 	QSpinBox::down-button:pressed {
-		background-color: rgb(255, 255, 255, 5);
+		background-color: rgba(255, 255, 255, 5);
 	}
 
 	QSpinBox::drop-down {
@@ -336,8 +336,8 @@ def darkSheet(accent):
 
 	QSpinBox:disabled {
 		color: rgb(150, 150, 150);
-		background-color: rgb(255, 255, 255, 13);
-		border: 1px solid rgb(255, 255, 255, 5);
+		background-color: rgba(255, 255, 255, 13);
+		border: 1px solid rgba(255, 255, 255, 5);
 	}
 
 	QSpinBox::up-button:disabled {
@@ -350,26 +350,26 @@ def darkSheet(accent):
 
 	/*DOUBLESPINBOX*/
 	QDoubleSpinBox {
-		background-color: rgb(255, 255, 255, 10);
-		border: 1px solid rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 10);
+		border: 1px solid rgba(255, 255, 255, 13);
 		border-radius: 5px;
 		padding-left: 10px;
 		min-height: 38px;
 		max-height: 38px;
 		min-width: 100px;
-		border-bottom: 1px solid rgb(255, 255, 255, 150);
+		border-bottom: 1px solid rgba(255, 255, 255, 150);
 	}
 
 	QDoubleSpinBox:hover {
-		background-color: rgb(255, 255, 255, 16);
-		border: 1px solid rgb(255, 255, 255, 13);
-		border-bottom: 1px solid rgb(255, 255, 255, 150);
+		background-color: rgba(255, 255, 255, 16);
+		border: 1px solid rgba(255, 255, 255, 13);
+		border-bottom: 1px solid rgba(255, 255, 255, 150);
 	}
 
 	QDoubleSpinBox::focus {
-		background-color: rgb(255, 255, 255, 5);
-		border: 1px solid rgb(255, 255, 255, 13);
-		color: rgb(255, 255, 255, 200);
+		background-color: rgba(255, 255, 255, 5);
+		border: 1px solid rgba(255, 255, 255, 13);
+		color: rgba(255, 255, 255, 200);
 		border-bottom: 2px solid """
         + accent
         + """;
@@ -377,8 +377,8 @@ def darkSheet(accent):
 
 	QDoubleSpinBox::up-button {
 		image: url(:/SpinBox/img dark/SpinBoxUp.png);
-		background-color: rgb(0, 0, 0, 0);
-		border: 1px solid rgb(0, 0, 0, 0);
+		background-color: rgba(0, 0, 0, 0);
+		border: 1px solid rgba(0, 0, 0, 0);
 		border-radius: 4px;
 		margin-top: 1px;
 		margin-bottom: 1px;
@@ -389,17 +389,17 @@ def darkSheet(accent):
 	}
 
 	QDoubleSpinBox::up-button:hover {
-		background-color: rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 13);
 	}
 
 	QDoubleSpinBox::up-button:pressed {
-		background-color: rgb(255, 255, 255, 5);
+		background-color: rgba(255, 255, 255, 5);
 	}
 
 	QDoubleSpinBox::down-button {
 		image: url(:/SpinBox/img dark/SpinBoxDown.png);
-		background-color: rgb(0, 0, 0, 0);
-		border: 1px solid rgb(0, 0, 0, 0);
+		background-color: rgba(0, 0, 0, 0);
+		border: 1px solid rgba(0, 0, 0, 0);
 		border-radius: 4px;
 		margin-top: 1px;
 		margin-bottom: 1px;
@@ -410,11 +410,11 @@ def darkSheet(accent):
 	}
 
 	QDoubleSpinBox::down-button:hover {
-		background-color: rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 13);
 	}
 
 	QDoubleSpinBox::down-button:pressed {
-		background-color: rgb(255, 255, 255, 5);
+		background-color: rgba(255, 255, 255, 5);
 	}
 
 	QDoubleSpinBox::drop-down {
@@ -424,8 +424,8 @@ def darkSheet(accent):
 
 	QDoubleSpinBox:disabled {
 		color: rgb(150, 150, 150);
-		background-color: rgb(255, 255, 255, 13);
-		border: 1px solid rgb(255, 255, 255, 5);
+		background-color: rgba(255, 255, 255, 13);
+		border: 1px solid rgba(255, 255, 255, 5);
 	}
 
 	QDoubleSpinBox::up-button:disabled {
@@ -438,26 +438,26 @@ def darkSheet(accent):
 
 	/*DATETIMEEDIT*/
 	QDateTimeEdit {
-		background-color: rgb(255, 255, 255, 10);
-		border: 1px solid rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 10);
+		border: 1px solid rgba(255, 255, 255, 13);
 		border-radius: 5px;
 		padding-left: 10px;
 		min-height: 38px;
 		max-height: 38px;
 		min-width: 100px;
-		border-bottom: 1px solid rgb(255, 255, 255, 150);
+		border-bottom: 1px solid rgba(255, 255, 255, 150);
 	}
 
 	QDateTimeEdit:hover {
-		background-color: rgb(255, 255, 255, 16);
-		border: 1px solid rgb(255, 255, 255, 13);
-		border-bottom: 1px solid rgb(255, 255, 255, 150);
+		background-color: rgba(255, 255, 255, 16);
+		border: 1px solid rgba(255, 255, 255, 13);
+		border-bottom: 1px solid rgba(255, 255, 255, 150);
 	}
 
 	QDateTimeEdit::focus {
-		background-color: rgb(255, 255, 255, 5);
-		border: 1px solid rgb(255, 255, 255, 13);
-		color: rgb(255, 255, 255, 200);
+		background-color: rgba(255, 255, 255, 5);
+		border: 1px solid rgba(255, 255, 255, 13);
+		color: rgba(255, 255, 255, 200);
 		border-bottom: 2px solid """
         + accent
         + """;
@@ -465,8 +465,8 @@ def darkSheet(accent):
 
 	QDateTimeEdit::up-button {
 		image: url(:/SpinBox/img dark/SpinBoxUp.png);
-		background-color: rgb(0, 0, 0, 0);
-		border: 1px solid rgb(0, 0, 0, 0);
+		background-color: rgba(0, 0, 0, 0);
+		border: 1px solid rgba(0, 0, 0, 0);
 		border-radius: 4px;
 		margin-top: 1px;
 		margin-bottom: 1px;
@@ -477,17 +477,17 @@ def darkSheet(accent):
 	}
 
 	QDateTimeEdit::up-button:hover {
-		background-color: rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 13);
 	}
 
 	QDateTimeEdit::up-button:pressed {
-		background-color: rgb(255, 255, 255, 5);
+		background-color: rgba(255, 255, 255, 5);
 	}
 
 	QDateTimeEdit::down-button {
 		image: url(:/SpinBox/img dark/SpinBoxDown.png);
-		background-color: rgb(0, 0, 0, 0);
-		border: 1px solid rgb(0, 0, 0, 0);
+		background-color: rgba(0, 0, 0, 0);
+		border: 1px solid rgba(0, 0, 0, 0);
 		border-radius: 4px;
 		margin-top: 1px;
 		margin-bottom: 1px;
@@ -498,11 +498,11 @@ def darkSheet(accent):
 	}
 
 	QDateTimeEdit::down-button:hover {
-		background-color: rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 13);
 	}
 
 	QDateTimeEdit::down-button:pressed {
-		background-color: rgb(255, 255, 255, 5);
+		background-color: rgba(255, 255, 255, 5);
 	}
 
 	QDateTimeEdit::drop-down {
@@ -512,8 +512,8 @@ def darkSheet(accent):
 
 	QDateTimeEdit:disabled {
 		color: rgb(150, 150, 150);
-		background-color: rgb(255, 255, 255, 13);
-		border: 1px solid rgb(255, 255, 255, 5);
+		background-color: rgba(255, 255, 255, 13);
+		border: 1px solid rgba(255, 255, 255, 5);
 	}
 
 	QDateTimeEdit::up-button:disabled {
@@ -532,7 +532,7 @@ def darkSheet(accent):
 
 	QSlider::groove:vertical {
 		width: 5px; 
-		background-color: rgb(255, 255, 255, 150);
+		background-color: rgba(255, 255, 255, 150);
 		border-radius: 2px;
 	}
 
@@ -570,7 +570,7 @@ def darkSheet(accent):
 	}
 
 	QSlider::groove:vertical:disabled {
-		background-color: rgb(255, 255, 255, 75);
+		background-color: rgba(255, 255, 255, 75);
 	}
 
 	QSlider::handle:vertical:disabled {
@@ -586,7 +586,7 @@ def darkSheet(accent):
 
 	QSlider::groove:horizontal {
 		height: 5px; 
-		background-color: rgb(255, 255, 255, 150);
+		background-color: rgba(255, 255, 255, 150);
 		border-radius: 2px;
 	}
 
@@ -624,7 +624,7 @@ def darkSheet(accent):
 	}
 
 	QSlider::groove:horizontal:disabled {
-		background-color: rgb(255, 255, 255, 75);
+		background-color: rgba(255, 255, 255, 75);
 	}
 
 	QSlider::handle:horizontal:disabled {
@@ -649,8 +649,8 @@ def darkSheet(accent):
 
 	/*COMBOBOX*/
 	QComboBox {
-		background-color: rgb(255, 255, 255, 16);
-		border: 1px solid rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 16);
+		border: 1px solid rgba(255, 255, 255, 13);
 		border-radius: 5px;
 		padding-left: 10px;
 		min-height: 38px;
@@ -658,14 +658,14 @@ def darkSheet(accent):
 	}
 
 	QComboBox:hover {
-		background-color: rgb(255, 255, 255, 20);
-		border: 1px solid rgb(255, 255, 255, 10);
+		background-color: rgba(255, 255, 255, 20);
+		border: 1px solid rgba(255, 255, 255, 10);
 	}
 
 	QComboBox::pressed {
-		background-color: rgb(255, 255, 255, 20);
-		border: 1px solid rgb(255, 255, 255, 13);
-		color: rgb(255, 255, 255, 200);
+		background-color: rgba(255, 255, 255, 20);
+		border: 1px solid rgba(255, 255, 255, 13);
+		color: rgba(255, 255, 255, 200);
 	}
 
 	QComboBox::down-arrow {
@@ -679,8 +679,8 @@ def darkSheet(accent):
 
 	QComboBox:disabled {
 		color: rgb(150, 150, 150);
-		background-color: rgb(255, 255, 255, 13);
-		border: 1px solid rgb(255, 255, 255, 5);
+		background-color: rgba(255, 255, 255, 13);
+		border: 1px solid rgba(255, 255, 255, 5);
 	}
 
 	QComboBox::down-arrow:disabled {
@@ -689,52 +689,52 @@ def darkSheet(accent):
 
 	/*LINEEDIT*/
 	QLineEdit {
-		background-color: rgb(255, 255, 255, 16);
-		border: 1px solid rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 16);
+		border: 1px solid rgba(255, 255, 255, 13);
 		font-size: 16px;
 		font-family: "Segoe UI", serif;
 		font-weight: 500;
 		border-radius: 7px;
-		border-bottom: 1px solid rgb(255, 255, 255, 150);
+		border-bottom: 1px solid rgba(255, 255, 255, 150);
 		padding-top: 0px;
 		padding-left: 5px;
 	}
 
 	QLineEdit:hover {
-		background-color: rgb(255, 255, 255, 20);
-		border: 1px solid rgb(255, 255, 255, 10);
-		border-bottom: 1px solid rgb(255, 255, 255, 150);
+		background-color: rgba(255, 255, 255, 20);
+		border: 1px solid rgba(255, 255, 255, 10);
+		border-bottom: 1px solid rgba(255, 255, 255, 150);
 	}
 
 	QLineEdit:focus {
 		border-bottom: 2px solid """
         + accent
         + """;
-		background-color: rgb(255, 255, 255, 5);
-		border-top: 1px solid rgb(255, 255, 255, 13);
-		border-left: 1px solid rgb(255, 255, 255, 13);
-		border-right: 1px solid rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 5);
+		border-top: 1px solid rgba(255, 255, 255, 13);
+		border-left: 1px solid rgba(255, 255, 255, 13);
+		border-right: 1px solid rgba(255, 255, 255, 13);
 	}
 
 	QLineEdit:disabled {
 		color: rgb(150, 150, 150);
-		background-color: rgb(255, 255, 255, 13);
-		border: 1px solid rgb(255, 255, 255, 5);
+		background-color: rgba(255, 255, 255, 13);
+		border: 1px solid rgba(255, 255, 255, 5);
 	}
 
 	/*SCROLLVERTICAL*/
 	QScrollBar:vertical {
-		border: 6px solid rgb(255, 255, 255, 0);
+		border: 6px solid rgba(255, 255, 255, 0);
 		margin: 14px 0px 14px 0px;
 		width: 16px;
 	}
 
 	QScrollBar:vertical:hover {
-		border: 5px solid rgb(255, 255, 255, 0);
+		border: 5px solid rgba(255, 255, 255, 0);
 	}
 
 	QScrollBar::handle:vertical {
-		background-color: rgb(255, 255, 255, 130);
+		background-color: rgba(255, 255, 255, 130);
 		border-radius: 2px;
 		min-height: 25px;
 	}
@@ -773,17 +773,17 @@ def darkSheet(accent):
 
 	/*SCROLLHORIZONTAL*/
 	QScrollBar:horizontal {
-		border: 6px solid rgb(255, 255, 255, 0);
+		border: 6px solid rgba(255, 255, 255, 0);
 		margin: 0px 14px 0px 14px;
 		height: 16px;
 	}
 
 	QScrollBar:horizontal:hover {
-		border: 5px solid rgb(255, 255, 255, 0);
+		border: 5px solid rgba(255, 255, 255, 0);
 	}
 
 	QScrollBar::handle:horizontal {
-		background-color: rgb(255, 255, 255, 130);
+		background-color: rgba(255, 255, 255, 130);
 		border-radius: 2px;
 		min-width: 25px;
 	}
@@ -822,36 +822,36 @@ def darkSheet(accent):
 
 	/*TEXTEDIT*/
 	QTextEdit {
-		background-color: rgb(255, 255, 255, 16);
-		border: 1px solid rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 16);
+		border: 1px solid rgba(255, 255, 255, 13);
 		font-size: 16px;
 		font-family: "Segoe UI", serif;
 		font-weight: 500;
 		border-radius: 7px;
-		border-bottom: 1px solid rgb(255, 255, 255, 150);
+		border-bottom: 1px solid rgba(255, 255, 255, 150);
 		padding: 5px;
 	}
 
 	QTextEdit:hover {
-		background-color: rgb(255, 255, 255, 20);
-		border: 1px solid rgb(255, 255, 255, 10);
-		border-bottom: 1px solid rgb(255, 255, 255, 150);
+		background-color: rgba(255, 255, 255, 20);
+		border: 1px solid rgba(255, 255, 255, 10);
+		border-bottom: 1px solid rgba(255, 255, 255, 150);
 	}
 
 	QTextEdit:focus {
 		border-bottom: 2px solid """
         + accent
         + """;
-		background-color: rgb(255, 255, 255, 5);
-		border-top: 1px solid rgb(255, 255, 255, 13);
-		border-left: 1px solid rgb(255, 255, 255, 13);
-		border-right: 1px solid rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 5);
+		border-top: 1px solid rgba(255, 255, 255, 13);
+		border-left: 1px solid rgba(255, 255, 255, 13);
+		border-right: 1px solid rgba(255, 255, 255, 13);
 	}
 
 	QTextEdit:disabled {
 		color: rgb(150, 150, 150);
-		background-color: rgb(255, 255, 255, 13);
-		border: 1px solid rgb(255, 255, 255, 5);
+		background-color: rgba(255, 255, 255, 13);
+		border: 1px solid rgba(255, 255, 255, 5);
 	}
 
 	/*CALENDAR*/
@@ -861,13 +861,13 @@ def darkSheet(accent):
 	QCalendarWidget QToolButton {
 		height: 36px;
 		font-size: 18px;
-		background-color: rgb(255, 255, 255, 0);
+		background-color: rgba(255, 255, 255, 0);
 		margin: 5px;
 	}
 
 	QCalendarWidget QWidget#qt_calendar_navigationbar { 
-		background-color: rgb(255, 255, 255, 0); 
-		border: 1px solid rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 0); 
+		border: 1px solid rgba(255, 255, 255, 13);
 		border-top-left-radius: 5px;
 		border-top-right-radius: 5px;
 		border-bottom-left-radius: 0px;
@@ -886,12 +886,12 @@ def darkSheet(accent):
 	}
 
 	#qt_calendar_prevmonth:hover, #qt_calendar_nextmonth:hover {
-		background-color: rgb(255, 255, 255, 16);
+		background-color: rgba(255, 255, 255, 16);
 		border-radius: 5px;
 	}
 
 	#qt_calendar_prevmonth:pressed, #qt_calendar_nextmonth:pressed {
-		background-color: rgb(255, 255, 255, 10);
+		background-color: rgba(255, 255, 255, 10);
 		border-radius: 5px;
 	}
 
@@ -902,12 +902,12 @@ def darkSheet(accent):
 	}
 
 	#qt_calendar_yearbutton:hover, #qt_calendar_monthbutton:hover {
-		background-color: rgb(255, 255, 255, 16);
+		background-color: rgba(255, 255, 255, 16);
 		border-radius: 5px;
 	}
 
 	#qt_calendar_yearbutton:pressed, #qt_calendar_monthbutton:pressed {
-		background-color: rgb(255, 255, 255, 10);
+		background-color: rgba(255, 255, 255, 10);
 		border-radius: 5px;
 	}
 
@@ -924,9 +924,9 @@ def darkSheet(accent):
 	}
 
 	QCalendarWidget QSpinBox::focus {
-		background-color: rgb(255, 255, 255, 5);
-		border: 1px solid rgb(255, 255, 255, 13);
-		color: rgb(0, 0, 0, 200);
+		background-color: rgba(255, 255, 255, 5);
+		border: 1px solid rgba(255, 255, 255, 13);
+		color: rgba(0, 0, 0, 200);
 		border-bottom: 2px solid """
         + accent
         + """;
@@ -934,8 +934,8 @@ def darkSheet(accent):
 
 	QCalendarWidget QSpinBox::up-button {
 		image: url(:/SpinBox/img dark/SpinBoxUp.png);
-		background-color: rgb(0, 0, 0, 0);
-		border: 1px solid rgb(0, 0, 0, 0);
+		background-color: rgba(0, 0, 0, 0);
+		border: 1px solid rgba(0, 0, 0, 0);
 		border-radius: 4px;
 		margin-top: 1px;
 		margin-bottom: 1px;
@@ -946,17 +946,17 @@ def darkSheet(accent):
 	}
 
 	QCalendarWidget QSpinBox::up-button:hover {
-		background-color: rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 13);
 	}
 
 	QCalendarWidget QSpinBox::up-button:pressed {
-		background-color: rgb(255, 255, 255, 5);
+		background-color: rgba(255, 255, 255, 5);
 	}
 
 	QCalendarWidget QSpinBox::down-button {
 		image: url(:/SpinBox/img dark/SpinBoxDown.png);
-		background-color: rgb(0, 0, 0, 0);
-		border: 1px solid rgb(0, 0, 0, 0);
+		background-color: rgba(0, 0, 0, 0);
+		border: 1px solid rgba(0, 0, 0, 0);
 		border-radius: 4px;
 		margin-top: 1px;
 		margin-bottom: 1px;
@@ -967,15 +967,15 @@ def darkSheet(accent):
 	}
 
 	QCalendarWidget QSpinBox::down-button:hover {
-		background-color: rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 13);
 	}
 
 	QCalendarWidget QSpinBox::down-button:pressed {
-		background-color: rgb(255, 255, 255, 5);
+		background-color: rgba(255, 255, 255, 5);
 	}
 
 	QCalendarWidget QWidget { 
-		alternate-background-color: rgb(255, 255, 255, 0); 
+		alternate-background-color: rgba(255, 255, 255, 0); 
 	}
 
 	QCalendarWidget QAbstractItemView:enabled {
@@ -984,7 +984,7 @@ def darkSheet(accent):
         + accent
         + """;
 		selection-color: black;
-		border: 1px solid rgb(255, 255, 255, 13);
+		border: 1px solid rgba(255, 255, 255, 13);
 		border-top-left-radius: 0px;
 		border-top-right-radius: 0px;
 		border-bottom-left-radius: 5px;
@@ -996,7 +996,7 @@ def darkSheet(accent):
 		color: rgb(150, 150, 150);  
 		selection-background-color: rgb(150, 150, 150);
 		selection-color: black;
-		border: 1px solid rgb(255, 255, 255, 13);
+		border: 1px solid rgba(255, 255, 255, 13);
 		border-top-left-radius: 0px;
 		border-top-right-radius: 0px;
 		border-bottom-left-radius: 5px;
@@ -1018,7 +1018,7 @@ def darkSheet(accent):
 	/*TREEWIDGET*/
 	QTreeView {
 		background-color: transparent;
-		border: 1px solid rgb(255, 255, 255, 13);
+		border: 1px solid rgba(255, 255, 255, 13);
 		border-radius: 5px;
 		outline: 0;
 		padding-right: 5px;
@@ -1031,14 +1031,14 @@ def darkSheet(accent):
 
 	QTreeView::item:selected {
 		color: white;
-		background-color: rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 13);
 		border-radius: 5px;
 		margin-bottom: 3px;
 		padding-left: 0px;
 	}
 
 	QTreeView::item:!selected:hover {
-		background-color: rgb(255, 255, 255, 16);
+		background-color: rgba(255, 255, 255, 16);
 		border-radius: 5px;
 		margin-bottom: 3px;
 		padding-left: 0px;
@@ -1071,7 +1071,7 @@ def darkSheet(accent):
 		height: 22px;
 		border-radius: 13px;
 		border: 2px solid #848484;
-		background-color: rgb(255, 255, 255, 0);
+		background-color: rgba(255, 255, 255, 0);
 		image: url(:/ToggleSwitch/img dark/ToggleSwitchOff.png);
 		margin-right: 5px;
 		padding-right: 25px;
@@ -1079,12 +1079,12 @@ def darkSheet(accent):
 	}
 
 	#toggleSwitch::indicator:hover {
-		background-color: rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 13);
 		image: url(:/ToggleSwitch/img dark/ToggleSwitchOffHover.png);
 	}
 
 	#toggleSwitch::indicator:pressed {
-		background-color: rgb(255, 255, 255, 20);
+		background-color: rgba(255, 255, 255, 20);
 		width: 26px;
 		padding-right: 21px;
 		image: url(:/ToggleSwitch/img dark/ToggleSwitchOffPressed.png);
@@ -1124,7 +1124,7 @@ def darkSheet(accent):
 
 	#toggleSwitch::indicator:disabled {
 		border: 2px solid #646464;
-		background-color: rgb(255, 255, 255, 0);
+		background-color: rgba(255, 255, 255, 0);
 		image: url(:/ToggleSwitch/img dark/ToggleSwitchDisabled.png);
 	}
 
@@ -1136,16 +1136,16 @@ def darkSheet(accent):
 		font-size: 17px;
 		font-family: "Segoe UI Variable Small", serif;
 		border-radius: 5px;
-		background-color: rgb(255, 255, 255, 0);
+		background-color: rgba(255, 255, 255, 0);
 		border: none;
 	}
 
 	#hyperlinkButton:hover {
-		background-color: rgb(255, 255, 255, 20);
+		background-color: rgba(255, 255, 255, 20);
 	}
 
 	#hyperlinkButton::pressed {
-		background-color: rgb(255, 255, 255, 15);
+		background-color: rgba(255, 255, 255, 15);
 		color: """
         + accent
         + """;
@@ -1171,7 +1171,7 @@ def darkSheet(accent):
 	}
 
 	QListView::item:selected {
-		background-color: rgb(255, 255, 255, 13);
+		background-color: rgba(255, 255, 255, 13);
 		color: white;
 		border-radius: 5px;
 		padding-left: 0px;
