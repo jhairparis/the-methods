@@ -1,7 +1,7 @@
 def point(logic, fun, g, x_a, tol=1e-4, steps=100, x_b=None):
     logic.reset()
 
-    logic.method_title = "Punto fijo"
+    logic.method_title = "Fixed point"
 
     logic.data = {
         "x": logic.data_an,
@@ -23,6 +23,5 @@ def point(logic, fun, g, x_a, tol=1e-4, steps=100, x_b=None):
             return x_a
 
         old_error = x_a
-
 
     return x_a

@@ -10,7 +10,7 @@ def secant(logic, fun, x_a, x_b, tol=1e-4, steps=100):
         "relative error": logic.data_err,
     }
 
-    logic.method_title = "Secante"
+    logic.method_title = "Secant"
 
     old_error = 0
     p = x_b
