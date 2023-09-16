@@ -2,6 +2,7 @@ import re
 from PySide2.QtWidgets import QDialog, QDialogButtonBox, QVBoxLayout, QLabel, QWidget
 from sympy import sympify, solve, latex
 from modules.latexText import mathTex_to_QPixmap
+from modules.mica.styleSheet import setMicaWindow, setStyleSheet
 
 
 class CustomDialog(QDialog):
@@ -21,7 +22,9 @@ class CustomDialog(QDialog):
         super().__init__()
 
         self.setWindowTitle("Confirm g1(x)")
-        self.setStyleSheet("background-color : black;")
+
+        setMicaWindow(self)
+        setStyleSheet(self)
 
         self.eq = sympify(fun)
         self.ez = sympify(self.replace_x(fun))
@@ -33,20 +36,17 @@ class CustomDialog(QDialog):
         self.sol_fn = f
 
         message = QLabel("f(x):")
-        message.setStyleSheet("color : white;")
 
         self.label_fun = QLabel()
         eqLatex = f"${latex(self.eq)}$"
         self.label_fun.setPixmap(mathTex_to_QPixmap(eqLatex, 10))
 
         message2 = QLabel("x=")
-        message2.setStyleSheet("color : white;")
         self.label_fun_x = QLabel()
         ezLatex = f"${latex(self.ez)}$"
         self.label_fun_x.setPixmap(mathTex_to_QPixmap(ezLatex, 10))
 
         message3 = QLabel("solved for x=")
-        message3.setStyleSheet("color : white;")
         self.label_fun_solved = QLabel()
         solLatex = f"${latex(self.sol[0])}$"
         self.label_fun_solved.setPixmap(mathTex_to_QPixmap(solLatex, 10))
@@ -56,7 +56,6 @@ class CustomDialog(QDialog):
         self.buttonBox = QDialogButtonBox(QBtn)
         self.buttonBox.accepted.connect(self.accept)
         self.buttonBox.rejected.connect(self.reject)
-        self.buttonBox.setStyleSheet("background-color : red;")
 
         self.layout = QVBoxLayout()
         self.layout.addWidget(message)

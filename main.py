@@ -1,15 +1,14 @@
 import sys
 from PySide2 import QtWidgets
 from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QMainWindow, QApplication, QDialog
+from PySide2.QtWidgets import QMainWindow, QApplication
 from PySide2.QtWinExtras import QtWin
 import numpy as np
-from win32mica import ApplyMica, MICAMODE
+from modules.mica.styleSheet import ApplyMenuBlur, setMicaWindow
 import darkdetect
 import matplotlib
 from lib.methods.newton import derivative
 from modules.Dialog import CustomDialog
-from modules.blurwindow import GlobalBlur
 from plyer import notification
 from sympy import latex, sympify
 from modules.latexText import mathTex_to_QPixmap
@@ -213,38 +212,12 @@ class TheWindow(QMainWindow):
         self.ui.setupUi(self)
 
         self.setWindowIcon(QtGui.QIcon("icons/icon.ico"))
+        setMicaWindow(self)
 
-        # MICA FOR WINDOW
-        hwnd = self.winId().__int__()
-        mode = MICAMODE.DARK
-        mode = MICAMODE.LIGHT
-        mode = darkdetect.isDark()
-        ApplyMica(hwnd, mode)
-
-        # MICA FOR MENUS
-        def ApplyMenuBlur(hwnd: int, window: self.ui.window):
-            hwnd = int(hwnd)
-            if darkdetect.isDark() == True:
-                GlobalBlur(
-                    hwnd,
-                    Acrylic=True,
-                    hexColor="#21212140",
-                    Dark=True,
-                    smallCorners=True,
-                )
-            else:
-                GlobalBlur(
-                    hwnd,
-                    Acrylic=True,
-                    hexColor="#faf7f740",
-                    Dark=True,
-                    smallCorners=True,
-                )
-
-        ApplyMenuBlur(self.ui.menuFile.winId().__int__(), self)
-        ApplyMenuBlur(self.ui.actionNew.winId().__int__(), self)
-        ApplyMenuBlur(self.ui.menuEdit.winId().__int__(), self)
-        ApplyMenuBlur(self.ui.menuHelp.winId().__int__(), self)
+        ApplyMenuBlur(self.ui.menuFile.winId().__int__())
+        ApplyMenuBlur(self.ui.actionNew.winId().__int__())
+        ApplyMenuBlur(self.ui.menuEdit.winId().__int__())
+        ApplyMenuBlur(self.ui.menuHelp.winId().__int__())
 
         self.setAttribute(Qt.WA_TranslucentBackground)
         if QtWin.isCompositionEnabled():
@@ -261,7 +234,7 @@ class TheWindow(QMainWindow):
         )
         self.ui.method_box.view().window().setAttribute(Qt.WA_TranslucentBackground)
         self.ui.method_box.setCurrentIndex(-1)
-        ApplyMenuBlur(self.ui.method_box.view().window().winId().__int__(), self)
+        ApplyMenuBlur(self.ui.method_box.view().window().winId().__int__())
 
         # CLICK
         self.ui.pushButton.clicked.connect(lambda: print("method res: ", self.click()))
