@@ -7,9 +7,16 @@ from lib.Logic import Logic
 from modules.MplCanvas import MplCanvas
 from modules.TableModel import TableModel
 from pandas import DataFrame
+from lib.methods.newton import derivative
+from Screens.components.Dialog import CustomDialog
+from plyer import notification
+from sympy import latex, sympify
+from modules.MathToQPixmap import MathToQPixmap
+
+# from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 
 
-class Ui_MainWindow(object):
+class Ui_SolveOneVariable(object):
     def _update_canvas(self):
         t = np.linspace(0, 10, 101)
         self.graph_line.set_data(t, np.sin(t + time.time()))
@@ -19,8 +26,8 @@ class Ui_MainWindow(object):
         self.logic = Logic()
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
-        MainWindow.resize(980, 700)
-        MainWindow.setMinimumSize(QtCore.QSize(980, 700))
+        MainWindow.resize(980, 650)
+        MainWindow.setMinimumSize(QtCore.QSize(980, 650))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Variable Small")
         font.setPointSize(-1)
@@ -147,7 +154,7 @@ class Ui_MainWindow(object):
         self.iteration_box = QtWidgets.QSpinBox(self.window)
         self.iteration_box.setEnabled(True)
         self.iteration_box.setMinimum(1)
-        self.iteration_box.setMaximum(1000)
+        self.iteration_box.setMaximum(9999)
         self.iteration_box.setGeometry(QtCore.QRect(50, 20, 190, 40))
         self.iteration_box.setStyleSheet("")
         self.iteration_box.setObjectName("iteration_box")
@@ -328,6 +335,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.actions(MainWindow)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -380,3 +388,198 @@ class Ui_MainWindow(object):
         self.actionPaste.setShortcut(_translate("MainWindow", "Ctrl+V"))
         self.actionAbout.setText(_translate("MainWindow", "About"))
         self.actionAbout.setShortcut(_translate("MainWindow", "Ctrl+I"))
+
+    def create_main_graph(self):
+        self.graph_.axes.cla()
+
+        if (
+            hasattr(self.x_left, "value")
+            and hasattr(self.x_right, "value")
+            and hasattr(self.y_up, "value")
+            and hasattr(self.y_down, "value")
+            and hasattr(self.fn_box, "value")
+        ):
+            x_left = float(self.x_left.value)
+            x_right = float(self.x_right.value)
+            y_up = float(self.y_up.value)
+            y_down = float(self.y_down.value)
+
+            infinite = np.linspace(x_left, x_right, 101)
+
+            self.logic.fn = self.logic.gen_fn(self.fn_box.value)
+
+            ltx = latex(sympify(self.fn_box.value))
+            self.label_fn.setPixmap(MathToQPixmap(f"${ltx}$", 11))
+
+            (self.graph_line,) = self.graph_.axes.plot(
+                infinite,
+                [self.logic.fn(i) for i in infinite],
+                color="gray",
+                linestyle="--",
+                zorder=1,
+            )
+
+            self.graph_line.axes.set_xlim(xmin=x_left, xmax=x_right)
+            self.graph_line.axes.set_ylim(ymax=y_up, ymin=y_down)
+
+            self.graph_.draw()
+
+    def handleClickMethods(self):
+        try:
+            self.create_main_graph()
+            method = self.method_box.currentIndex()
+            x0 = self.x0_box.value()
+            x1 = self.x1_box.value()
+            tol = float(self.tolerance_box.value)
+            steps = self.iteration_box.value()
+            str_fn = self.fn_box.value
+            fn = self.logic.gen_fn(str_fn)
+
+            m = self.logic.get_method(method)
+
+            deri = derivative(str_fn)
+
+            if method == 1:
+                v = m(
+                    logic=self.logic,
+                    fun=fn,
+                    deri=deri,
+                    x_a=x0,
+                    tol=tol,
+                    steps=steps,
+                    x_b=x1,
+                )
+
+                self.graph_.axes.scatter(
+                    x0, fn(x0), label="X0", color="violet", zorder=3
+                )
+            elif method == 3:
+                dlg = CustomDialog(str_fn)
+                if dlg.exec():
+                    v = m(
+                        logic=self.logic,
+                        g=dlg.sol_fn,
+                        fun=fn,
+                        x_a=x0,
+                        x_b=x1,
+                        tol=tol,
+                        steps=steps,
+                    )
+                else:
+                    print("Cancel!")
+
+            else:
+                v = m(
+                    logic=self.logic,
+                    fun=fn,
+                    x_a=x0,
+                    x_b=x1,
+                    tol=tol,
+                    steps=steps,
+                )
+
+            df = self.logic.show_table(True)
+
+            model = TableModel(df)
+            self.tableWidget.setModel(model)
+
+            # render thing in graph
+
+            if method == 0:
+                var = np.linspace(x0, x1, 101)
+                self.graph_.axes.plot(
+                    var, [fn(i) for i in var], label="Range", color="red", zorder=2
+                )
+
+            self.graph_.axes.scatter(v, 0, label="Root", color="yellow", zorder=3)
+
+            self.add_marks(method, df, fn)
+
+            self.graph_.draw()
+
+            return v
+        except:
+            notification.notify(
+                title="Error",
+                message="Please fill all fields",
+                app_icon=None,
+                timeout=10,
+            )
+            return None
+
+    def handleChangeMethod(self):
+        model = self.tableWidget.model()
+        if model:
+            model.deleteLater()
+            df = DataFrame(
+                {
+                    "Hey": [],
+                    "Hey2": [],
+                    "Hey3": [],
+                }
+            )
+            model = TableModel(df)
+            self.tableWidget.setModel(model)
+
+        if len(self.logic.method_title) >= 1:
+            self.create_main_graph()
+
+    def subscription(self, v, who):
+        self.graph__timer.stop()
+        if who == 0:
+            self.graph_.axes.cla()
+
+            if len(v) >= 1:
+                self.fn_box.value = v
+                self.create_main_graph()
+            else:
+                t = np.linspace(0, 10, 101)
+                (self.graph_line,) = self.graph_.axes.plot(
+                    t, np.sin(t + time.time())
+                )
+                self.graph__timer.start()
+                self.graph_.draw()
+
+        if who == 1:
+            self.tolerance_box.value = v
+        if who == 2:
+            self.x_left.value = v
+            self.create_main_graph()
+        if who == 3:
+            self.x_right.value = v
+            self.create_main_graph()
+        if who == 4:
+            self.y_up.value = v
+            self.create_main_graph()
+        if who == 5:
+            self.y_down.value = v
+            self.create_main_graph()
+
+    def add_marks(self, method, df, fn):
+        ps = ["Pn", "p", "Xn", "x"]
+        for i in df.index:
+            self.graph_.axes.scatter(
+                float(df[ps[method]].get(i)),
+                fn(float(df[ps[method]].get(i))),
+                label=f"{i} ite",
+                marker="*",
+                alpha=0.8,
+                s=50,
+                zorder=3,
+            )
+        return
+
+    def actions(self, MainWindow):
+        self.pushButton.clicked.connect(
+            lambda: print("method res: ", self.handleClickMethods())
+        )
+        self.method_box.currentIndexChanged.connect(self.handleChangeMethod)
+
+
+        self.fn_box.textChanged.connect(lambda v: self.subscription(v, 0))
+        self.tolerance_box.textChanged.connect(lambda v: self.subscription(v, 1))
+        self.x_left.textChanged.connect(lambda v: self.subscription(v, 2))
+        self.x_right.textChanged.connect(lambda v: self.subscription(v, 3))
+        self.y_up.textChanged.connect(lambda v: self.subscription(v, 4))
+        self.y_down.textChanged.connect(lambda v: self.subscription(v, 5))
+        return

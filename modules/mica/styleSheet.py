@@ -1,6 +1,6 @@
 from modules.mica.theme.dark import darkSheet
 from modules.mica.theme.light import lightSheet
-from modules.mica.theme.getAccent import getAccent
+from modules.mica.theme.getTheme import getTheme
 from modules.mica.blurWindow import GlobalBlur
 from win32mica import ApplyMica, MICAMODE
 import darkdetect
@@ -17,7 +17,7 @@ def setMicaWindow(root):
 
 
 def setStyleSheet(root):
-    accent = getAccent()
+    accent = getTheme()["palette"][1]
 
     if darkdetect.isDark() == True:
         root.setStyleSheet(darkSheet(accent))

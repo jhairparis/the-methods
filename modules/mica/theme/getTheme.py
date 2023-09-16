@@ -1,7 +1,7 @@
 from winreg import *
 
 
-def getAccent():
+def getTheme():
     registry = ConnectRegistry(None, HKEY_CURRENT_USER)
     key = OpenKey(
         registry, r"SOFTWARE\\Microsoft\Windows\\CurrentVersion\\Explorer\\Accent"
@@ -13,4 +13,12 @@ def getAccent():
     accent = accent[4:6] + accent[2:4] + accent[0:2]
     accent = "rgb" + str(tuple(int(accent[i : i + 2], 16) for i in (0, 2, 4)))
 
-    return accent
+    value = QueryValueEx(key, "AccentPalette")
+    palette = [
+        int.from_bytes(value[0][i : i + 1], byteorder="little")
+        for i in range(0, len(value[0]), 1)
+    ]
+    palette = [palette[i : i + 4] for i in range(0, len(palette), 4)]
+    palette = [f"rgb{tuple(map(int, g[:3]))}" for g in palette]
+
+    return {"accent": accent, "palette": palette}
