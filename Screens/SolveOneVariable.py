@@ -1,6 +1,7 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtCore import Qt
-from modules.mica.styleSheet import setStyleSheet
+from Screens.components.Select import Select
+from modules.mica.styleSheet import ApplyMenuBlur, setStyleSheet
 import time
 import numpy as np
 from lib.Logic import Logic
@@ -30,7 +31,7 @@ class Ui_SolveOneVariable(object):
         MainWindow.setMinimumSize(QtCore.QSize(980, 650))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Variable Small")
-        font.setPointSize(-1)
+        font.setPointSize(11)
         font.setBold(False)
         font.setWeight(50)
         MainWindow.setFont(font)
@@ -43,7 +44,7 @@ class Ui_SolveOneVariable(object):
         self.centralwidget.setMinimumSize(QtCore.QSize(1920, 1080))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Variable Small")
-        font.setPointSize(-1)
+        font.setPointSize(11)
         font.setBold(False)
         font.setWeight(50)
         self.centralwidget.setFont(font)
@@ -121,7 +122,7 @@ class Ui_SolveOneVariable(object):
         self.label_method.setStyleSheet("QLabel{font-size: 11pt;}")
         self.label_method.setObjectName("label_method")
 
-        self.method_box = QtWidgets.QComboBox(self.form)
+        self.method_box = Select(self.form)
         self.method_box.setEnabled(True)
         self.method_box.setToolTip("")
         self.method_box.setStatusTip("")
@@ -220,7 +221,7 @@ class Ui_SolveOneVariable(object):
         self.pushButton.setMaximumSize(QtCore.QSize(150, 40))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Variable Small")
-        font.setPointSize(-1)
+        font.setPointSize(11)
         font.setBold(False)
         font.setItalic(False)
         font.setUnderline(False)
@@ -258,7 +259,7 @@ class Ui_SolveOneVariable(object):
         self.tableWidget.setGeometry(QtCore.QRect(0, 526, 950, 500))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Variable Small")
-        font.setPointSize(-1)
+        font.setPointSize(11)
         font.setBold(False)
         font.setWeight(50)
         self.tableWidget.setFont(font)
@@ -336,9 +337,7 @@ class Ui_SolveOneVariable(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "The methods"))
 
         self.label_method.setText(_translate("MainWindow", "Select method"))
-        self.label_fn.setText(
-            _translate("MainWindow", "Write the function (python syntax)")
-        )
+        self.label_fn.setText(_translate("MainWindow", "Write the function"))
         self.label_iteration.setText(_translate("MainWindow", "Iteration"))
         self.label_tolerance.setText(_translate("MainWindow", "Tolerance"))
         self.label_x0.setText(_translate("MainWindow", "X0"))
@@ -349,6 +348,7 @@ class Ui_SolveOneVariable(object):
         self.y_up.setPlaceholderText(_translate("MainWindow", "limit y up"))
         self.y_down.setPlaceholderText(_translate("MainWindow", "limit y down"))
 
+        self.method_box.setCurrentIndex(-1)
         self.method_box.setItemText(0, _translate("MainWindow", "Bisection"))
         self.method_box.setItemText(1, _translate("MainWindow", "Newton"))
         self.method_box.setItemText(2, _translate("MainWindow", "Secant"))
@@ -391,6 +391,11 @@ class Ui_SolveOneVariable(object):
         self.actionPaste.setShortcut(_translate("MainWindow", "Ctrl+V"))
         self.actionAbout.setText(_translate("MainWindow", "About"))
         self.actionAbout.setShortcut(_translate("MainWindow", "Ctrl+I"))
+
+        ApplyMenuBlur(self.menuFile.winId().__int__())
+        ApplyMenuBlur(self.actionNew.winId().__int__())
+        ApplyMenuBlur(self.menuEdit.winId().__int__())
+        ApplyMenuBlur(self.menuHelp.winId().__int__())
 
     def create_main_graph(self):
         self.graph_.axes.cla()
