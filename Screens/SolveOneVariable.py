@@ -153,8 +153,6 @@ class Ui_SolveOneVariable(object):
 
         self.iteration_box = QtWidgets.QSpinBox(self.window)
         self.iteration_box.setEnabled(True)
-        self.iteration_box.setMinimum(1)
-        self.iteration_box.setMaximum(9999)
         self.iteration_box.setGeometry(QtCore.QRect(50, 20, 190, 40))
         self.iteration_box.setStyleSheet("")
         self.iteration_box.setObjectName("iteration_box")
@@ -184,8 +182,6 @@ class Ui_SolveOneVariable(object):
 
         self.x0_box = QtWidgets.QDoubleSpinBox(self.window)
         self.x0_box.setEnabled(True)
-        self.x0_box.setMinimum(-1000)
-        self.x0_box.setMaximum(1000)
         self.x0_box.setGeometry(QtCore.QRect(50, 70, 190, 40))
         self.x0_box.setStyleSheet("")
         self.x0_box.setObjectName("x0_box")
@@ -205,8 +201,6 @@ class Ui_SolveOneVariable(object):
 
         self.x1_box = QtWidgets.QDoubleSpinBox(self.form)
         self.x1_box.setEnabled(True)
-        self.x1_box.setMinimum(-1000)
-        self.x1_box.setMaximum(1000)
         self.x1_box.setGeometry(QtCore.QRect(50, 70, 190, 40))
         self.x1_box.setStyleSheet("")
         self.x1_box.setObjectName("x1_box")
@@ -333,11 +327,11 @@ class Ui_SolveOneVariable(object):
         self.menuBar.addAction(self.menuEdit.menuAction())
         self.menuBar.addAction(self.menuHelp.menuAction())
 
-        self.retranslateUi(MainWindow)
+        self.valuesUI(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        self.actions(MainWindow)
+        self.actionsUI(MainWindow)
 
-    def retranslateUi(self, MainWindow):
+    def valuesUI(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "The methods"))
 
@@ -363,6 +357,15 @@ class Ui_SolveOneVariable(object):
         self.fn_box.setPlaceholderText(_translate("MainWindow", "x**2"))
 
         self.tolerance_box.setPlaceholderText(_translate("MainWindow", "1e-3"))
+
+        self.x1_box.setMinimum(-1000)
+        self.x1_box.setMaximum(1000)
+
+        self.x0_box.setMinimum(-1000)
+        self.x0_box.setMaximum(1000)
+
+        self.iteration_box.setMinimum(1)
+        self.iteration_box.setMaximum(9999)
 
         self.pushButton.setText(_translate("MainWindow", "Calculate"))
 
@@ -440,7 +443,7 @@ class Ui_SolveOneVariable(object):
             deri = derivative(str_fn)
 
             if method == 1:
-                v = m(
+                p = m(
                     logic=self.logic,
                     fun=fn,
                     deri=deri,
@@ -456,7 +459,7 @@ class Ui_SolveOneVariable(object):
             elif method == 3:
                 dlg = CustomDialog(str_fn)
                 if dlg.exec():
-                    v = m(
+                    p = m(
                         logic=self.logic,
                         g=dlg.sol_fn,
                         fun=fn,
@@ -469,7 +472,7 @@ class Ui_SolveOneVariable(object):
                     print("Cancel!")
 
             else:
-                v = m(
+                p = m(
                     logic=self.logic,
                     fun=fn,
                     x_a=x0,
@@ -491,21 +494,25 @@ class Ui_SolveOneVariable(object):
                     var, [fn(i) for i in var], label="Range", color="red", zorder=2
                 )
 
-            self.graph_.axes.scatter(v, 0, label="Root", color="yellow", zorder=3)
+            self.graph_.axes.scatter(p, 0, label="Root", color="yellow", zorder=3)
 
             self.add_marks(method, df, fn)
 
             self.graph_.draw()
 
-            return v
-        except:
-            notification.notify(
-                title="Error",
-                message="Please fill all fields",
+            return notification.notify(
+                title="Result",
+                message=f"{self.logic.method_title} method: {p}",
                 app_icon=None,
                 timeout=10,
             )
-            return None
+        except:
+            return notification.notify(
+                title="Error",
+                message="Please fill all fields",
+                app_icon=None,
+                timeout=2,
+            )
 
     def handleChangeMethod(self):
         model = self.tableWidget.model()
@@ -534,9 +541,7 @@ class Ui_SolveOneVariable(object):
                 self.create_main_graph()
             else:
                 t = np.linspace(0, 10, 101)
-                (self.graph_line,) = self.graph_.axes.plot(
-                    t, np.sin(t + time.time())
-                )
+                (self.graph_line,) = self.graph_.axes.plot(t, np.sin(t + time.time()))
                 self.graph__timer.start()
                 self.graph_.draw()
 
@@ -569,12 +574,10 @@ class Ui_SolveOneVariable(object):
             )
         return
 
-    def actions(self, MainWindow):
-        self.pushButton.clicked.connect(
-            lambda: print("method res: ", self.handleClickMethods())
-        )
-        self.method_box.currentIndexChanged.connect(self.handleChangeMethod)
+    def actionsUI(self, MainWindow):
+        self.pushButton.clicked.connect(self.handleClickMethods)
 
+        self.method_box.currentIndexChanged.connect(self.handleChangeMethod)
 
         self.fn_box.textChanged.connect(lambda v: self.subscription(v, 0))
         self.tolerance_box.textChanged.connect(lambda v: self.subscription(v, 1))

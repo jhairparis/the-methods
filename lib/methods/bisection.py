@@ -1,8 +1,16 @@
+from plyer import notification
+
+
 def bisection(logic, fun, x_a, x_b, tol=1e-4, steps=100):
     logic.reset()
 
     if fun(x_a) * fun(x_b) >= 0:
-        print("⚠️ The bisection method cannot be applied! ⚠️")
+        notification.notify(
+            title="Error",
+            message="⚠️ The bisection method cannot be applied! ⚠️",
+            app_icon=None,
+            timeout=2,
+        )
         return None
 
     logic.method_title = "Bisection"
