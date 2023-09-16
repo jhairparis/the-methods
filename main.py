@@ -1,9 +1,9 @@
 import sys
-from PySide2 import QtWidgets, QtGui
+from PySide2 import QtGui
 from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QMainWindow, QApplication
 from PySide2.QtWinExtras import QtWin
-from modules.mica.styleSheet import ApplyMenuBlur, setMicaWindow
+from modules.mica.styleSheet import setMicaWindow
 from Screens.SolveOneVariable import Ui_SolveOneVariable
 import matplotlib
 

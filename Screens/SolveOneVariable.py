@@ -13,6 +13,7 @@ from Screens.components.Dialog import CustomDialog
 from plyer import notification
 from sympy import latex, sympify
 from modules.MathToQPixmap import MathToQPixmap
+from modules.mica.theme.getTheme import getTheme, rgb2hex
 
 # from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 
@@ -22,6 +23,12 @@ class Ui_SolveOneVariable(object):
         t = np.linspace(0, 10, 101)
         self.graph_line.set_data(t, np.sin(t + time.time()))
         self.graph_line.figure.canvas.draw()
+
+    def createAnimationStart(self):
+        t = np.linspace(0, 10, 101)
+        (self.graph_line,) = self.graph_.axes.plot(
+            t, np.sin(t + time.time()), color=rgb2hex(getTheme()["accent"])
+        )
 
     def setupUi(self, MainWindow):
         self.logic = Logic()
@@ -65,8 +72,7 @@ class Ui_SolveOneVariable(object):
 
         self.graph_ = MplCanvas()
 
-        t = np.linspace(0, 10, 101)
-        (self.graph_line,) = self.graph_.axes.plot(t, np.sin(t + time.time()))
+        self.createAnimationStart()
         self.graph__timer = self.graph_.new_timer(50)
         self.graph__timer.add_callback(self._update_canvas)
         self.graph__timer.start()
@@ -545,8 +551,7 @@ class Ui_SolveOneVariable(object):
                 self.fn_box.value = v
                 self.create_main_graph()
             else:
-                t = np.linspace(0, 10, 101)
-                (self.graph_line,) = self.graph_.axes.plot(t, np.sin(t + time.time()))
+                self.createAnimationStart()
                 self.graph__timer.start()
                 self.graph_.draw()
 

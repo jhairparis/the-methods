@@ -1,5 +1,6 @@
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 from matplotlib.figure import Figure
+from modules.mica.theme.getTheme import getTheme, rgb2hex
 import darkdetect
 
 
@@ -13,10 +14,13 @@ class MplCanvas(FigureCanvasQTAgg):
         self.axes.spines["top"].set_color("none")
         self.axes.spines["right"].set_color("none")
 
+        theme = getTheme()
+        accent = rgb2hex(theme["palette"][0])
+
         if darkdetect.isDark() == True:
-            self.axes.spines["bottom"].set_color("white")
-            self.axes.spines["left"].set_color("white")
-            self.axes.tick_params(axis="x", colors="white")
-            self.axes.tick_params(axis="y", colors="white")
+            self.axes.spines["bottom"].set_color(accent)
+            self.axes.spines["left"].set_color(accent)
+            self.axes.tick_params(axis="x", colors=accent)
+            self.axes.tick_params(axis="y", colors=accent)
 
         super(MplCanvas, self).__init__(fig)
