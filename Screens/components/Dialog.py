@@ -1,7 +1,7 @@
 import re
 from PySide2.QtWidgets import QDialog, QDialogButtonBox, QVBoxLayout, QLabel, QWidget
 from sympy import sympify, solve, latex
-from modules.latexText import mathTex_to_QPixmap
+from modules.MathToQPixmap import MathToQPixmap
 from modules.mica.styleSheet import setMicaWindow, setStyleSheet
 
 
@@ -39,17 +39,17 @@ class CustomDialog(QDialog):
 
         self.label_fun = QLabel()
         eqLatex = f"${latex(self.eq)}$"
-        self.label_fun.setPixmap(mathTex_to_QPixmap(eqLatex, 10))
+        self.label_fun.setPixmap(MathToQPixmap(eqLatex, 10))
 
         message2 = QLabel("x=")
         self.label_fun_x = QLabel()
         ezLatex = f"${latex(self.ez)}$"
-        self.label_fun_x.setPixmap(mathTex_to_QPixmap(ezLatex, 10))
+        self.label_fun_x.setPixmap(MathToQPixmap(ezLatex, 10))
 
         message3 = QLabel("solved for x=")
         self.label_fun_solved = QLabel()
         solLatex = f"${latex(self.sol[0])}$"
-        self.label_fun_solved.setPixmap(mathTex_to_QPixmap(solLatex, 10))
+        self.label_fun_solved.setPixmap(MathToQPixmap(solLatex, 10))
 
         QBtn = QDialogButtonBox.Ok | QDialogButtonBox.Cancel
 

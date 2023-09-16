@@ -8,23 +8,23 @@ from modules.mica.styleSheet import ApplyMenuBlur, setMicaWindow
 import darkdetect
 import matplotlib
 from lib.methods.newton import derivative
-from modules.Dialog import CustomDialog
+from Screens.components.Dialog import CustomDialog
 from plyer import notification
 from sympy import latex, sympify
-from modules.latexText import mathTex_to_QPixmap
+from modules.MathToQPixmap import MathToQPixmap
 
 matplotlib.use("Qt5Agg")
 
 if darkdetect.isDark() == True:
-    from dark import *
+    from Screens.dark import *
 else:
-    from light import *
+    from Screens.light import *
 
 
 class TheWindow(QMainWindow):
     def create_latex(self):
         ltx = latex(sympify(self.ui.fn_box.value))
-        self.ui.label_fn.setPixmap(mathTex_to_QPixmap(f"${ltx}$", 11))
+        self.ui.label_fn.setPixmap(MathToQPixmap(f"${ltx}$", 11))
         return
 
     def create_main_graph(self):

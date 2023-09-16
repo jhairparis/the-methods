@@ -4,7 +4,7 @@ from PySide2 import QtGui
 import darkdetect
 
 
-def mathTex_to_QPixmap(mathTex, fs):
+def MathToQPixmap(mathTex: str, fs: int):
     # ---- set up a mpl figure instance ----
 
     fig = mpl.figure.Figure()
@@ -38,9 +38,9 @@ def mathTex_to_QPixmap(mathTex, fs):
     fig.set_size_inches(tight_fwidth, tight_fheight)
 
     buf, size = fig.canvas.print_to_buffer()
-    qimage = QtGui.QImage.rgbSwapped(
+    QImage = QtGui.QImage.rgbSwapped(
         QtGui.QImage(buf, size[0], size[1], QtGui.QImage.Format_ARGB32)
     )
-    qpixmap = QtGui.QPixmap(qimage)
+    QPixmap = QtGui.QPixmap(QImage)
 
-    return qpixmap
+    return QPixmap

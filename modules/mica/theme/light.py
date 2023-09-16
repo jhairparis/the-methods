@@ -1,4 +1,6 @@
 def lightSheet(accent):
+    from icons import stylelight_rc
+
     s = (
         """/*BACKGROUND*/
 	QWidget {
@@ -1196,4 +1198,5 @@ def lightSheet(accent):
         + """;
 	}"""
     )
+
     return s

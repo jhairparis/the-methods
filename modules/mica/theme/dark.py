@@ -1,4 +1,6 @@
 def darkSheet(accent):
+    from icons import styledark_rc
+
     s = (
         """/*BACKGROUND*/
 	QWidget {
@@ -1204,5 +1206,3 @@ def darkSheet(accent):
     # }
 
     return s
-
-

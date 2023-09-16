@@ -5,9 +5,6 @@ import time
 import numpy as np
 from lib.Logic import Logic
 from modules.MplCanvas import MplCanvas
-
-from icons import stylelight_rc
-
 from modules.TableModel import TableModel
 from pandas import DataFrame
 

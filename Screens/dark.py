@@ -6,12 +6,10 @@ import numpy as np
 from lib.Logic import Logic
 from modules.MplCanvas import MplCanvas
 from modules.mica.styleSheet import setStyleSheet
-from icons import styledark_rc
-
-# from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
-
 from modules.TableModel import TableModel
 from pandas import DataFrame
+
+# from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 
 
 class Ui_MainWindow(object):
