@@ -20,9 +20,10 @@ from modules.mica.theme.getTheme import getTheme, rgb2hex
 
 class Ui_SolveOneVariable(object):
     def _update_canvas(self):
-        t = np.linspace(0, 10, 101)
-        self.graph_line.set_data(t, np.sin(t + time.time()))
-        self.graph_line.figure.canvas.draw()
+        if hasattr(self.graph_line.figure, "canvas"):
+            t = np.linspace(0, 10, 101)
+            self.graph_line.set_data(t, np.sin(t + time.time()))
+            self.graph_line.figure.canvas.draw()
 
     def createAnimationStart(self):
         t = np.linspace(0, 10, 101)
@@ -542,7 +543,7 @@ class Ui_SolveOneVariable(object):
             model.deleteLater()
             df = DataFrame(
                 {
-                    "Wait...": [1,2,3,5,8,13,21],
+                    "Wait...": [1, 2, 3, 5, 8, 13, 21],
                 }
             )
             model = TableModel(df)
