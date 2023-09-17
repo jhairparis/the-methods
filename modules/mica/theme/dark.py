@@ -1178,14 +1178,18 @@ def darkSheet(accent):
 	}
 
 	/*TABLE*/
-	QHeaderView::section {
+	* { 
+        gridline-color: white
+    }
+
+    QHeaderView::section {
 		background-color: transparent;
 		color: white;
 		font: 14px;
 		border-style: outset;
 		border-width: 1px;
 		border-color: white;
-	}
+    }
 
 	/*The top-left area is actually a button:*/
 	QTableCornerButton::section {

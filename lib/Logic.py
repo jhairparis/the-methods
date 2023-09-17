@@ -1,5 +1,5 @@
 from pandas import DataFrame
-from sympy import sympify
+from sympy import sympify, symbols
 from lib.methods.bisection import bisection
 from lib.methods.newton import newton
 from lib.methods.point import point
@@ -35,12 +35,15 @@ class Logic:
         try:
             equation = sympify(operation)
 
+            if not equation.has(symbols("x")):
+                raise Exception("x is not in the equation")
+
             def f(x=1):
                 return equation.subs("x", x).evalf()
 
-            return f
+            return (f, True)
         except:
-            return lambda x: x**2
+            return (lambda x: x**2, False)
 
     def reset(self):
         self.method_title = ""

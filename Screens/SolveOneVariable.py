@@ -407,36 +407,47 @@ class Ui_SolveOneVariable(object):
         self.graph_.axes.cla()
 
         if (
-            hasattr(self.x_left, "value")
-            and hasattr(self.x_right, "value")
-            and hasattr(self.y_up, "value")
-            and hasattr(self.y_down, "value")
-            and hasattr(self.fn_box, "value")
+            not hasattr(self.x_left, "value")
+            or not hasattr(self.x_right, "value")
+            or not hasattr(self.y_up, "value")
+            or not hasattr(self.y_down, "value")
+            or not hasattr(self.fn_box, "value")
+            or self.fn_box.value == ""
+            or self.x_left.value == "-"
+            or self.x_right.value == "-"
+            or self.y_up.value == "-"
+            or self.y_down.value == "-"
         ):
-            x_left = float(self.x_left.value)
-            x_right = float(self.x_right.value)
-            y_up = float(self.y_up.value)
-            y_down = float(self.y_down.value)
+            return
 
-            infinite = np.linspace(x_left, x_right, 101)
+        x_left = float(self.x_left.value)
+        x_right = float(self.x_right.value)
+        y_up = float(self.y_up.value)
+        y_down = float(self.y_down.value)
 
-            self.logic.fn = self.logic.gen_fn(self.fn_box.value)
+        infinite = np.linspace(x_left, x_right, 101)
 
-            ltx = latex(sympify(self.fn_box.value))
-            self.label_fn.setPixmap(MathToQPixmap(f"${ltx}$", 11))
+        gen = self.logic.gen_fn(self.fn_box.value)
+        self.logic.fn = gen[0]
 
-            (self.graph_line,) = self.graph_.axes.plot(
-                infinite,
-                [self.logic.fn(i) for i in infinite],
-                color="gray",
-                linestyle="--",
-                zorder=1,
-            )
+        if gen[1] == False:
+            return
 
-            self.graph_line.axes.set_xlim(xmin=x_left, xmax=x_right)
-            self.graph_line.axes.set_ylim(ymax=y_up, ymin=y_down)
+        ltx = latex(sympify(self.fn_box.value))
+        self.label_fn.setPixmap(MathToQPixmap(f"${ltx}$", 11))
 
-            self.graph_.draw()
+        (self.graph_line,) = self.graph_.axes.plot(
+            infinite,
+            [self.logic.fn(i) for i in infinite],
+            color="gray",
+            linestyle="--",
+            zorder=1,
+        )
+
+        self.graph_line.axes.set_xlim(xmin=x_left, xmax=x_right)
+        self.graph_line.axes.set_ylim(ymax=y_up, ymin=y_down)
+
+        self.graph_.draw()
 
     def handleClickMethods(self):
         try:
@@ -447,7 +458,7 @@ class Ui_SolveOneVariable(object):
             tol = float(self.tolerance_box.value)
             steps = self.iteration_box.value()
             str_fn = self.fn_box.value
-            fn = self.logic.gen_fn(str_fn)
+            fn = self.logic.gen_fn(str_fn)[0]
 
             m = self.logic.get_method(method)
 
@@ -531,9 +542,7 @@ class Ui_SolveOneVariable(object):
             model.deleteLater()
             df = DataFrame(
                 {
-                    "Hey": [],
-                    "Hey2": [],
-                    "Hey3": [],
+                    "Wait...": [1,2,3,5,8,13,21],
                 }
             )
             model = TableModel(df)
@@ -542,33 +551,39 @@ class Ui_SolveOneVariable(object):
         if len(self.logic.method_title) >= 1:
             self.create_main_graph()
 
-    def subscription(self, v, who):
+    def subscription(self, value, who):
         self.graph__timer.stop()
         if who == 0:
             self.graph_.axes.cla()
 
-            if len(v) >= 1:
-                self.fn_box.value = v
+            if len(value) >= 1:
+                self.fn_box.value = value.strip()
                 self.create_main_graph()
             else:
                 self.createAnimationStart()
                 self.graph__timer.start()
                 self.graph_.draw()
+            return
 
         if who == 1:
-            self.tolerance_box.value = v
+            self.tolerance_box.value = value
+            return
         if who == 2:
-            self.x_left.value = v
+            self.x_left.value = value
             self.create_main_graph()
+            return
         if who == 3:
-            self.x_right.value = v
+            self.x_right.value = value
             self.create_main_graph()
+            return
         if who == 4:
-            self.y_up.value = v
+            self.y_up.value = value
             self.create_main_graph()
+            return
         if who == 5:
-            self.y_down.value = v
+            self.y_down.value = value
             self.create_main_graph()
+            return
 
     def add_marks(self, method, df, fn):
         ps = ["Pn", "p", "Xn", "x"]

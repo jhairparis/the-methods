@@ -1177,13 +1177,17 @@ def lightSheet(accent):
 	}
 
 	/*TABLE*/
+	* { 
+        gridline-color: black
+    }
+
 	QHeaderView::section {
-            background-color: transparent;
-            color: black;
-            font: 14px;
-            border-style: outset;
-            border-width: 1px;
-            border-color: black;
+		background-color: transparent;
+		color: black;
+		font: 14px;
+		border-style: outset;
+		border-width: 1px;
+		border-color: black;
 	}
 
 	/*The top-left area is actually a button:*/
