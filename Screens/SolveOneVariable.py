@@ -492,7 +492,12 @@ class Ui_SolveOneVariable(object):
                         steps=steps,
                     )
                 else:
-                    print("Cancel!")
+                    notification.notify(
+                        title="g1(x)",
+                        message="Cancel!",
+                        app_icon=None,
+                        timeout=2,
+                    )
 
             else:
                 p = m(
