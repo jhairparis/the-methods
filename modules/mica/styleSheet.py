@@ -2,15 +2,15 @@ from modules.mica.theme.dark import darkSheet
 from modules.mica.theme.light import lightSheet
 from modules.mica.theme.getTheme import getTheme
 from modules.mica.blurWindow import GlobalBlur
-from win32mica import ApplyMica, MICAMODE
+from win32mica import ApplyMica, MicaTheme
 import darkdetect
 
 
 def setMicaWindow(root):
     hwnd = root.winId().__int__()
 
-    mode = MICAMODE.DARK
-    mode = MICAMODE.LIGHT
+    mode = MicaTheme.DARK
+    mode = MicaTheme.LIGHT
     mode = darkdetect.isDark()
 
     ApplyMica(hwnd, mode)
