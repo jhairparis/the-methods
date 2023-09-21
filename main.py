@@ -6,6 +6,7 @@ from PySide2.QtWidgets import QMainWindow, QApplication
 from PySide2.QtWinExtras import QtWin
 from modules.mica.styleSheet import setMicaWindow
 from Screens.SolveOneVariable import Ui_SolveOneVariable
+from Screens.components.About import AboutDialog
 import matplotlib
 
 matplotlib.use("Qt5Agg")
@@ -104,7 +105,11 @@ class TheWindow(QMainWindow):
         ApplyMenuBlur(self.menuHelp.winId().__int__())
 
     def actionUI(self):
-        self.actionAbout.triggered.connect(lambda: print("about"))
+        def openAbout():
+            about = AboutDialog(self)
+            about.exec()
+        self.actionAbout.triggered.connect(openAbout)
+        self.actionExit.triggered.connect(self.close)
 
     def __init__(self):
         QMainWindow.__init__(self)

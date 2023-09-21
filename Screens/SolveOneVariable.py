@@ -9,7 +9,7 @@ from modules.MplCanvas import MplCanvas
 from modules.TableModel import TableModel
 from pandas import DataFrame
 from lib.methods.newton import derivative
-from Screens.components.Dialog import CustomDialog
+from Screens.components.ConfirmG import ConfirmG
 from plyer import notification
 from sympy import latex, sympify
 from modules.MathToQPixmap import MathToQPixmap
@@ -33,6 +33,7 @@ class Ui_SolveOneVariable(object):
 
     def setupUi(self, MainWindow):
         self.logic = Logic()
+        self.logic.reset()
         MainWindow.setObjectName("MainWindow")
         MainWindow.setEnabled(True)
         MainWindow.resize(980, 650)
@@ -323,6 +324,10 @@ class Ui_SolveOneVariable(object):
 
         self.pushButton.setText(_translate("MainWindow", "Calculate"))
 
+    def death(self):
+        self.graph__timer.stop()
+        self.graph_.axes.cla()
+
     def create_main_graph(self):
         self.graph_.axes.cla()
 
@@ -399,7 +404,7 @@ class Ui_SolveOneVariable(object):
                     x0, fn(x0), label="X0", color="violet", zorder=3
                 )
             elif method == 3:
-                dlg = CustomDialog(str_fn)
+                dlg = ConfirmG(str_fn)
                 if dlg.exec():
                     p = m(
                         logic=self.logic,
