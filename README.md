@@ -1,6 +1,6 @@
 # The methods
 
-![](/icons/icon.png)
+<img src="icons/icon.png" alt="Icon The methods" height="300">
 
 The methods are a project created for the subject of numerical analysis, based on books such as
 - Matemáticas para Ingeniería. Métodos numéricos con Python (2017)
@@ -9,7 +9,7 @@ The methods are a project created for the subject of numerical analysis, based o
 
 ## Use
 
-Download .exe and execute [link](https://jhairparis.com/)
+Download .exe and execute [link](https://github.com/jhairparis/the-methods/releases)
 
 or
 
