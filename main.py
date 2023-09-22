@@ -8,6 +8,7 @@ from modules.mica.styleSheet import setMicaWindow
 from Screens.SolveOneVariable import Ui_SolveOneVariable
 from Screens.components.About import AboutDialog
 import matplotlib
+from icons import icons_rc
 
 matplotlib.use("Qt5Agg")
 
@@ -118,7 +119,7 @@ class TheWindow(QMainWindow):
         self.ui = Ui_SolveOneVariable()
         self.ui.setupUi(self)
 
-        self.setWindowIcon(QtGui.QIcon("icons/icon.ico"))
+        self.setWindowIcon(QtGui.QIcon(":/icons/icon.ico"))
         setMicaWindow(self)
 
         self.setAttribute(Qt.WA_TranslucentBackground)

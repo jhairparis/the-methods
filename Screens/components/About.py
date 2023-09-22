@@ -24,13 +24,13 @@ class AboutDialog(Dialog):
 
         self.layoutIcon = QHBoxLayout()
 
-        pixmap = QtGui.QPixmap("icons/icon.png")
+        pixmap = QtGui.QPixmap(":/icons/icon.png")
         self.icon = QLabel()
         self.icon.setPixmap(pixmap)
         self.icon.setScaledContents(True)
         self.icon.setFixedSize(150, 150)
 
-        pixLicense = QtGui.QPixmap("icons/license.png")
+        pixLicense = QtGui.QPixmap(":/icons/license.png")
         self.license = QLabel(self)
         self.license.setPixmap(pixLicense)
         self.license.setScaledContents(True)
@@ -141,5 +141,5 @@ class AboutDialog(Dialog):
 
     def openLicense(self, event):
         QtGui.QDesktopServices.openUrl(
-            "https://github.com/jhairparis/the-methods/blob/main/LICENSE"
+            "https://github.com/jhairparis/the-methods/blob/main/LICENSE.md"
         )
