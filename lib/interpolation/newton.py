@@ -1,4 +1,7 @@
+from numpy import isnan
 from pandas import DataFrame
+from sympy import latex, sympify
+
 
 
 
@@ -35,7 +38,56 @@ def divided_diff(table):
         table[i + 1] = row
         i += 1
 
-    return DataFrame(center(table, n))
+    for key in table.keys():
+        if len(table[key]) < n:
+            for i in range(n - len(table[key])):
+                table[key].append(None)
+
+    return DataFrame(table)
 
 
-print(divided_diff(data))
+l = divided_diff(data)
+
+
+def pol(table):
+    ddpArr = []
+    ddrArr = []
+    for i in table:
+        if i == "x":
+            continue
+
+        ddpArr.append(table.get(i).get(0))
+        for j in range(len(table.get(i)) + 1):
+            item = table.get(i).get(len(table.get(i)) - j)
+            if item != None and not isnan(item):
+                ddrArr.append(item)
+                break
+
+    def ddpGen(ddp):
+        ddpStr = ""
+        ddpSource = ""
+        for i in range(len(ddp)):
+            sc = f"*(x-{table['x'][i]})"
+            ddpStr += "(" + str(ddp[i]) + ")" + ddpSource + "+"
+            ddpSource += sc
+        ddpStr = ddpStr[:-1]
+
+        return ddpStr
+
+    def ddrGen(ddr):
+        ddrStr = ""
+        ddrSource = ""
+        for i in range(len(ddr)):
+            scr = f"*(x-{table['x'][(len(ddr) - 1) - i]})"
+            ddrStr += "(" + str(ddr[i]) + ")" + ddrSource + "+"
+            ddrSource += scr
+
+        ddrStr = ddrStr[:-1]
+
+        return ddrStr
+
+    sol = ddpGen(ddpArr)
+    sol2 = ddrGen(ddrArr)
+
+    print(sol, "\n", sympify(sol).expand(), "\n\n", sol2, "\n", sympify(sol2).expand())
+
