@@ -230,7 +230,7 @@ def darkSheet(accent):
 	}
 
 	QTabWidget::pane {
-		border: 1px solid rgba(43, 43, 43);
+		border: 1px solid rgb(43, 43, 43);
 		border-radius: 5px;
 	}
 

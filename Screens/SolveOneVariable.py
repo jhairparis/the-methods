@@ -1,7 +1,6 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 from PySide2.QtCore import Qt
 from Screens.components.Select import Select
-from modules.mica.styleSheet import ApplyMenuBlur, setStyleSheet
 import time
 import numpy as np
 from lib.Logic import Logic
@@ -31,38 +30,22 @@ class Ui_SolveOneVariable(object):
             t, np.sin(t + time.time()), color=rgb2hex(getTheme()["accent"])
         )
 
-    def setupUi(self, MainWindow):
+    def setupUi(self, MainWindow, MainWidget):
         self.logic = Logic()
         self.logic.reset()
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.setEnabled(True)
-        MainWindow.resize(980, 650)
-        MainWindow.setMinimumSize(QtCore.QSize(980, 650))
-        font = QtGui.QFont()
-        font.setFamily("Segoe UI Variable Small")
-        font.setPointSize(11)
-        font.setBold(False)
-        font.setWeight(50)
-        MainWindow.setFont(font)
-        setStyleSheet(MainWindow)
 
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.scrollCentral = QtWidgets.QScrollArea()
+        width = MainWindow.min_size.width()
+        height = MainWindow.min_size.height()
 
-        self.centralwidget.setEnabled(True)
-        self.centralwidget.setMinimumSize(QtCore.QSize(1920, 1080))
-        font = QtGui.QFont()
-        font.setFamily("Segoe UI Variable Small")
-        font.setPointSize(11)
-        font.setBold(False)
-        font.setWeight(50)
-        self.centralwidget.setFont(font)
-        self.centralwidget.setStyleSheet("")
-        self.centralwidget.setObjectName("centralwidget")
+        self.scrollCentral = QtWidgets.QScrollArea(MainWidget)
+        self.scrollCentral.setFixedSize(QtCore.QSize(width, height - 100))
 
-        self.window = QtWidgets.QFrame(self.centralwidget)
+        self.solveOneVariableW = QtWidgets.QWidget()
+        self.solveOneVariableW.setMinimumSize(QtCore.QSize(width - 90, height * 1.6))
+
+        self.window = QtWidgets.QFrame(self.solveOneVariableW)
         self.window.setEnabled(True)
-        self.window.setGeometry(QtCore.QRect(19, 0, 991, 1302))
+        self.window.setGeometry(QtCore.QRect(0, 0, width, height * 2))
         self.window.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.window.setFrameShadow(QtWidgets.QFrame.Raised)
         self.window.setObjectName("window")
@@ -228,12 +211,12 @@ class Ui_SolveOneVariable(object):
         self.pushButton.setEnabled(True)
         self.pushButton.setMaximumSize(QtCore.QSize(150, 40))
         font = QtGui.QFont()
-        font.setFamily("Segoe UI Variable Small")
-        font.setPointSize(11)
+        font.setFamily(MainWindow.font_family)
+        font.setPointSize(MainWindow.font_size)
+        font.setWeight(MainWindow.font_weight)
         font.setBold(False)
         font.setItalic(False)
         font.setUnderline(False)
-        font.setWeight(50)
         font.setStrikeOut(False)
         font.setKerning(True)
         self.pushButton.setFont(font)
@@ -265,11 +248,6 @@ class Ui_SolveOneVariable(object):
         self.tableWidget = QtWidgets.QTableView(self.window)
         self.tableWidget.setEnabled(True)
         self.tableWidget.setGeometry(QtCore.QRect(0, 526, 950, 500))
-        font = QtGui.QFont()
-        font.setFamily("Segoe UI Variable Small")
-        font.setPointSize(11)
-        font.setBold(False)
-        font.setWeight(50)
         self.tableWidget.setFont(font)
         self.tableWidget.setObjectName("tableWidget")
 
@@ -279,17 +257,13 @@ class Ui_SolveOneVariable(object):
         self.scrollCentral.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
         self.scrollCentral.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scrollCentral.setWidgetResizable(True)
-        self.scrollCentral.setWidget(self.centralwidget)
+        self.scrollCentral.setWidget(self.solveOneVariableW)
 
-        MainWindow.setCentralWidget(self.scrollCentral)
+        self.valuesUI()
+        self.actionsUI()
 
-        self.valuesUI(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        self.actionsUI(MainWindow)
-
-    def valuesUI(self, MainWindow):
+    def valuesUI(self):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "The methods"))
 
         self.label_method.setText(_translate("MainWindow", "Select method"))
         self.label_fn.setText(_translate("MainWindow", "Write the function"))
@@ -529,7 +503,7 @@ class Ui_SolveOneVariable(object):
             )
         return
 
-    def actionsUI(self, MainWindow):
+    def actionsUI(self):
         self.pushButton.clicked.connect(self.handleClickMethods)
 
         self.method_box.currentIndexChanged.connect(self.handleChangeMethod)

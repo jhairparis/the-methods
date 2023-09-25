@@ -1,12 +1,13 @@
 import sys
 from PySide2 import QtGui, QtWidgets
-from PySide2.QtCore import Qt, QRect, QCoreApplication
+from PySide2.QtCore import Qt, QRect, QCoreApplication, QSize, QMetaObject
 from modules.mica.styleSheet import ApplyMenuBlur
 from PySide2.QtWidgets import QMainWindow, QApplication
 from PySide2.QtWinExtras import QtWin
 from modules.mica.styleSheet import setMicaWindow
 from Screens.SolveOneVariable import Ui_SolveOneVariable
 from Screens.components.About import AboutDialog
+from modules.mica.styleSheet import ApplyMenuBlur, setStyleSheet
 import matplotlib
 from icons import icons_rc
 
@@ -14,7 +15,56 @@ matplotlib.use("Qt5Agg")
 
 
 class TheWindow(QMainWindow):
+    min_size = QSize(980, 650)
+    font_family = "Segoe UI Variable Small"
+    font_size = 11
+    font_weight = 50
+
     def setupUI(self):
+        self.setWindowIcon(QtGui.QIcon(":/icons/icon.ico"))
+        self.setObjectName("MainWindow")
+        self.setEnabled(True)
+
+        self.resize(self.min_size)
+        self.setMinimumSize(self.min_size)
+
+        font = QtGui.QFont()
+        font.setFamily(self.font_family)
+        font.setPointSize(self.font_size)
+        font.setWeight(self.font_weight)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setUnderline(False)
+        font.setStrikeOut(False)
+        font.setKerning(True)
+
+        self.setFont(font)
+
+        setStyleSheet(self)
+
+        self.tabWidget = QtWidgets.QTabWidget(self)
+        self.tabWidget.setEnabled(True)
+        self.tabWidget.setMinimumSize(self.min_size)
+        self.tabWidget.setStyleSheet("")
+        self.tabWidget.setObjectName("tabWidget")
+        self.tabWidget.setFont(font)
+
+        self.tabSolveOneVariable = QtWidgets.QWidget(self.tabWidget)
+        self.tabSolveOneVariable.setStyleSheet("")
+        self.tabSolveOneVariable.setObjectName("tabSolveOneVariable")
+
+        self.ui = Ui_SolveOneVariable()
+        self.ui.setupUi(self, self.tabSolveOneVariable)
+
+        self.tabInterpolation = QtWidgets.QWidget()
+        self.tabInterpolation.setStyleSheet("")
+        self.tabInterpolation.setObjectName("tabInterpolation")
+
+        self.tabWidget.addTab(self.tabSolveOneVariable, "Solve one variable")
+        self.tabWidget.addTab(self.tabInterpolation, "Interpolation")
+
+        self.setCentralWidget(self.tabWidget)
+
         self.menuBar = QtWidgets.QMenuBar(self)
         self.menuBar.setEnabled(True)
         self.menuBar.setGeometry(QRect(0, 0, 980, 63))
@@ -76,6 +126,7 @@ class TheWindow(QMainWindow):
 
     def valuesUI(self):
         _translate = QCoreApplication.translate
+        self.setWindowTitle(_translate("MainWindow", "The methods"))
 
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.actionNew.setTitle(_translate("MainWindow", "New"))
@@ -105,10 +156,13 @@ class TheWindow(QMainWindow):
         ApplyMenuBlur(self.menuEdit.winId().__int__())
         ApplyMenuBlur(self.menuHelp.winId().__int__())
 
+        QMetaObject.connectSlotsByName(self)
+
     def actionUI(self):
         def openAbout():
             about = AboutDialog(self)
             about.exec()
+
         self.actionAbout.triggered.connect(openAbout)
         self.actionExit.triggered.connect(self.close)
 
@@ -116,10 +170,6 @@ class TheWindow(QMainWindow):
         QMainWindow.__init__(self)
         self.setupUI()
 
-        self.ui = Ui_SolveOneVariable()
-        self.ui.setupUi(self)
-
-        self.setWindowIcon(QtGui.QIcon(":/icons/icon.ico"))
         setMicaWindow(self)
 
         self.setAttribute(Qt.WA_TranslucentBackground)
