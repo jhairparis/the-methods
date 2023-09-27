@@ -3,9 +3,7 @@ from pandas import DataFrame
 from sympy import latex, sympify
 
 
-
-
-def center(table, max_length=None):
+def center(table: dict, max_length: int = None):
     # max(len(values) for values in table.values())
     for key, values in table.items():
         padding = (max_length - len(values)) // 2
@@ -13,10 +11,15 @@ def center(table, max_length=None):
             [None] * padding + values + [None] * (max_length - len(values) - padding)
         )
 
-    return table
+
+def normalize(table: dict, n: int):
+    for key in table.keys():
+        if len(table[key]) < n:
+            for i in range(n - len(table[key])):
+                table[key].append(None)
 
 
-def divided_diff(table):
+def divided_diff(table: dict) -> dict:
     x = table["x"]
     y = table["f(x)"]
 
@@ -38,56 +41,64 @@ def divided_diff(table):
         table[i + 1] = row
         i += 1
 
-    for key in table.keys():
-        if len(table[key]) < n:
-            for i in range(n - len(table[key])):
-                table[key].append(None)
-
-    return DataFrame(table)
+    return table
 
 
-l = divided_diff(data)
-
-
-def pol(table):
-    ddpArr = []
-    ddrArr = []
+def polynomialDDP(table: DataFrame):
+    ddp = []
     for i in table:
         if i == "x":
             continue
+        ddp.append(table.get(i).get(0))
 
-        ddpArr.append(table.get(i).get(0))
+    solution = ""
+    ddpSource = ""
+    for i in range(len(ddp)):
+        sc = f"*(x-{table['x'][i]})"
+        solution += "(" + "%.6f" % ddp[i] + ")" + ddpSource + "+"
+        ddpSource += sc
+
+    solution = solution[:-1]
+
+    fn = sympify(solution)
+    expanded = fn.expand()
+
+    return {
+        "solution": solution,
+        "base": fn,
+        "latex": latex(fn),
+        "expanded": expanded,
+        "expanded_latex": latex(expanded),
+    }
+
+
+def polynomialDDR(table: DataFrame):
+    ddr = []
+    for i in table:
+        if i == "x":
+            continue
         for j in range(len(table.get(i)) + 1):
             item = table.get(i).get(len(table.get(i)) - j)
             if item != None and not isnan(item):
-                ddrArr.append(item)
+                ddr.append(item)
                 break
 
-    def ddpGen(ddp):
-        ddpStr = ""
-        ddpSource = ""
-        for i in range(len(ddp)):
-            sc = f"*(x-{table['x'][i]})"
-            ddpStr += "(" + str(ddp[i]) + ")" + ddpSource + "+"
-            ddpSource += sc
-        ddpStr = ddpStr[:-1]
+    solution = ""
+    ddrSource = ""
+    for i in range(len(ddr)):
+        scr = f"*(x-{table['x'][(len(ddr) - 1) - i]})"
+        solution += "(" + "%.6f" % ddr[i] + ")" + ddrSource + "+"
+        ddrSource += scr
 
-        return ddpStr
+    solution = solution[:-1]
 
-    def ddrGen(ddr):
-        ddrStr = ""
-        ddrSource = ""
-        for i in range(len(ddr)):
-            scr = f"*(x-{table['x'][(len(ddr) - 1) - i]})"
-            ddrStr += "(" + str(ddr[i]) + ")" + ddrSource + "+"
-            ddrSource += scr
+    fn = sympify(solution)
+    expanded = fn.expand()
 
-        ddrStr = ddrStr[:-1]
-
-        return ddrStr
-
-    sol = ddpGen(ddpArr)
-    sol2 = ddrGen(ddrArr)
-
-    print(sol, "\n", sympify(sol).expand(), "\n\n", sol2, "\n", sympify(sol2).expand())
-
+    return {
+        "solution": solution,
+        "base": fn,
+        "latex": latex(fn),
+        "expanded": expanded,
+        "expanded_latex": latex(expanded),
+    }

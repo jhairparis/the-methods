@@ -5,7 +5,7 @@ from PyQt5.QtCore import Qt
 
 
 class TableModel(QtCore.QAbstractTableModel):
-    def __init__(self, data):
+    def __init__(self, data: pd.DataFrame):
         super(TableModel, self).__init__()
         self._data = data
 

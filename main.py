@@ -1,6 +1,7 @@
 import sys
 from PySide2 import QtGui, QtWidgets
 from PySide2.QtCore import Qt, QRect, QCoreApplication, QSize, QMetaObject
+from Screens.Interpolation import Ui_Interpolation
 from modules.mica.styleSheet import ApplyMenuBlur
 from PySide2.QtWidgets import QMainWindow, QApplication
 from PySide2.QtWinExtras import QtWin
@@ -59,6 +60,9 @@ class TheWindow(QMainWindow):
         self.tabInterpolation = QtWidgets.QWidget()
         self.tabInterpolation.setStyleSheet("")
         self.tabInterpolation.setObjectName("tabInterpolation")
+
+        self.ui2 = Ui_Interpolation()
+        self.ui2.setupUi(self, self.tabInterpolation)
 
         self.tabWidget.addTab(self.tabSolveOneVariable, "Solve one variable")
         self.tabWidget.addTab(self.tabInterpolation, "Interpolation")
