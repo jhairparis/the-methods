@@ -25,8 +25,8 @@ class Ui_Interpolation(object):
 
         self.logic = Logic2()
 
-        width = MainWindow.min_size.width() * 2
-        height = MainWindow.min_size.height()
+        self.width = MainWindow.min_size.width()
+        self.height = MainWindow.min_size.height() - 63
 
         font = QtGui.QFont()
         font.setFamily(MainWindow.font_family)
@@ -39,35 +39,47 @@ class Ui_Interpolation(object):
         font.setKerning(True)
 
         self.scrollCentral = QtWidgets.QScrollArea(MainWidget)
-        self.scrollCentral.setFixedSize(QtCore.QSize(width, height - 100))
+        self.scrollCentral.setFixedSize(QtCore.QSize(self.width, self.height))
 
         self.interpolation = QtWidgets.QWidget()
-        self.interpolation.setFixedSize(QtCore.QSize(width - 90, height * 1.6))
+        self.interpolation.setFixedSize(QtCore.QSize(self.width, self.height))
 
         self.window = QtWidgets.QFrame(self.interpolation)
         self.window.setEnabled(True)
-        self.window.setGeometry(QtCore.QRect(0, 0, width, height * 2))
+        self.window.setGeometry(QtCore.QRect(0, 0, self.width, self.height))
         self.window.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.window.setFrameShadow(QtWidgets.QFrame.Raised)
         self.window.setObjectName("window")
 
-        self.getClipboardButton = QtWidgets.QPushButton(self.window)
+        self.initWidget = QtWidgets.QWidget(self.window)
+
+        centerHeight = ((self.height - 63) - 40) / 2
+        self.getClipboardButton = QtWidgets.QPushButton(self.initWidget)
         self.getClipboardButton.setEnabled(True)
-        self.getClipboardButton.setGeometry(QtCore.QRect(20, 20, 150, 40))
         self.getClipboardButton.setMaximumSize(QtCore.QSize(150, 40))
+        self.getClipboardButton.setGeometry(
+            QtCore.QRect((self.width - 320) / 2, centerHeight, 150, 40)
+        )
         self.getClipboardButton.setFont(font)
         self.getClipboardButton.setStyleSheet("")
         self.getClipboardButton.setObjectName("getClipboardButton")
 
-        self.getEXCELButton = QtWidgets.QPushButton(self.window)
+        self.getEXCELButton = QtWidgets.QPushButton(self.initWidget)
         self.getEXCELButton.setEnabled(True)
         self.getEXCELButton.setMaximumSize(QtCore.QSize(150, 40))
-        self.getEXCELButton.setGeometry(QtCore.QRect(180, 20, 150, 40))
+        self.getEXCELButton.setGeometry(
+            QtCore.QRect((self.width) / 2, centerHeight, 150, 40)
+        )
         self.getEXCELButton.setFont(font)
         self.getEXCELButton.setStyleSheet("")
         self.getEXCELButton.setObjectName("getEXCELButton")
 
-        self.clearButton = QtWidgets.QPushButton(self.window)
+        # ---
+
+        self.readyWidget = QtWidgets.QWidget(self.window)
+        self.readyWidget.setVisible(False)
+
+        self.clearButton = QtWidgets.QPushButton(self.readyWidget)
         self.clearButton.setEnabled(True)
         self.clearButton.setMaximumSize(QtCore.QSize(150, 40))
         self.clearButton.setGeometry(QtCore.QRect(340, 20, 150, 40))
@@ -75,12 +87,12 @@ class Ui_Interpolation(object):
         self.clearButton.setStyleSheet("")
         self.clearButton.setObjectName("clearButton")
 
-        self.check = QtWidgets.QCheckBox(self.window)
+        self.check = QtWidgets.QCheckBox(self.readyWidget)
         self.check.setStyleSheet("")
         self.check.setObjectName("check")
         self.check.setGeometry(QtCore.QRect(20, 70, 40, 40))
 
-        self.tableWidget = QtWidgets.QTableView(self.window)
+        self.tableWidget = QtWidgets.QTableView(self.readyWidget)
         self.tableWidget.setEnabled(True)
         self.tableWidget.setGeometry(QtCore.QRect(20, 120, 950, 500))
         self.tableWidget.setFont(font)
@@ -89,40 +101,56 @@ class Ui_Interpolation(object):
         model = TableModel(self.init_table)
         self.tableWidget.setModel(model)
 
-        self.progressiveLabel = QtWidgets.QLabel(self.window)
+        self.progressiveLabel = QtWidgets.QLabel(self.readyWidget)
         self.progressiveLabel.setStyleSheet("")
         self.progressiveLabel.setObjectName("label")
-        self.progressiveLabel.setGeometry(QtCore.QRect(20, 620, width, 200))
+        self.progressiveLabel.setGeometry(QtCore.QRect(20, 620, self.width, 200))
 
-        self.progressiveMath = QtWidgets.QLabel(self.window)
+        self.progressiveMath = QtWidgets.QLabel(self.readyWidget)
         self.progressiveMath.setStyleSheet("")
         self.progressiveMath.setObjectName("label")
-        self.progressiveMath.setGeometry(QtCore.QRect(20, 650, width, 200))
+        self.progressiveMath.setGeometry(QtCore.QRect(20, 650, self.width, 200))
 
-        self.progressiveMathE = QtWidgets.QLabel(self.window)
+        self.progressiveMathE = QtWidgets.QLabel(self.readyWidget)
         self.progressiveMathE.setStyleSheet("")
         self.progressiveMathE.setObjectName("label")
-        self.progressiveMathE.setGeometry(QtCore.QRect(20, 680, width, 200))
+        self.progressiveMathE.setGeometry(QtCore.QRect(20, 680, self.width, 200))
 
-        self.regressionLabel = QtWidgets.QLabel(self.window)
+        self.regressionLabel = QtWidgets.QLabel(self.readyWidget)
         self.regressionLabel.setStyleSheet("")
         self.regressionLabel.setObjectName("label")
-        self.regressionLabel.setGeometry(QtCore.QRect(20, 710, width, 200))
+        self.regressionLabel.setGeometry(QtCore.QRect(20, 710, self.width, 200))
 
-        self.regressionMath = QtWidgets.QLabel(self.window)
+        self.regressionMath = QtWidgets.QLabel(self.readyWidget)
         self.regressionMath.setStyleSheet("")
         self.regressionMath.setObjectName("label")
-        self.regressionMath.setGeometry(QtCore.QRect(20, 740, width, 200))
+        self.regressionMath.setGeometry(QtCore.QRect(20, 740, self.width, 200))
 
-        self.regressionMathE = QtWidgets.QLabel(self.window)
+        self.regressionMathE = QtWidgets.QLabel(self.readyWidget)
         self.regressionMathE.setStyleSheet("")
         self.regressionMathE.setObjectName("label")
-        self.regressionMathE.setGeometry(QtCore.QRect(20, 770, width, 200))
+        self.regressionMathE.setGeometry(QtCore.QRect(20, 770, self.width, 200))
 
         self.scrollCentral.setWidget(self.interpolation)
 
         self.valuesUI()
         self.actionsUI()
+
+    def hiddenReadyWidget(self):
+        self.readyWidget.setVisible(False)
+        self.initWidget.setVisible(True)
+
+        self.interpolation.setFixedSize(QtCore.QSize(self.width, self.height))
+        self.window.setGeometry(QtCore.QRect(0, 0, self.width, self.height))
+
+    def showReadyWidget(self):
+        self.initWidget.setVisible(False)
+        self.readyWidget.setVisible(True)
+
+        self.interpolation.setFixedSize(
+            QtCore.QSize(self.width - 90, self.height * 1.6)
+        )
+        self.window.setGeometry(QtCore.QRect(0, 0, self.width, self.height * 1.6))
 
     def valuesUI(self):
         self.getClipboardButton.setText("From Clipboard")
@@ -153,15 +181,16 @@ class Ui_Interpolation(object):
     def clear(self):
         from modules.TableModel import TableModel
 
+        self.hiddenReadyWidget()
+
         self.logic.clear()
 
         model = TableModel(DataFrame(self.init_table))
         self.tableWidget.setModel(model)
 
-    def getClipboard(self):
+    def runMethod(self):
         from modules.TableModel import TableModel
 
-        self.logic.base = read_clipboard().to_dict(orient="list")
         base = deepcopy(self.logic.base)
 
         self.logic.table = divided_diff(base)
@@ -189,3 +218,16 @@ class Ui_Interpolation(object):
         self.regressionMathE.setPixmap(
             MathToQPixmap(f"$P_{n-1}={ddr['expanded_latex']}$", 11)
         )
+
+    def getClipboard(self):
+        from modules.TableModel import TableModel
+
+        self.showReadyWidget()
+
+        self.logic.base = read_clipboard().to_dict(orient="list")
+
+        self.runMethod()
+
+        df = DataFrame(self.logic.base)
+        model = TableModel(df)
+        self.tableWidget.setModel(model)

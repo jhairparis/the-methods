@@ -45,7 +45,7 @@ class TheWindow(QMainWindow):
 
         self.menuBar = QtWidgets.QMenuBar(self)
         self.menuBar.setEnabled(True)
-        self.menuBar.setGeometry(QRect(0, 0, 980, 63))
+        self.menuBar.setGeometry(QRect(0, 0, self.min_size.width(), 63))
         self.menuBar.setStyleSheet("")
         self.menuBar.setObjectName("menuBar")
 
