@@ -43,12 +43,89 @@ class TheWindow(QMainWindow):
 
         setStyleSheet(self)
 
+        self.menuBar = QtWidgets.QMenuBar(self)
+        self.menuBar.setEnabled(True)
+        self.menuBar.setGeometry(QRect(0, 0, 980, 63))
+        self.menuBar.setStyleSheet("")
+        self.menuBar.setObjectName("menuBar")
+
+        self.menuFile = QtWidgets.QMenu(self.menuBar)
+        self.menuFile.setEnabled(True)
+        self.menuFile.setObjectName("menuFile")
+
+        self.actionNew = QtWidgets.QMenu(self.menuFile)
+        self.actionNew.setEnabled(True)
+        self.actionNew.setStyleSheet("")
+        self.actionNew.setObjectName("actionNew")
+
+        self.menuTopics = QtWidgets.QMenu(self.menuBar)
+        self.menuTopics.setObjectName("menuTopics")
+
+        self.menuHelp = QtWidgets.QMenu(self.menuBar)
+        self.menuHelp.setObjectName("menuHelp")
+
+        self.setMenuBar(self.menuBar)
+
+        self.solveOneVariable = QtWidgets.QAction(self)
+        self.solveOneVariable.setObjectName("solveOneVariable")
+
+        self.interpolation = QtWidgets.QAction(self)
+        self.interpolation.setObjectName("interpolation")
+
+        self.topic3 = QtWidgets.QAction(self)
+        self.topic3.setObjectName("topic3")
+
+        self.actionSave = QtWidgets.QAction(self)
+        self.actionSave.setEnabled(True)
+        self.actionSave.setObjectName("actionSave")
+
+        self.actionExit = QtWidgets.QAction(self)
+        self.actionExit.setObjectName("actionExit")
+
+        self.actionPlain_Text_Document = QtWidgets.QAction(self)
+        self.actionPlain_Text_Document.setObjectName("actionPlain_Text_Document")
+        self.actionRich_Text_Document = QtWidgets.QAction(self)
+        self.actionRich_Text_Document.setObjectName("actionRich_Text_Document")
+
+        self.actionOpen = QtWidgets.QAction(self)
+        self.actionOpen.setObjectName("actionOpen")
+
+        self.actionAbout = QtWidgets.QAction(self)
+        self.actionAbout.setEnabled(True)
+        self.actionAbout.setObjectName("actionAbout")
+        self.actionNew.addAction(self.actionPlain_Text_Document)
+        self.actionNew.addAction(self.actionRich_Text_Document)
+
+        self.menuFile.addAction(self.actionNew.menuAction())
+        self.menuFile.addAction(self.actionOpen)
+        self.menuFile.addAction(self.actionSave)
+        self.menuFile.addAction(self.actionExit)
+
+        self.menuTopics.addAction(self.solveOneVariable)
+        self.menuTopics.addAction(self.interpolation)
+        self.menuTopics.addAction(self.topic3)
+
+        self.menuHelp.addAction(self.actionAbout)
+
+        self.menuBar.addAction(self.menuFile.menuAction())
+        self.menuBar.addAction(self.menuTopics.menuAction())
+        self.menuBar.addAction(self.menuHelp.menuAction())
+
+        # ---
+
         self.tabWidget = QtWidgets.QTabWidget(self)
         self.tabWidget.setEnabled(True)
         self.tabWidget.setMinimumSize(self.min_size)
         self.tabWidget.setStyleSheet("")
         self.tabWidget.setObjectName("tabWidget")
         self.tabWidget.setFont(font)
+        self.tabWidget.tabBar().setVisible(False)
+        self.tabWidget.setStyleSheet(
+            """
+            QTabWidget::pane {
+                    border: none;
+            }"""
+        )
 
         self.tabSolveOneVariable = QtWidgets.QWidget(self.tabWidget)
         self.tabSolveOneVariable.setStyleSheet("")
@@ -69,62 +146,6 @@ class TheWindow(QMainWindow):
 
         self.setCentralWidget(self.tabWidget)
 
-        self.menuBar = QtWidgets.QMenuBar(self)
-        self.menuBar.setEnabled(True)
-        self.menuBar.setGeometry(QRect(0, 0, 980, 63))
-        self.menuBar.setStyleSheet("")
-        self.menuBar.setObjectName("menuBar")
-        self.menuFile = QtWidgets.QMenu(self.menuBar)
-        self.menuFile.setEnabled(True)
-        self.menuFile.setObjectName("menuFile")
-        self.actionNew = QtWidgets.QMenu(self.menuFile)
-        self.actionNew.setEnabled(True)
-        self.actionNew.setStyleSheet("")
-        self.actionNew.setObjectName("actionNew")
-        self.menuEdit = QtWidgets.QMenu(self.menuBar)
-        self.menuEdit.setObjectName("menuEdit")
-        self.menuHelp = QtWidgets.QMenu(self.menuBar)
-        self.menuHelp.setObjectName("menuHelp")
-        self.setMenuBar(self.menuBar)
-
-        self.actionUndo = QtWidgets.QAction(self)
-        self.actionUndo.setObjectName("actionUndo")
-        self.actionSave = QtWidgets.QAction(self)
-        self.actionSave.setEnabled(True)
-        self.actionSave.setObjectName("actionSave")
-        self.actionExit = QtWidgets.QAction(self)
-        self.actionExit.setObjectName("actionExit")
-        self.actionPlain_Text_Document = QtWidgets.QAction(self)
-        self.actionPlain_Text_Document.setObjectName("actionPlain_Text_Document")
-        self.actionRich_Text_Document = QtWidgets.QAction(self)
-        self.actionRich_Text_Document.setObjectName("actionRich_Text_Document")
-        self.actionOpen = QtWidgets.QAction(self)
-        self.actionOpen.setObjectName("actionOpen")
-        self.actionCut = QtWidgets.QAction(self)
-        self.actionCut.setObjectName("actionCut")
-        self.actionCopy = QtWidgets.QAction(self)
-        self.actionCopy.setObjectName("actionCopy")
-        self.actionPaste = QtWidgets.QAction(self)
-        self.actionPaste.setObjectName("actionPaste")
-        self.actionAbout = QtWidgets.QAction(self)
-        self.actionAbout.setEnabled(True)
-        self.actionAbout.setObjectName("actionAbout")
-        self.actionNew.addAction(self.actionPlain_Text_Document)
-        self.actionNew.addAction(self.actionRich_Text_Document)
-        self.menuFile.addAction(self.actionNew.menuAction())
-        self.menuFile.addAction(self.actionOpen)
-        self.menuFile.addAction(self.actionSave)
-        self.menuFile.addAction(self.actionExit)
-        self.menuEdit.addAction(self.actionUndo)
-        self.menuEdit.addAction(self.actionCut)
-        self.menuEdit.addAction(self.actionCopy)
-        self.menuEdit.addAction(self.actionPaste)
-        self.menuHelp.addAction(self.actionAbout)
-
-        self.menuBar.addAction(self.menuFile.menuAction())
-        self.menuBar.addAction(self.menuEdit.menuAction())
-        self.menuBar.addAction(self.menuHelp.menuAction())
-
         self.valuesUI()
         self.actionUI()
 
@@ -134,10 +155,20 @@ class TheWindow(QMainWindow):
 
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.actionNew.setTitle(_translate("MainWindow", "New"))
-        self.menuEdit.setTitle(_translate("MainWindow", "Edit"))
+
+        self.menuTopics.setTitle(_translate("MainWindow", "Topics"))
+
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
-        self.actionUndo.setText(_translate("MainWindow", "Undo"))
-        self.actionUndo.setShortcut(_translate("MainWindow", "Ctrl+Z"))
+
+        self.solveOneVariable.setText(_translate("MainWindow", "Solve one variable"))
+        self.solveOneVariable.setShortcut(_translate("MainWindow", "Ctrl+1"))
+
+        self.interpolation.setText(_translate("MainWindow", "Interpolation"))
+        self.interpolation.setShortcut(_translate("MainWindow", "Ctrl+2"))
+
+        self.topic3.setText(_translate("MainWindow", "Topic 3"))
+        self.topic3.setShortcut(_translate("MainWindow", "Ctrl+3"))
+
         self.actionSave.setText(_translate("MainWindow", "Save"))
         self.actionSave.setShortcut(_translate("MainWindow", "Ctrl+S"))
         self.actionExit.setText(_translate("MainWindow", "Exit"))
@@ -146,18 +177,13 @@ class TheWindow(QMainWindow):
         self.actionRich_Text_Document.setText(_translate("MainWindow", "Project File"))
         self.actionOpen.setText(_translate("MainWindow", "Open"))
         self.actionOpen.setShortcut(_translate("MainWindow", "Ctrl+O"))
-        self.actionCut.setText(_translate("MainWindow", "Cut"))
-        self.actionCut.setShortcut(_translate("MainWindow", "Ctrl+X"))
-        self.actionCopy.setText(_translate("MainWindow", "Copy"))
-        self.actionCopy.setShortcut(_translate("MainWindow", "Ctrl+C"))
-        self.actionPaste.setText(_translate("MainWindow", "Paste"))
-        self.actionPaste.setShortcut(_translate("MainWindow", "Ctrl+V"))
+
         self.actionAbout.setText(_translate("MainWindow", "About"))
         self.actionAbout.setShortcut(_translate("MainWindow", "Ctrl+I"))
 
         ApplyMenuBlur(self.menuFile.winId().__int__())
         ApplyMenuBlur(self.actionNew.winId().__int__())
-        ApplyMenuBlur(self.menuEdit.winId().__int__())
+        ApplyMenuBlur(self.menuTopics.winId().__int__())
         ApplyMenuBlur(self.menuHelp.winId().__int__())
 
         QMetaObject.connectSlotsByName(self)
@@ -166,6 +192,11 @@ class TheWindow(QMainWindow):
         def openAbout():
             about = AboutDialog(self)
             about.exec()
+
+        self.solveOneVariable.triggered.connect(
+            lambda: self.tabWidget.setCurrentIndex(0)
+        )
+        self.interpolation.triggered.connect(lambda: self.tabWidget.setCurrentIndex(1))
 
         self.actionAbout.triggered.connect(openAbout)
         self.actionExit.triggered.connect(self.close)

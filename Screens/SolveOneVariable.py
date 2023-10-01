@@ -38,7 +38,7 @@ class Ui_SolveOneVariable(object):
         height = MainWindow.min_size.height()
 
         self.scrollCentral = QtWidgets.QScrollArea(MainWidget)
-        self.scrollCentral.setFixedSize(QtCore.QSize(width, height - 100))
+        self.scrollCentral.setFixedSize(QtCore.QSize(width, height - 63))
 
         self.solveOneVariableW = QtWidgets.QWidget()
         self.solveOneVariableW.setMinimumSize(QtCore.QSize(width - 90, height * 1.6))
