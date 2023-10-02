@@ -12,7 +12,13 @@ class TableModel(QtCore.QAbstractTableModel):
     def data(self, index, role):
         if role == Qt.DisplayRole:
             value = self._data.iloc[index.row(), index.column()]
-            return str(value)
+            if isinstance(value, float):
+                if str(value) == "nan":
+                    return ""
+                else:
+                    return "%.6f" % value
+            else:
+                return str(value)
 
     def rowCount(self, index):
         return self._data.shape[0]
