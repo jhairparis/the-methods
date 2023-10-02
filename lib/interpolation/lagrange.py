@@ -26,8 +26,8 @@ def lagrange(table: dict):
 
     return {
         "solution": solution,
-        "base": fn,
+        "base": lambda x: fn.subs("x", x).evalf(),
         "latex": latex(fn),
-        "expanded": expanded,
+        "expanded": lambda x: expanded.subs("x", x).evalf(),
         "expanded_latex": latex(expanded),
     }
