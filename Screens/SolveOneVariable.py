@@ -247,7 +247,7 @@ class Ui_SolveOneVariable(object):
 
         self.tableWidget = QtWidgets.QTableView(self.window)
         self.tableWidget.setEnabled(True)
-        self.tableWidget.setGeometry(QtCore.QRect(0, 526, 950, 500))
+        self.tableWidget.setGeometry(QtCore.QRect(20, 526, 950, 500))
         self.tableWidget.setFont(font)
         self.tableWidget.setObjectName("tableWidget")
 
