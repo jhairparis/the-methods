@@ -1,8 +1,6 @@
 from sympy import latex, sympify
 
 
-
-
 def lagrange(table: dict):
     x = table["x"]
     y = table["f(x)"]

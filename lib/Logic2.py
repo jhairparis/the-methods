@@ -1,5 +1,5 @@
 class Logic2:
-    method_title = ""
+    method_title = "None"
 
     base = {}
     table = {}
