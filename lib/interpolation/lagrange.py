@@ -12,10 +12,10 @@ def lagrange(table: dict):
 
         for j in range(len(table["x"])):
             if i != j:
-                lNumerator += f"*(x-{x[j]})"
-                lDenominator += f"*({x[i]}-{x[j]})"
+                lNumerator += f"*(x-{float(x[j])})"
+                lDenominator += f"*({float(x[i])}-{float(x[j])})"
 
-        solution += f"((({lNumerator})/({lDenominator}))*{y[i]})+"
+        solution += f"((({lNumerator})/({lDenominator}))*{float(y[i])})+"
 
     solution = solution[:-1]
 

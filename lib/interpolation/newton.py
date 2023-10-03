@@ -54,8 +54,8 @@ def polynomialDDP(table: DataFrame):
     solution = ""
     ddpSource = ""
     for i in range(len(ddp)):
-        sc = f"*(x-{table['x'][i]})"
-        solution += "((" + str(ddp[i]) + ")" + ddpSource + ")+"
+        sc = f"*(x-{float(table['x'][i])})"
+        solution += "((" + str(float(ddp[i])) + ")" + ddpSource + ")+"
         ddpSource += sc
 
     solution = solution[:-1]
@@ -86,8 +86,8 @@ def polynomialDDR(table: DataFrame):
     solution = ""
     ddrSource = ""
     for i in range(len(ddr)):
-        scr = f"*(x-{table['x'][(len(ddr) - 1) - i]})"
-        solution += "(" + str(ddr[i]) + ")" + ddrSource + "+"
+        scr = f"*(x-{float(table['x'][(len(ddr) - 1) - i])})"
+        solution += "(" + str(float(ddr[i])) + ")" + ddrSource + "+"
         ddrSource += scr
 
     solution = solution[:-1]
