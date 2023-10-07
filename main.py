@@ -2,6 +2,7 @@ import sys
 from PySide2 import QtGui, QtWidgets
 from PySide2.QtCore import Qt, QRect, QCoreApplication, QSize, QMetaObject
 from Screens.Interpolation import Ui_Interpolation
+from Screens.Bonus import Ui_Video
 from modules.mica.styleSheet import ApplyMenuBlur
 from PySide2.QtWidgets import QMainWindow, QApplication
 from PySide2.QtWinExtras import QtWin
@@ -141,8 +142,16 @@ class TheWindow(QMainWindow):
         self.ui2 = Ui_Interpolation()
         self.ui2.setupUi(self, self.tabInterpolation)
 
+        self.tabBonus = QtWidgets.QWidget()
+        self.tabBonus.setStyleSheet("")
+        self.tabBonus.setObjectName("tabBonus")
+
+        self.bonus = Ui_Video()
+        self.bonus.setupUi(self, self.tabBonus)
+
         self.tabWidget.addTab(self.tabSolveOneVariable, "Solve one variable")
         self.tabWidget.addTab(self.tabInterpolation, "Interpolation")
+        self.tabWidget.addTab(self.tabBonus, "Bonus")
 
         self.setCentralWidget(self.tabWidget)
 

@@ -248,7 +248,7 @@ class Ui_Interpolation(object):
         self.scrollCentral.setWidget(self.interpolation)
 
         self.valuesUI()
-        self.actionsUI()
+        self.actionsUI(MainWindow)
 
     def valuesUI(self):
         _translate = QtCore.QCoreApplication.translate
@@ -279,7 +279,7 @@ class Ui_Interpolation(object):
         self.secondMath.setText("F2(x)=?")
         self.secondMathE.setText("F2(x)=?")
 
-    def actionsUI(self):
+    def actionsUI(self, MainWindow):
         self.getClipboardButton.clicked.connect(self.getClipboard)
         self.getEXCELButton.clicked.connect(
             lambda: notification.notify(
@@ -294,7 +294,7 @@ class Ui_Interpolation(object):
 
         self.method_box.currentIndexChanged.connect(self.handleChangeMethod)
 
-        # self.animation.clicked.connect(lambda: print(self.tableWidget.height()))
+        self.animation.clicked.connect(lambda: MainWindow.tabWidget.setCurrentIndex(2))
 
     def getClipboard(self):
         read = read_clipboard().to_dict(orient="list")
