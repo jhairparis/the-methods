@@ -19,6 +19,7 @@ from Screens.components.ConfirmFunction import ConfirmFunction
 from modules.MathToQPixmap import MathToQPixmap
 from modules.MplCanvas import MplCanvas
 from modules.mica.theme.getTheme import getTheme, rgb2hex
+
 # from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 
 
@@ -80,9 +81,7 @@ class Ui_Interpolation(object):
         self.instructions.setEnabled(True)
         self.instructions.setMinimumSize(QtCore.QSize(200, 40))
         self.instructions.setGeometry(
-            QtCore.QRect(
-                (self.width - 200) / 2, (self.height - 63 - 120) / 2, 200, 10
-            )
+            QtCore.QRect((self.width - 200) / 2, (self.height - 63 - 120) / 2, 200, 10)
         )
         self.instructions.setStyleSheet("")
         self.instructions.setObjectName("instructions")
@@ -197,15 +196,26 @@ class Ui_Interpolation(object):
         self.titleLabel.setObjectName("label")
         self.titleLabel.setGeometry(QtCore.QRect(650, 620, self.width, 30))
 
-        self.fistMath = QtWidgets.QLabel(self.readyWidget)
-        self.fistMath.setStyleSheet("")
-        self.fistMath.setObjectName("label")
-        self.fistMath.setGeometry(QtCore.QRect(650, 660, self.width, 30))
+        self.scrollMath = QtWidgets.QScrollArea(self.readyWidget)
+        self.scrollMath.setGeometry(QtCore.QRect(650, 285, 300, 90))
 
-        self.firstMathE = QtWidgets.QLabel(self.readyWidget)
+        self.Math = QtWidgets.QWidget(self.scrollMath)
+        self.Math.setFixedSize(QtCore.QSize(10000, 90))
+        self.MathLayout = QtWidgets.QVBoxLayout()
+
+        self.firstMath = QtWidgets.QLabel(self.Math)
+        self.firstMath.setStyleSheet("")
+        self.firstMath.setObjectName("label")
+
+        self.firstMathE = QtWidgets.QLabel(self.Math)
         self.firstMathE.setStyleSheet("")
         self.firstMathE.setObjectName("label")
-        self.firstMathE.setGeometry(QtCore.QRect(650, 700, self.width, 30))
+
+        self.MathLayout.addWidget(self.firstMath)
+        self.MathLayout.addWidget(self.firstMathE)
+
+        self.Math.setLayout(self.MathLayout)
+        self.scrollMath.setWidget(self.Math)
 
         self.titleLabel2 = QtWidgets.QLabel(self.readyWidget)
         self.titleLabel2.setStyleSheet("")
@@ -213,17 +223,27 @@ class Ui_Interpolation(object):
         self.titleLabel2.setGeometry(QtCore.QRect(650, 740, self.width, 30))
         self.titleLabel2.setVisible(False)
 
-        self.secondMath = QtWidgets.QLabel(self.readyWidget)
+        self.scrollMath2 = QtWidgets.QScrollArea(self.readyWidget)
+        self.scrollMath2.setGeometry(QtCore.QRect(650, 410, 300, 90))
+
+        self.Math2 = QtWidgets.QWidget(self.scrollMath2)
+        self.Math2.setFixedSize(QtCore.QSize(10000, 90))
+        self.MathLayout2 = QtWidgets.QVBoxLayout()
+
+        self.secondMath = QtWidgets.QLabel(self.Math2)
         self.secondMath.setStyleSheet("")
         self.secondMath.setObjectName("label")
-        self.secondMath.setGeometry(QtCore.QRect(650, 780, self.width, 20))
-        self.secondMath.setVisible(False)
 
-        self.secondMathE = QtWidgets.QLabel(self.readyWidget)
+        self.secondMathE = QtWidgets.QLabel(self.Math2)
         self.secondMathE.setStyleSheet("")
         self.secondMathE.setObjectName("label")
-        self.secondMathE.setGeometry(QtCore.QRect(650, 820, self.width, 20))
-        self.secondMathE.setVisible(False)
+
+        self.MathLayout2.addWidget(self.secondMath)
+        self.MathLayout2.addWidget(self.secondMathE)
+
+        self.Math2.setLayout(self.MathLayout2)
+        self.scrollMath2.setWidget(self.Math2)
+        self.scrollMath2.setVisible(False)
 
         self.scrollCentral.setWidget(self.interpolation)
 
@@ -251,11 +271,11 @@ class Ui_Interpolation(object):
 
         self.animation.setText(_translate("MainWindow", "Animation"))
 
-        self.titleLabel.setText(_translate("MainWindow", "Interpolation:"))
-        self.fistMath.setText("F(x)=?")
+        self.titleLabel.setText(_translate("MainWindow", "Interpolation"))
+        self.firstMath.setText("F(x)=?")
         self.firstMathE.setText("F(x)=?")
 
-        self.titleLabel2.setText(_translate("MainWindow", "Interpolation:"))
+        self.titleLabel2.setText(_translate("MainWindow", "Interpolation"))
         self.secondMath.setText("F2(x)=?")
         self.secondMathE.setText("F2(x)=?")
 
@@ -310,7 +330,7 @@ class Ui_Interpolation(object):
         self.graph.setGeometry(QtCore.QRect(20, 610, 622, 520))
 
         self.titleLabel.setGeometry(QtCore.QRect(650, 620, self.width, 30))
-        self.fistMath.setGeometry(QtCore.QRect(650, 660, self.width, 30))
+        self.firstMath.setGeometry(QtCore.QRect(650, 660, self.width, 30))
         self.firstMathE.setGeometry(QtCore.QRect(650, 700, self.width, 30))
         self.titleLabel2.setGeometry(QtCore.QRect(650, 740, self.width, 30))
         self.secondMath.setGeometry(QtCore.QRect(650, 780, self.width, 20))
@@ -343,8 +363,7 @@ class Ui_Interpolation(object):
         self.check.setVisible(False)
         self.check.setChecked(False)
         self.titleLabel2.setVisible(False)
-        self.secondMath.setVisible(False)
-        self.secondMathE.setVisible(False)
+        self.scrollMath2.setVisible(False)
 
         if currentIndex == 0:
             self.runTaylor()
@@ -353,8 +372,8 @@ class Ui_Interpolation(object):
             self.labelCheck.setVisible(True)
             self.check.setVisible(True)
             self.titleLabel2.setVisible(True)
-            self.secondMath.setVisible(True)
-            self.secondMathE.setVisible(True)
+            self.scrollMath2.setVisible(True)
+            
             self.runNewton()
             return
         if currentIndex == 2:
@@ -426,7 +445,7 @@ class Ui_Interpolation(object):
             self.titleLabel.setGeometry(
                 QtCore.QRect(650, 120 + tableHeight + 10, self.width, 30)
             )
-            self.fistMath.setGeometry(
+            self.firstMath.setGeometry(
                 QtCore.QRect(650, 120 + tableHeight + 20 + 30, self.width, 30)
             )
             self.firstMathE.setGeometry(
@@ -446,7 +465,7 @@ class Ui_Interpolation(object):
                 )
             )
 
-        self.fistMath.setText("F(x)=?")
+        self.firstMath.setText("F(x)=?")
         self.firstMathE.setText("F(x)=?")
         self.secondMath.setText("F2(x)=?")
         self.secondMathE.setText("F2(x)=?")
@@ -465,7 +484,7 @@ class Ui_Interpolation(object):
 
             self.titleLabel.setText("Interpolation Taylor's:")
 
-            self.fistMath.setPixmap(MathToQPixmap(f"$P_{'{'+str(n-1)+'}'}={p}$", 11))
+            self.firstMath.setPixmap(MathToQPixmap(f"$P_{'{'+str(n-1)+'}'}={p}$", 11))
             return
 
     def runLagrange(self):
@@ -476,7 +495,7 @@ class Ui_Interpolation(object):
 
         self.titleLabel.setText("Interpolation Lagrange:")
 
-        self.fistMath.setPixmap(
+        self.firstMath.setPixmap(
             MathToQPixmap(f"$P_{'{'+str(n-1)+'}'}={p['solution']}$", 11)
         )
 
@@ -512,7 +531,7 @@ class Ui_Interpolation(object):
         self.titleLabel2.setText("Interpolation regression:")
 
         ddp = polynomialDDP(df)
-        self.fistMath.setPixmap(
+        self.firstMath.setPixmap(
             MathToQPixmap(f"$P_{'{'+str(n-1)+'}'}={ddp['solution']}$", 11)
         )
         self.firstMathE.setPixmap(

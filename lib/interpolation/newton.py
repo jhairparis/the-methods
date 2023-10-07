@@ -2,6 +2,8 @@ from numpy import isnan
 from pandas import DataFrame
 from sympy import latex, sympify
 
+from lib.precision import reduceThePrecision
+
 
 def center(table: dict, max_length: int = None):
     # max(len(values) for values in table.values())
@@ -64,11 +66,11 @@ def polynomialDDP(table: DataFrame):
     expanded = fn.expand()
 
     return {
-        "solution": solution,
+        "solution": reduceThePrecision(solution, 4),
         "base": lambda x: fn.subs("x", x).evalf(),
-        "latex": latex(fn),
+        "latex": reduceThePrecision(latex(fn), 4),
         "expanded": lambda x: expanded.subs("x", x).evalf(),
-        "expanded_latex": latex(expanded),
+        "expanded_latex": reduceThePrecision(latex(expanded), 4),
     }
 
 
@@ -96,9 +98,9 @@ def polynomialDDR(table: DataFrame):
     expanded = fn.expand()
 
     return {
-        "solution": solution,
+        "solution": reduceThePrecision(solution, 4),
         "base": lambda x: fn.subs("x", x).evalf(),
-        "latex": latex(fn),
+        "latex": reduceThePrecision(latex(fn), 4),
         "expanded": lambda x: expanded.subs("x", x).evalf(),
-        "expanded_latex": latex(expanded),
+        "expanded_latex": reduceThePrecision(latex(expanded), 4),
     }

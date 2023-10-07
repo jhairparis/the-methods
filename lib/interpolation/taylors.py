@@ -1,4 +1,5 @@
 from sympy import factorial, latex, sympify
+from lib.precision import reduceThePrecision
 
 
 def taylor(f_str: str, k: int, x0: float):
@@ -12,4 +13,4 @@ def taylor(f_str: str, k: int, x0: float):
 
     pol = pol[:-1]
 
-    return latex(sympify(pol))
+    return reduceThePrecision(latex(sympify(pol)), 4)

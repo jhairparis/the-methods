@@ -1,4 +1,5 @@
 from sympy import latex, sympify
+from lib.precision import reduceThePrecision
 
 
 def lagrange(table: dict):
@@ -25,7 +26,7 @@ def lagrange(table: dict):
     return {
         "solution": solution,
         "base": lambda x: fn.subs("x", x).evalf(),
-        "latex": latex(fn),
+        "latex": reduceThePrecision(latex(fn), 4),
         "expanded": lambda x: expanded.subs("x", x).evalf(),
-        "expanded_latex": latex(expanded),
+        "expanded_latex": reduceThePrecision(latex(expanded), 4),
     }
