@@ -191,13 +191,15 @@ class Ui_Interpolation(object):
 
         self.graph.setLayout(self.graph_layout)
 
-        self.titleLabel = QtWidgets.QLabel(self.readyWidget)
+        self.one = QtWidgets.QWidget(self.readyWidget)
+        self.one.setGeometry(QtCore.QRect(650, 620, 300, 140))
+        self.oneLayout = QtWidgets.QVBoxLayout()
+
+        self.titleLabel = QtWidgets.QLabel(self.one)
         self.titleLabel.setStyleSheet("")
         self.titleLabel.setObjectName("label")
-        self.titleLabel.setGeometry(QtCore.QRect(650, 620, self.width, 30))
 
-        self.scrollMath = QtWidgets.QScrollArea(self.readyWidget)
-        self.scrollMath.setGeometry(QtCore.QRect(650, 285, 300, 90))
+        self.scrollMath = QtWidgets.QScrollArea(self.one)
 
         self.Math = QtWidgets.QWidget(self.scrollMath)
         self.Math.setFixedSize(QtCore.QSize(10000, 90))
@@ -217,14 +219,20 @@ class Ui_Interpolation(object):
         self.Math.setLayout(self.MathLayout)
         self.scrollMath.setWidget(self.Math)
 
-        self.titleLabel2 = QtWidgets.QLabel(self.readyWidget)
+        self.oneLayout.addWidget(self.titleLabel)
+        self.oneLayout.addWidget(self.scrollMath)
+        self.one.setLayout(self.oneLayout)
+
+        self.two = QtWidgets.QWidget(self.readyWidget)
+        self.two.setGeometry(QtCore.QRect(650, 780, 300, 140))
+        self.twoLayout = QtWidgets.QVBoxLayout()
+
+        self.titleLabel2 = QtWidgets.QLabel(self.two)
         self.titleLabel2.setStyleSheet("")
         self.titleLabel2.setObjectName("label")
-        self.titleLabel2.setGeometry(QtCore.QRect(650, 740, self.width, 30))
         self.titleLabel2.setVisible(False)
 
-        self.scrollMath2 = QtWidgets.QScrollArea(self.readyWidget)
-        self.scrollMath2.setGeometry(QtCore.QRect(650, 410, 300, 90))
+        self.scrollMath2 = QtWidgets.QScrollArea(self.two)
 
         self.Math2 = QtWidgets.QWidget(self.scrollMath2)
         self.Math2.setFixedSize(QtCore.QSize(10000, 90))
@@ -244,6 +252,10 @@ class Ui_Interpolation(object):
         self.Math2.setLayout(self.MathLayout2)
         self.scrollMath2.setWidget(self.Math2)
         self.scrollMath2.setVisible(False)
+
+        self.twoLayout.addWidget(self.titleLabel2)
+        self.twoLayout.addWidget(self.scrollMath2)
+        self.two.setLayout(self.twoLayout)
 
         self.scrollCentral.setWidget(self.interpolation)
 
@@ -329,12 +341,8 @@ class Ui_Interpolation(object):
         self.tableWidget.setGeometry(QtCore.QRect(20, 120, self.width - 50, 470))
         self.graph.setGeometry(QtCore.QRect(20, 610, 622, 520))
 
-        self.titleLabel.setGeometry(QtCore.QRect(650, 620, self.width, 30))
-        self.firstMath.setGeometry(QtCore.QRect(650, 660, self.width, 30))
-        self.firstMathE.setGeometry(QtCore.QRect(650, 700, self.width, 30))
-        self.titleLabel2.setGeometry(QtCore.QRect(650, 740, self.width, 30))
-        self.secondMath.setGeometry(QtCore.QRect(650, 780, self.width, 20))
-        self.secondMathE.setGeometry(QtCore.QRect(650, 820, self.width, 20))
+        self.one.setGeometry(QtCore.QRect(650, 620, 300, 140))
+        self.two.setGeometry(QtCore.QRect(650, 780, 300, 140))
 
         self.interpolation.setFixedSize(QtCore.QSize(self.width, self.height))
         self.window.setGeometry(QtCore.QRect(0, 0, self.width, self.height))
@@ -373,7 +381,7 @@ class Ui_Interpolation(object):
             self.check.setVisible(True)
             self.titleLabel2.setVisible(True)
             self.scrollMath2.setVisible(True)
-            
+
             self.runNewton()
             return
         if currentIndex == 2:
@@ -442,29 +450,11 @@ class Ui_Interpolation(object):
 
             self.graph.setGeometry(QtCore.QRect(20, 120 + tableHeight + 20, 622, 520))
 
-            self.titleLabel.setGeometry(
-                QtCore.QRect(650, 120 + tableHeight + 10, self.width, 30)
-            )
-            self.firstMath.setGeometry(
-                QtCore.QRect(650, 120 + tableHeight + 20 + 30, self.width, 30)
-            )
-            self.firstMathE.setGeometry(
-                QtCore.QRect(650, 120 + tableHeight + 30 + 30 + 30, self.width, 30)
-            )
-            self.titleLabel2.setGeometry(
-                QtCore.QRect(650, 120 + tableHeight + 40 + 30 + 30 + 30, self.width, 30)
-            )
-            self.secondMath.setGeometry(
-                QtCore.QRect(
-                    650, 120 + tableHeight + 50 + 30 + 30 + 30 + 30, self.width, 20
-                )
-            )
-            self.secondMathE.setGeometry(
-                QtCore.QRect(
-                    650, 120 + tableHeight + 60 + 30 + 30 + 30 + 30 + 30, self.width, 20
-                )
-            )
+            self.one.setGeometry(QtCore.QRect(650, 120 + tableHeight + 10, 300, 140))
+            self.two.setGeometry(QtCore.QRect(650, 120 + tableHeight + 160, 300, 140))
 
+        self.titleLabel.setText("Interpolation")
+        self.titleLabel2.setText("Interpolation")
         self.firstMath.setText("F(x)=?")
         self.firstMathE.setText("F(x)=?")
         self.secondMath.setText("F2(x)=?")
