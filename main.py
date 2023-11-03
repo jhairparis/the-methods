@@ -1,17 +1,18 @@
 import sys
 from PySide2 import QtGui, QtWidgets
 from PySide2.QtCore import Qt, QRect, QCoreApplication, QSize, QMetaObject
+from Screens.Home import Ui_Home
+from Screens.SolveOneVariable import Ui_SolveOneVariable
 from Screens.Interpolation import Ui_Interpolation
 from Screens.Bonus import Ui_Video
 from modules.mica.styleSheet import ApplyMenuBlur
 from PySide2.QtWidgets import QMainWindow, QApplication
 from PySide2.QtWinExtras import QtWin
 from modules.mica.styleSheet import setMicaWindow
-from Screens.SolveOneVariable import Ui_SolveOneVariable
 from Screens.components.About import AboutDialog
 from modules.mica.styleSheet import ApplyMenuBlur, setStyleSheet
 import matplotlib
-from icons import icons_rc
+from icons import icons_rc, home_rc
 
 matplotlib.use("Qt5Agg")
 
@@ -128,6 +129,13 @@ class TheWindow(QMainWindow):
             }"""
         )
 
+        self.tabHome = QtWidgets.QWidget(self.tabWidget)
+        self.tabHome.setStyleSheet("")
+        self.tabHome.setObjectName("home")
+
+        self.homeUi = Ui_Home()
+        self.homeUi.setupUi(self, self.tabHome)
+
         self.tabSolveOneVariable = QtWidgets.QWidget(self.tabWidget)
         self.tabSolveOneVariable.setStyleSheet("")
         self.tabSolveOneVariable.setObjectName("tabSolveOneVariable")
@@ -149,6 +157,7 @@ class TheWindow(QMainWindow):
         self.bonus = Ui_Video()
         self.bonus.setupUi(self, self.tabBonus)
 
+        self.tabWidget.addTab(self.tabHome, "Home")
         self.tabWidget.addTab(self.tabSolveOneVariable, "Solve one variable")
         self.tabWidget.addTab(self.tabInterpolation, "Interpolation")
         self.tabWidget.addTab(self.tabBonus, "Bonus")
@@ -175,7 +184,7 @@ class TheWindow(QMainWindow):
         self.interpolation.setText(_translate("MainWindow", "Interpolation"))
         self.interpolation.setShortcut(_translate("MainWindow", "Ctrl+2"))
 
-        self.topic3.setText(_translate("MainWindow", "Topic 3"))
+        self.topic3.setText(_translate("MainWindow", "Differential equations"))
         self.topic3.setShortcut(_translate("MainWindow", "Ctrl+3"))
 
         self.actionSave.setText(_translate("MainWindow", "Save"))
@@ -197,17 +206,23 @@ class TheWindow(QMainWindow):
 
         QMetaObject.connectSlotsByName(self)
 
+    def setWindowSolveOneVariable(self):
+        self.menuBar.setVisible(True)
+        self.tabWidget.setCurrentIndex(1)
+
+    def setWindowInterpolation(self):
+        self.menuBar.setVisible(True)
+        self.tabWidget.setCurrentIndex(2)
+
+    def setWindowDiffentialEquations(self):
+        self.menuBar.setVisible(True)
+        return
+
     def actionUI(self):
-        def openAbout():
-            about = AboutDialog(self)
-            about.exec()
+        self.solveOneVariable.triggered.connect(self.setWindowSolveOneVariable)
+        self.interpolation.triggered.connect(self.setWindowInterpolation)
 
-        self.solveOneVariable.triggered.connect(
-            lambda: self.tabWidget.setCurrentIndex(0)
-        )
-        self.interpolation.triggered.connect(lambda: self.tabWidget.setCurrentIndex(1))
-
-        self.actionAbout.triggered.connect(openAbout)
+        self.actionAbout.triggered.connect(lambda: AboutDialog(self).exec())
         self.actionExit.triggered.connect(self.close)
 
     def __init__(self):

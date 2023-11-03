@@ -6,9 +6,9 @@ import darkdetect
 
 class MplCanvas(FigureCanvasQTAgg):
     def __init__(self, width=5, height=4, dpi=100):
-        fig = Figure(figsize=(width, height), dpi=dpi, facecolor="none")
+        self.fig = Figure(figsize=(width, height), dpi=dpi, facecolor="none")
 
-        self.axes = fig.add_subplot(111)
+        self.axes = self.fig.add_subplot(111)
 
         self.axes.set_facecolor("none")
         self.axes.spines["top"].set_color("none")
@@ -23,4 +23,4 @@ class MplCanvas(FigureCanvasQTAgg):
             self.axes.tick_params(axis="x", colors=accent)
             self.axes.tick_params(axis="y", colors=accent)
 
-        super(MplCanvas, self).__init__(fig)
+        super(MplCanvas, self).__init__(self.fig)

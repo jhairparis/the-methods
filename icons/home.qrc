@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="icons" >
+    <file>home/SolveOneVariable.png</file>
+    <file>home/Interpolation.png</file>
+    <file>home/DiffentialEquations.png</file>
+  </qresource>
+</RCC>
