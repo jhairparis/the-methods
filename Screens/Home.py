@@ -110,7 +110,7 @@ class Ui_Home(object):
 
         self.Topic1Label.setText("Solve one variable")
         self.Topic2Label.setText("Interpolation")
-        self.Topic3Label.setText("Diffential equations")
+        self.Topic3Label.setText("Differential equations")
 
         self.Topic1.setIcon(QtGui.QIcon(":/icons/home/SolveOneVariable.png"))
         self.Topic1.setToolTip("Solve one variable")
@@ -120,8 +120,8 @@ class Ui_Home(object):
         self.Topic2.setToolTip("Interpolation")
         self.Topic2.setIconSize(iconSize)
 
-        self.Topic3.setIcon(QtGui.QIcon(":/icons/home/DiffentialEquations.png"))
-        self.Topic3.setToolTip("Diffential equations")
+        self.Topic3.setIcon(QtGui.QIcon(":/icons/home/DifferentialEquations.png"))
+        self.Topic3.setToolTip("Differential equations")
         self.Topic3.setIconSize(iconSize)
 
         self.by.setText("by Jhair Paris")
@@ -130,6 +130,6 @@ class Ui_Home(object):
     def actionsUI(self, MainWindow):
         self.Topic1.clicked.connect(MainWindow.setWindowSolveOneVariable)
         self.Topic2.clicked.connect(MainWindow.setWindowInterpolation)
-        self.Topic3.clicked.connect(MainWindow.setWindowDiffentialEquations)
+        self.Topic3.clicked.connect(MainWindow.setWindowDifferentialEquations)
 
         return

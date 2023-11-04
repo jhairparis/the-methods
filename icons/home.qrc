@@ -2,6 +2,6 @@
   <qresource prefix="icons" >
     <file>home/SolveOneVariable.png</file>
     <file>home/Interpolation.png</file>
-    <file>home/DiffentialEquations.png</file>
+    <file>home/DifferentialEquations.png</file>
   </qresource>
 </RCC>

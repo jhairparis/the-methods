@@ -225,7 +225,7 @@ class TheWindow(QMainWindow):
         self.menuBar.setVisible(True)
         self.tabWidget.setCurrentIndex(2)
 
-    def setWindowDiffentialEquations(self):
+    def setWindowDifferentialEquations(self):
         self.menuBar.setVisible(True)
         self.tabWidget.setCurrentIndex(3)
         return
@@ -233,7 +233,7 @@ class TheWindow(QMainWindow):
     def actionUI(self):
         self.solveOneVariable.triggered.connect(self.setWindowSolveOneVariable)
         self.interpolation.triggered.connect(self.setWindowInterpolation)
-        self.differentialEquations.triggered.connect(self.setWindowDiffentialEquations)
+        self.differentialEquations.triggered.connect(self.setWindowDifferentialEquations)
 
         self.actionAbout.triggered.connect(lambda: AboutDialog(self).exec())
         self.actionExit.triggered.connect(self.close)
