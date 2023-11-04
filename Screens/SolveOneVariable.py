@@ -13,7 +13,6 @@ from plyer import notification
 from sympy import latex, sympify
 from modules.MathToQPixmap import MathToQPixmap
 from modules.mica.theme.getTheme import getTheme, rgb2hex
-import lib.equation.solve as sx
 
 # from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 
@@ -133,8 +132,6 @@ class Ui_SolveOneVariable(object):
         self.label_fn = QtWidgets.QLabel(self.form)
         self.label_fn.setStyleSheet("QLabel{font-size: 11pt;}")
         self.label_fn.setObjectName("label_fn")
-        temp_fix =input()#'3*x*y(x).diff(x) - (x**2 - 9)*y(x) + 1/x'
-        self.label_fn.setPixmap(MathToQPixmap(f"${sx.solve_equation(temp_fix)}$", 11))
 
         self.fn_box = QtWidgets.QLineEdit(self.form)
         self.fn_box.setEnabled(True)
@@ -262,7 +259,7 @@ class Ui_SolveOneVariable(object):
         self.scrollCentral.setWidgetResizable(True)
         self.scrollCentral.setWidget(self.solveOneVariableW)
 
-        #self.valuesUI()
+        self.valuesUI()
         self.actionsUI()
 
     def valuesUI(self):
