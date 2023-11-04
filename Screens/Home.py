@@ -1,6 +1,8 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 from modules.MplCanvas import MplCanvas
 import matplotlib.animation as animation
+from matplotlib import get_data_path, font_manager
+from pathlib import Path
 
 
 class Ui_Home(object):
@@ -20,21 +22,27 @@ class Ui_Home(object):
 
         self.animationText_ = MplCanvas()
 
+        fpath = Path(get_data_path(), "fonts/ttf/DejaVuSans-Bold.ttf")
+
         text = "The Methods"
 
         txt = self.animationText_.axes.text(
-            0.5, 0.5, "", ha="center", va="center", color="#FFA500"
+            0.5, 0.5, "", ha="center", va="center", color="#a32146"
+        )
+        txt.set_fontproperties(font_manager.FontProperties(fname=fpath, size=30))
 
-        )  # create a text object
-
-        self.animationText_.axes.axis("off")  # turn off the axes
+        self.animationText_.axes.axis("off")
 
         def update(i):
-            txt.set_text(text[: i + 1])  # update the text with each frame
+            txt.set_text(text[: i + 1])
             return (txt,)
 
         self.anim = animation.FuncAnimation(
-            self.animationText_.fig, update, frames=len(text), interval=100
+            self.animationText_.fig,
+            update,
+            frames=len(text),
+            interval=100,
+            repeat=False,
         )
 
         self.animationText_layout = QtWidgets.QVBoxLayout()
