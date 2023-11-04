@@ -2,7 +2,7 @@ from PySide2 import QtCore, QtGui, QtWidgets
 from copy import deepcopy
 from pandas import DataFrame, read_clipboard
 from Screens.components.Select import Select
-from plyer import notification
+from modules.Notification import notify
 from lib.Logic2 import Logic2
 import numpy as np
 import time
@@ -294,12 +294,7 @@ class Ui_Interpolation(object):
     def actionsUI(self, MainWindow):
         self.getClipboardButton.clicked.connect(self.getClipboard)
         self.getEXCELButton.clicked.connect(
-            lambda: notification.notify(
-                title="Error",
-                message="⚠️ This function will be soon available ⚠️",
-                app_icon=None,
-                timeout=2,
-            )
+            lambda: notify("⚠️ This function will be soon available ⚠️")
         )
         self.clearButton.clicked.connect(self.returnInitWidget)
         self.check.clicked.connect(self.checkClicked)
@@ -312,12 +307,7 @@ class Ui_Interpolation(object):
         read = read_clipboard().to_dict(orient="list")
 
         if not "x" in read and not "f(x)" in read:
-            notification.notify(
-                title="Error",
-                message="Please copy table with headers 'x' and 'f(x)'",
-                app_icon=None,
-                timeout=2,
-            )
+            notify("Please copy table with headers 'x' and 'f(x)'")
             return None
 
         self.logic.base = read

@@ -1,12 +1,12 @@
 from PySide2 import QtCore, QtGui, QtWidgets
 from sympy import sympify, latex
 from pandas import DataFrame
-from plyer import notification
 from lib.Logic3 import Logic3
 from numpy import linspace
 from lib.equation.Euler import Euler
 from modules.MplCanvas import MplCanvas
 from modules.mica.theme.getTheme import getTheme, rgb2hex
+from modules.Notification import notify
 
 # from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 
@@ -174,6 +174,16 @@ class Ui_DifferentialEquation(object):
     def solve(self):
         self.graph_.axes.clear()
         self.graph_.draw()
+
+        if (
+            not self.fn_box.text().strip()
+            and not self.initX_box.text().strip()
+            and not self.initY_box.text().strip()
+            and not self.steps_box.text().strip()
+            and not self.finalX_box.text().strip()
+        ):
+            notify("Please fill all the fields")
+            return
 
         initX = float(self.initX_box.text())
         finalX = float(self.finalX_box.text())

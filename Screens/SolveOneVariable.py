@@ -9,7 +9,7 @@ from modules.TableModel import TableModel
 from pandas import DataFrame
 from lib.methods.newton import derivative
 from Screens.components.ConfirmG import ConfirmG
-from plyer import notification
+from modules.Notification import notify
 from sympy import latex, sympify
 from modules.MathToQPixmap import MathToQPixmap
 from modules.mica.theme.getTheme import getTheme, rgb2hex
@@ -390,12 +390,7 @@ class Ui_SolveOneVariable(object):
                         steps=steps,
                     )
                 else:
-                    notification.notify(
-                        title="g1(x)",
-                        message="Cancel!",
-                        app_icon=None,
-                        timeout=2,
-                    )
+                    notify("Cancel!", "g1(x)")
 
             else:
                 p = m(
@@ -426,19 +421,12 @@ class Ui_SolveOneVariable(object):
 
             self.graph_.draw()
 
-            return notification.notify(
-                title="Result",
-                message=f"{self.logic.method_title} method: {p}",
-                app_icon=None,
-                timeout=10,
+            return notify(
+                f"{self.logic.method_title} method: {p}",
+                "Result",
             )
         except:
-            return notification.notify(
-                title="Error",
-                message="Please fill all fields",
-                app_icon=None,
-                timeout=2,
-            )
+            return notify("Please fill all fields")
 
     def handleChangeMethod(self):
         model = self.tableWidget.model()
