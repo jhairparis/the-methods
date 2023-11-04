@@ -227,14 +227,13 @@ class TheWindow(QMainWindow):
 
     def setWindowDiffentialEquations(self):
         self.menuBar.setVisible(True)
+        self.tabWidget.setCurrentIndex(3)
         return
 
     def actionUI(self):
         self.solveOneVariable.triggered.connect(self.setWindowSolveOneVariable)
         self.interpolation.triggered.connect(self.setWindowInterpolation)
-        self.differentialEquations.triggered.connect(
-            lambda: self.tabWidget.setCurrentIndex(2)
-        )
+        self.differentialEquations.triggered.connect(self.setWindowDiffentialEquations)
 
         self.actionAbout.triggered.connect(lambda: AboutDialog(self).exec())
         self.actionExit.triggered.connect(self.close)
