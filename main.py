@@ -3,6 +3,7 @@ from PySide2 import QtGui, QtWidgets
 from PySide2.QtCore import Qt, QRect, QCoreApplication, QSize, QMetaObject
 from Screens.Home import Ui_Home
 from Screens.SolveOneVariable import Ui_SolveOneVariable
+from Screens.DiffereantialEquation import Ui_DifferentialEquation
 from Screens.Interpolation import Ui_Interpolation
 from Screens.Bonus import Ui_Video
 from modules.mica.styleSheet import ApplyMenuBlur
@@ -74,8 +75,8 @@ class TheWindow(QMainWindow):
         self.interpolation = QtWidgets.QAction(self)
         self.interpolation.setObjectName("interpolation")
 
-        self.topic3 = QtWidgets.QAction(self)
-        self.topic3.setObjectName("topic3")
+        self.differentialEquations = QtWidgets.QAction(self)
+        self.differentialEquations.setObjectName("differentialEquations")
 
         self.actionSave = QtWidgets.QAction(self)
         self.actionSave.setEnabled(True)
@@ -105,7 +106,7 @@ class TheWindow(QMainWindow):
 
         self.menuTopics.addAction(self.solveOneVariable)
         self.menuTopics.addAction(self.interpolation)
-        self.menuTopics.addAction(self.topic3)
+        self.menuTopics.addAction(self.differentialEquations)
 
         self.menuHelp.addAction(self.actionAbout)
 
@@ -150,6 +151,13 @@ class TheWindow(QMainWindow):
         self.ui2 = Ui_Interpolation()
         self.ui2.setupUi(self, self.tabInterpolation)
 
+        self.tabDifferentialEquations = QtWidgets.QWidget()
+        self.tabDifferentialEquations.setStyleSheet("")
+        self.tabDifferentialEquations.setObjectName("tabDifferentialEquations")
+
+        self.ui3 = Ui_DifferentialEquation()
+        self.ui3.setupUi(self, self.tabDifferentialEquations)
+
         self.tabBonus = QtWidgets.QWidget()
         self.tabBonus.setStyleSheet("")
         self.tabBonus.setObjectName("tabBonus")
@@ -160,6 +168,7 @@ class TheWindow(QMainWindow):
         self.tabWidget.addTab(self.tabHome, "Home")
         self.tabWidget.addTab(self.tabSolveOneVariable, "Solve one variable")
         self.tabWidget.addTab(self.tabInterpolation, "Interpolation")
+        self.tabWidget.addTab(self.tabDifferentialEquations, "Differential equations")
         self.tabWidget.addTab(self.tabBonus, "Bonus")
 
         self.setCentralWidget(self.tabWidget)
@@ -184,8 +193,10 @@ class TheWindow(QMainWindow):
         self.interpolation.setText(_translate("MainWindow", "Interpolation"))
         self.interpolation.setShortcut(_translate("MainWindow", "Ctrl+2"))
 
-        self.topic3.setText(_translate("MainWindow", "Differential equations"))
-        self.topic3.setShortcut(_translate("MainWindow", "Ctrl+3"))
+        self.differentialEquations.setText(
+            _translate("MainWindow", "Differential equations")
+        )
+        self.differentialEquations.setShortcut(_translate("MainWindow", "Ctrl+3"))
 
         self.actionSave.setText(_translate("MainWindow", "Save"))
         self.actionSave.setShortcut(_translate("MainWindow", "Ctrl+S"))
@@ -221,6 +232,9 @@ class TheWindow(QMainWindow):
     def actionUI(self):
         self.solveOneVariable.triggered.connect(self.setWindowSolveOneVariable)
         self.interpolation.triggered.connect(self.setWindowInterpolation)
+        self.differentialEquations.triggered.connect(
+            lambda: self.tabWidget.setCurrentIndex(2)
+        )
 
         self.actionAbout.triggered.connect(lambda: AboutDialog(self).exec())
         self.actionExit.triggered.connect(self.close)

@@ -15,12 +15,19 @@ class MplCanvas(FigureCanvasQTAgg):
         self.axes.spines["right"].set_color("none")
 
         theme = getTheme()
-        accent = rgb2hex(theme["palette"][0])
+        self.accent = rgb2hex(theme["palette"][0])
 
         if darkdetect.isDark() == True:
-            self.axes.spines["bottom"].set_color(accent)
-            self.axes.spines["left"].set_color(accent)
-            self.axes.tick_params(axis="x", colors=accent)
-            self.axes.tick_params(axis="y", colors=accent)
+            self.axes.spines["bottom"].set_color(self.accent)
+            self.axes.spines["left"].set_color(self.accent)
+            self.axes.tick_params(axis="x", colors=self.accent)
+            self.axes.tick_params(axis="y", colors=self.accent)
+            self.axes.title.set_color(self.accent)
 
         super(MplCanvas, self).__init__(self.fig)
+
+    def draw(self):
+        if darkdetect.isDark() == True:
+            self.axes.title.set_color(self.accent)
+
+        return super().draw()
