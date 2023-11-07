@@ -52,9 +52,9 @@ class Ui_Home(object):
         self.animationText.setLayout(self.animationText_layout)
 
         self.buttons = QtWidgets.QWidget(self.Home)
-        self.buttons.setFixedSize(QtCore.QSize(600, 200))
+        self.buttons.setFixedSize(QtCore.QSize(608, 200))
         self.buttons.setGeometry(
-            QtCore.QRect((self.width - 600) / 2, (self.height - 50) / 2, 600, 200)
+            QtCore.QRect((self.width - 600) / 2, (self.height - 50) / 2, 608, 200)
         )
         # self.buttons.setStyleSheet("background-color: rgba(124, 202, 134, 0.5);")
 
