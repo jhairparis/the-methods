@@ -31,6 +31,8 @@ pip install -r requirements.txt
 
 ```
 
+Look at examples [here](Examples.md)
+
 To close project
 
 ```bash
