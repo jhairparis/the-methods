@@ -1,4 +1,4 @@
-from sympy import Symbol, Function, Eq, dsolve, sympify, factorial, latex
+from sympy import Symbol, Function, sympify, factorial, latex
 from lib.precision import reduceThePrecision
 from lib.equation.solveDiff import solveDiff
 
