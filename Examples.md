@@ -68,6 +68,17 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at egestas felis
 | Steps     | `10`                                                      |
 | Max Value | `3`                                                       |
 
+4. $\textcolor{red}{ \frac{dy}{dx} } =  \frac{2}{x} y(x) + x^{2} e^{x}$
+
+| Input     | Value                                                     |
+| --------- | --------------------------------------------------------- |
+| Function  | `y(x).diff(x)=(2/x)*y(x)+x**2*exp(x)` |
+| Initial X | `1`                                                       |
+| Initial Y | `0`                                                       |
+| Steps     | `10`                                                      |
+| Max Value | `2`                                                       |
+
+
 # how to write function for input _function_
 
 - `asin(x)`
