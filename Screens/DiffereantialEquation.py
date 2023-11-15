@@ -67,7 +67,7 @@ class Ui_DifferentialEquation(object):
         self.initY_text = QtWidgets.QLabel(self.form)
         self.formLayout.addWidget(self.initY_text)
 
-        self.initY_box = QtWidgets.QLineEdit(self.form)
+        self.initY_box = QtWidgets.QDoubleSpinBox(self.form)
         self.initY_box.setEnabled(True)
         self.initY_box.setMinimumSize(QtCore.QSize(181, 40))
         self.initY_box.setStyleSheet("")
@@ -77,7 +77,7 @@ class Ui_DifferentialEquation(object):
         self.initX_text = QtWidgets.QLabel(self.form)
         self.formLayout.addWidget(self.initX_text)
 
-        self.initX_box = QtWidgets.QLineEdit(self.form)
+        self.initX_box = QtWidgets.QDoubleSpinBox(self.form)
         self.initX_box.setEnabled(True)
         self.initX_box.setMinimumSize(QtCore.QSize(181, 40))
         self.initX_box.setStyleSheet("")
@@ -87,22 +87,22 @@ class Ui_DifferentialEquation(object):
         self.steps_text = QtWidgets.QLabel(self.form)
         self.formLayout.addWidget(self.steps_text)
 
-        self.steps_box = QtWidgets.QLineEdit(self.form)
+        self.steps_box = QtWidgets.QSpinBox(self.form)
         self.steps_box.setEnabled(True)
         self.steps_box.setMinimumSize(QtCore.QSize(181, 40))
         self.steps_box.setStyleSheet("")
         self.steps_box.setObjectName("steps_box")
         self.formLayout.addWidget(self.steps_box)
 
-        self.finalX_text = QtWidgets.QLabel(self.form)
-        self.formLayout.addWidget(self.finalX_text)
+        self.maxX_text = QtWidgets.QLabel(self.form)
+        self.formLayout.addWidget(self.maxX_text)
 
-        self.finalX_box = QtWidgets.QLineEdit(self.form)
-        self.finalX_box.setEnabled(True)
-        self.finalX_box.setMinimumSize(QtCore.QSize(181, 40))
-        self.finalX_box.setStyleSheet("")
-        self.finalX_box.setObjectName("finalX_box")
-        self.formLayout.addWidget(self.finalX_box)
+        self.maxX_box = QtWidgets.QDoubleSpinBox(self.form)
+        self.maxX_box.setEnabled(True)
+        self.maxX_box.setMinimumSize(QtCore.QSize(181, 40))
+        self.maxX_box.setStyleSheet("")
+        self.maxX_box.setObjectName("maxX_box")
+        self.formLayout.addWidget(self.maxX_box)
 
         self.ok = QtWidgets.QPushButton(self.form)
         self.ok.setEnabled(True)
@@ -148,16 +148,20 @@ class Ui_DifferentialEquation(object):
         self.fn_box.setPlaceholderText(_translate("MainWindow", "dy/dx = x + y(x)"))
 
         self.initX_text.setText(_translate("MainWindow", "Initial X: "))
-        self.initX_box.setPlaceholderText(_translate("MainWindow", "0"))
+        self.initX_box.setMinimum(-9999999)
+        self.initX_box.setMaximum(9999999)
 
         self.initY_text.setText(_translate("MainWindow", "Initial Y: "))
-        self.initY_box.setPlaceholderText(_translate("MainWindow", "2"))
+        self.initY_box.setMinimum(-9999999)
+        self.initY_box.setMaximum(9999999)
 
         self.steps_text.setText(_translate("MainWindow", "Steps: "))
-        self.steps_box.setPlaceholderText(_translate("MainWindow", "4"))
+        self.steps_box.setMinimum(0)
+        self.steps_box.setMaximum(9999999)
 
-        self.finalX_text.setText(_translate("MainWindow", "Final X: "))
-        self.finalX_box.setPlaceholderText(_translate("MainWindow", "1"))
+        self.maxX_text.setText(_translate("MainWindow", "Max value X: "))
+        self.maxX_box.setMinimum(-9999999)
+        self.maxX_box.setMaximum(9999999)
 
         self.ok.setText(_translate("MainWindow", "OK"))
 
@@ -180,13 +184,13 @@ class Ui_DifferentialEquation(object):
             and not self.initX_box.text().strip()
             and not self.initY_box.text().strip()
             and not self.steps_box.text().strip()
-            and not self.finalX_box.text().strip()
+            and not self.maxX_box.text().strip()
         ):
             notify("Please fill all the fields")
             return
 
         initX = float(self.initX_box.text())
-        finalX = float(self.finalX_box.text())
+        finalX = float(self.maxX_box.text())
 
         res = Euler(
             self.logic,

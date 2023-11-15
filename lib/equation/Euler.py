@@ -2,7 +2,7 @@ from sympy import symbols, Function, Eq, dsolve, simplify, sympify, latex
 from lib.precision import reduceThePrecision
 
 
-def Euler(logic, eqMain, initX, initY, steps, finalValue):
+def Euler(logic, eqMain, initX, initY, steps, maxValue):
     logic.reset()
     logic.method_title = "Euler"
 
@@ -24,7 +24,7 @@ def Euler(logic, eqMain, initX, initY, steps, finalValue):
 
     xi = initX
     findY = initY
-    h = (finalValue - initX) / steps
+    h = (maxValue - initX) / steps
 
     for i in range(steps + 1):
         logic.data_xi.append(xi)
