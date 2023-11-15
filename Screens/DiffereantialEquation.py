@@ -5,6 +5,7 @@ from lib.Logic3 import Logic3
 from numpy import linspace
 from lib.equation.Euler import Euler
 from lib.equation.Taylor import Taylor
+from lib.equation.Runge import Runge
 from modules.MplCanvas import MplCanvas
 from modules.mica.theme.getTheme import getTheme, rgb2hex
 from modules.Notification import notify
@@ -223,12 +224,21 @@ class Ui_DifferentialEquation(object):
             int(self.steps_box.text()),
             finalX,
         ) """
-        res = Taylor(
+        """ res = Taylor(
             self.logic,
             self.fn_box.text(),
             initX,
             float(self.initY_box.text()),
             2,
+            int(self.steps_box.text()),
+            finalX,
+        ) """
+
+        res = Runge(
+            self.logic,
+            self.fn_box.text(),
+            initX,
+            float(self.initY_box.text()),
             int(self.steps_box.text()),
             finalX,
         )
