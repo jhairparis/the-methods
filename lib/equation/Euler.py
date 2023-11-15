@@ -1,5 +1,6 @@
-from sympy import symbols, Function, Eq, dsolve, simplify, sympify, latex
+from sympy import symbols, Function, simplify, latex
 from lib.precision import reduceThePrecision
+from lib.equation.solveDiff import solveDiff
 
 
 def Euler(logic, eqMain, initX, initY, steps, maxValue):
@@ -16,11 +17,9 @@ def Euler(logic, eqMain, initX, initY, steps, maxValue):
     x = symbols("x")
     y = Function("y")
 
-    temp = eqMain.split("=")
-    f = simplify(temp[1].replace("y(x)", "y"))
+    f = simplify(eqMain.split("=")[1].replace("y(x)", "y"))
 
-    eqMain = Eq(sympify(temp[0]), sympify(temp[1]))
-    eqMainSolve = dsolve(eqMain, y(x), ics={y(initX): initY})
+    eqMainSolve = solveDiff(eqMain, y, x, initX, initY)
 
     xi = initX
     findY = initY
