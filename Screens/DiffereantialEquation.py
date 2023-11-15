@@ -4,6 +4,7 @@ from pandas import DataFrame
 from lib.Logic3 import Logic3
 from numpy import linspace
 from lib.equation.Euler import Euler
+from lib.equation.Taylor import Taylor
 from modules.MplCanvas import MplCanvas
 from modules.mica.theme.getTheme import getTheme, rgb2hex
 from modules.Notification import notify
@@ -175,6 +176,28 @@ class Ui_DifferentialEquation(object):
         except:
             pass
 
+    def updateGraph(self, res, initX, finalX):
+        self.graph_.axes.set_title("$" + res["solution_latex"] + "$", fontsize=15)
+
+        self.graph_.axes.scatter(
+            self.logic.data_xi, self.logic.data_yi, label="Approx", color="yellow"
+        )
+
+        x_vals = linspace(initX, finalX, 400)
+        y_vals = [res["solution"](x) for x in x_vals]
+
+        theme = getTheme()
+
+        self.graph_.axes.plot(x_vals, y_vals, color=rgb2hex(theme["palette"][3]))
+        self.graph_.draw()
+
+    def updateTable(self):
+        from modules.TableModel import TableModel
+
+        newModel = TableModel(DataFrame(self.logic.data))
+        self.tableWidget.setModel(newModel)
+        pass
+
     def solve(self):
         self.graph_.axes.clear()
         self.graph_.draw()
@@ -192,33 +215,26 @@ class Ui_DifferentialEquation(object):
         initX = float(self.initX_box.text())
         finalX = float(self.maxX_box.text())
 
-        res = Euler(
+        """ res = Euler(
             self.logic,
             self.fn_box.text(),
             initX,
             float(self.initY_box.text()),
             int(self.steps_box.text()),
             finalX,
+        ) """
+        res = Taylor(
+            self.logic,
+            self.fn_box.text(),
+            initX,
+            float(self.initY_box.text()),
+            2,
+            int(self.steps_box.text()),
+            finalX,
         )
 
-        self.graph_.axes.set_title("$" + res["solution_latex"] + "$", fontsize=15)
-
-        self.graph_.axes.scatter(
-            self.logic.data_xi, self.logic.data_yi, label="Approx", color="yellow"
-        )
-
-        x_vals = linspace(initX, finalX, 400)
-        y_vals = [res["solution"](x) for x in x_vals]
-
-        theme = getTheme()
-
-        self.graph_.axes.plot(x_vals, y_vals, color=rgb2hex(theme["palette"][3]))
-        self.graph_.draw()
-
-        from modules.TableModel import TableModel
-
-        newModel = TableModel(DataFrame(self.logic.data))
-        self.tableWidget.setModel(newModel)
+        self.updateTable()
+        self.updateGraph(res, initX, finalX)
 
     def actionsUI(self, MainWindow):
         self.ok.clicked.connect(self.solve)
