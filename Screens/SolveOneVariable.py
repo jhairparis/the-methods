@@ -69,34 +69,74 @@ class Ui_SolveOneVariable(object):
         self.graph_control = QtWidgets.QWidget(self.window)
         self.graph_control_layout = QtWidgets.QHBoxLayout()
 
-        self.x_left = QtWidgets.QLineEdit(self.graph_control)
+        self.x_left_widget = QtWidgets.QWidget(self.graph_control)
+        self.x_left_layout = QtWidgets.QVBoxLayout()
+
+        self.x_left_label = QtWidgets.QLabel(self.x_left_widget)
+        self.x_left_label.setObjectName("x_left_label")
+
+        self.x_left = QtWidgets.QDoubleSpinBox(self.x_left_widget)
         self.x_left.setEnabled(True)
         self.x_left.setMinimumSize(QtCore.QSize(95, 40))
         self.x_left.setStyleSheet("")
         self.x_left.setObjectName("x_left")
 
-        self.x_right = QtWidgets.QLineEdit(self.graph_control)
+        self.x_left_layout.addWidget(self.x_left_label)
+        self.x_left_layout.addWidget(self.x_left)
+        self.x_left_widget.setLayout(self.x_left_layout)
+
+        self.x_right_widget = QtWidgets.QWidget(self.graph_control)
+        self.x_right_layout = QtWidgets.QVBoxLayout()
+
+        self.x_right_label = QtWidgets.QLabel(self.x_right_widget)
+        self.x_right_label.setObjectName("x_right_label")
+
+        self.x_right = QtWidgets.QDoubleSpinBox(self.graph_control)
         self.x_right.setEnabled(True)
         self.x_right.setMinimumSize(QtCore.QSize(95, 40))
         self.x_right.setStyleSheet("")
         self.x_right.setObjectName("x_right")
 
-        self.y_up = QtWidgets.QLineEdit(self.graph_control)
+        self.x_right_layout.addWidget(self.x_right_label)
+        self.x_right_layout.addWidget(self.x_right)
+        self.x_right_widget.setLayout(self.x_right_layout)
+
+        self.y_up_widget = QtWidgets.QWidget(self.graph_control)
+        self.y_up_layout = QtWidgets.QVBoxLayout()
+
+        self.y_up_label = QtWidgets.QLabel(self.graph_control)
+        self.y_up_label.setObjectName("y_up_label")
+
+        self.y_up = QtWidgets.QDoubleSpinBox(self.graph_control)
         self.y_up.setEnabled(True)
         self.y_up.setMinimumSize(QtCore.QSize(95, 40))
         self.y_up.setStyleSheet("")
         self.y_up.setObjectName("y_up")
 
-        self.y_down = QtWidgets.QLineEdit(self.graph_control)
+        self.y_up_layout.addWidget(self.y_up_label)
+        self.y_up_layout.addWidget(self.y_up)
+        self.y_up_widget.setLayout(self.y_up_layout)
+
+        self.y_down_widget = QtWidgets.QWidget(self.graph_control)
+        self.y_down_layout = QtWidgets.QVBoxLayout()
+
+        self.y_down_label = QtWidgets.QLabel(self.graph_control)
+        self.y_down_label.setObjectName("y_down_label")
+
+        self.y_down = QtWidgets.QDoubleSpinBox(self.graph_control)
         self.y_down.setEnabled(True)
         self.y_down.setMinimumSize(QtCore.QSize(95, 40))
         self.y_down.setStyleSheet("")
         self.y_down.setObjectName("y_up")
 
-        self.graph_control_layout.addWidget(self.x_left)
-        self.graph_control_layout.addWidget(self.x_right)
-        self.graph_control_layout.addWidget(self.y_up)
-        self.graph_control_layout.addWidget(self.y_down)
+        self.y_down_layout.addWidget(self.y_down_label)
+        self.y_down_layout.addWidget(self.y_down)
+        self.y_down_widget.setLayout(self.y_down_layout)
+
+        self.graph_control_layout.addWidget(self.x_left_widget)
+        self.graph_control_layout.addWidget(self.x_right_widget)
+        self.graph_control_layout.addWidget(self.y_up_widget)
+        self.graph_control_layout.addWidget(self.y_down_widget)
 
         self.graph_control.setLayout(self.graph_control_layout)
 
@@ -272,10 +312,10 @@ class Ui_SolveOneVariable(object):
         self.label_x0.setText(_translate("MainWindow", "X0"))
         self.label_x1.setText(_translate("MainWindow", "X1"))
 
-        self.x_left.setPlaceholderText(_translate("MainWindow", "limit x left"))
-        self.x_right.setPlaceholderText(_translate("MainWindow", "limit x right"))
-        self.y_up.setPlaceholderText(_translate("MainWindow", "limit y up"))
-        self.y_down.setPlaceholderText(_translate("MainWindow", "limit y down"))
+        self.x_left_label.setText(_translate("MainWindow", "limit x left"))
+        self.x_right_label.setText(_translate("MainWindow", "limit x right"))
+        self.y_up_label.setText(_translate("MainWindow", "limit y up"))
+        self.y_down_label.setText(_translate("MainWindow", "limit y down"))
 
         self.method_box.setCurrentIndex(-1)
         self.method_box.setItemText(0, _translate("MainWindow", "Bisection"))
@@ -286,6 +326,22 @@ class Ui_SolveOneVariable(object):
         self.fn_box.setPlaceholderText(_translate("MainWindow", "x**2"))
 
         self.tolerance_box.setPlaceholderText(_translate("MainWindow", "1e-3"))
+
+        self.x_left.setMaximum(0)
+        self.x_left.setMinimum(-999999)
+        self.x_left.setDecimals(3)
+
+        self.x_right.setMaximum(999999)
+        self.x_right.setMinimum(0)
+        self.x_right.setDecimals(3)
+
+        self.y_up.setMaximum(999999)
+        self.y_up.setMinimum(0)
+        self.y_up.setDecimals(3)
+
+        self.y_down.setMaximum(0)
+        self.y_down.setMinimum(-999999)
+        self.y_down.setDecimals(3)
 
         self.x1_box.setMinimum(-1000)
         self.x1_box.setMaximum(1000)
