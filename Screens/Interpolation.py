@@ -269,6 +269,7 @@ class Ui_Interpolation(object):
 
         self.getClipboardButton.setText(_translate("MainWindow", "From Clipboard"))
         self.getEXCELButton.setText(_translate("MainWindow", "From EXCEL"))
+        self.getEXCELButton.setEnabled(False)
 
         self.labelCheck.setText(_translate("MainWindow", "Center table"))
 
