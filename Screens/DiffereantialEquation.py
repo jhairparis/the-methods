@@ -9,6 +9,8 @@ from lib.equation.Runge import Runge
 from modules.MplCanvas import MplCanvas
 from modules.mica.theme.getTheme import getTheme, rgb2hex
 from modules.Notification import notify
+from Screens.components.Select import Select
+from Screens.components.SelectGrade import SelectGrade
 
 # from matplotlib.backends.backend_qtagg import NavigationToolbar2QT as NavigationToolbar
 
@@ -52,9 +54,29 @@ class Ui_DifferentialEquation(object):
         self.window.setObjectName("window")
 
         self.form = QtWidgets.QWidget(self.window)
-        self.form.setGeometry(QtCore.QRect(20, 0, 400, 400))
+        self.form.setGeometry(QtCore.QRect(20, 0, 400, 500))
         # self.form.setStyleSheet("background-color: #d35353")
         self.formLayout = QtWidgets.QVBoxLayout()
+
+        self.select_text = QtWidgets.QLabel(self.form)
+        self.formLayout.addWidget(self.select_text)
+
+        self.select_method = Select(self.window)
+        self.select_method.setMinimumSize(QtCore.QSize(181, 40))
+        self.select_method.setEnabled(True)
+        self.select_method.setToolTip("")
+        self.select_method.setStatusTip("")
+        self.select_method.setWhatsThis("")
+        self.select_method.setAccessibleName("")
+        self.select_method.setAccessibleDescription("")
+        self.select_method.setStyleSheet("")
+        self.select_method.setCurrentText("")
+        self.select_method.setMinimumContentsLength(0)
+        self.select_method.setObjectName("select_method")
+        self.select_method.addItem("")
+        self.select_method.addItem("")
+        self.select_method.addItem("")
+        self.formLayout.addWidget(self.select_method)
 
         self.fn_text = QtWidgets.QLabel(self.form)
         self.formLayout.addWidget(self.fn_text)
@@ -130,7 +152,7 @@ class Ui_DifferentialEquation(object):
 
         self.tableWidget = QtWidgets.QTableView(self.window)
         self.tableWidget.setEnabled(True)
-        self.tableWidget.setGeometry(QtCore.QRect(20, 420, 400, 400))
+        self.tableWidget.setGeometry(QtCore.QRect(20, 530, self.width - 40, 400))
         self.tableWidget.setFont(font)
         self.tableWidget.setObjectName("tableWidget")
         # self.tableWidget.setStyleSheet("background-color: #53d35e;")
@@ -145,6 +167,12 @@ class Ui_DifferentialEquation(object):
 
     def valuesUI(self):
         _translate = QtCore.QCoreApplication.translate
+
+        self.select_text.setText(_translate("MainWindow", "Select method:"))
+        self.select_method.setCurrentIndex(-1)
+        self.select_method.setItemText(0, _translate("MainWindow", "Euler"))
+        self.select_method.setItemText(1, _translate("MainWindow", "Taylor"))
+        self.select_method.setItemText(2, _translate("MainWindow", "Runge"))
 
         self.fn_text.setText(_translate("MainWindow", "Diff equation: "))
         self.fn_box.setPlaceholderText(_translate("MainWindow", "dy/dx = x + y(x)"))
@@ -200,9 +228,6 @@ class Ui_DifferentialEquation(object):
         pass
 
     def solve(self):
-        self.graph_.axes.clear()
-        self.graph_.draw()
-
         if (
             not self.fn_box.text().strip()
             and not self.initX_box.text().strip()
@@ -213,38 +238,56 @@ class Ui_DifferentialEquation(object):
             notify("Please fill all the fields")
             return
 
+        self.graph_.axes.clear()
+        self.graph_.draw()
+
         initX = float(self.initX_box.text())
         finalX = float(self.maxX_box.text())
+        selected_method = self.select_method.currentIndex()
 
-        """ res = Euler(
-            self.logic,
-            self.fn_box.text(),
-            initX,
-            float(self.initY_box.text()),
-            int(self.steps_box.text()),
-            finalX,
-        ) """
-        """ res = Taylor(
-            self.logic,
-            self.fn_box.text(),
-            initX,
-            float(self.initY_box.text()),
-            2,
-            int(self.steps_box.text()),
-            finalX,
-        ) """
+        try:
+            if selected_method == 0:
+                res = Euler(
+                    self.logic,
+                    self.fn_box.text(),
+                    initX,
+                    float(self.initY_box.text()),
+                    int(self.steps_box.text()),
+                    finalX,
+                )
+            elif selected_method == 1:
+                dlg = SelectGrade()
+                dlg.exec()
 
-        res = Runge(
-            self.logic,
-            self.fn_box.text(),
-            initX,
-            float(self.initY_box.text()),
-            int(self.steps_box.text()),
-            finalX,
-        )
+                if not dlg.grade:
+                    notify("Please select a grade")
+                    return
 
-        self.updateTable()
-        self.updateGraph(res, initX, finalX)
+                res = Taylor(
+                    self.logic,
+                    self.fn_box.text(),
+                    initX,
+                    float(self.initY_box.text()),
+                    dlg.grade,
+                    int(self.steps_box.text()),
+                    finalX,
+                )
+            elif selected_method == 2:
+                res = Runge(
+                    self.logic,
+                    self.fn_box.text(),
+                    initX,
+                    float(self.initY_box.text()),
+                    int(self.steps_box.text()),
+                    finalX,
+                )
+
+            if res:
+                self.updateTable()
+                self.updateGraph(res, initX, finalX)
+        except:
+            notify("Please fill all the fields")
+            return
 
     def actionsUI(self, MainWindow):
         self.ok.clicked.connect(self.solve)
